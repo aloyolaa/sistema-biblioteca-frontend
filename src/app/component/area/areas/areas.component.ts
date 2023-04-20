@@ -14,7 +14,7 @@ export class AreasComponent implements OnInit {
   constructor(private areaService: AreaService) {}
 
   ngOnInit(): void {
-    this.areaService.getAll().subscribe((response) => (this.areas = response));
+    this.areaService.getAll().subscribe((areas) => (this.areas = areas));
   }
 
   delete(area: Area): void {

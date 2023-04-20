@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AreaFormComponent } from './area-form.component';
+import { AutoresComponent } from './autores.component';
 
-describe('AreaFormComponent', () => {
-  let component: AreaFormComponent;
-  let fixture: ComponentFixture<AreaFormComponent>;
+describe('AutoresComponent', () => {
+  let component: AutoresComponent;
+  let fixture: ComponentFixture<AutoresComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AreaFormComponent ]
+      declarations: [ AutoresComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AreaFormComponent);
+    fixture = TestBed.createComponent(AutoresComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
