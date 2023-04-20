@@ -1,0 +1,27 @@
+<div *ngIf="areas.length == 0">
+    No hay areas registradas.
+</div>
+<table *ngIf="areas.length > 0">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Actualizar</th>
+            <th>Eliminar</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let area of areas">
+            <td>{{area.id}}</td>
+            <td>{{area.nombre}}</td>
+            <td>
+                <button type="button" name="update" [routerLink]="['/areas/form', area.id]">
+                    Actualizar
+                </button>
+            </td>
+            <td>
+                <button type="button" name="delete" (click)="delete(area)">Eliminar</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
