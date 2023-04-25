@@ -1,1 +1,122 @@
-<p>libro-form works!</p>
+<div>
+  <form>
+    <label for="codigo">Código</label>
+    <div>
+      <input type="text" id="codigo" name="codigo" [(ngModel)]="libro.codigo" />
+    </div>
+    <div *ngIf="errors.codigo">
+      {{ errors.codigo }}
+    </div>
+    <label for="titulo">Titulo</label>
+    <div>
+      <input type="text" id="titulo" name="titulo" [(ngModel)]="libro.titulo" />
+    </div>
+    <div *ngIf="errors.titulo">
+      {{ errors.titulo }}
+    </div>
+    <label for="anio">Año de Publicación</label>
+    <div>
+      <input type="number" id="anio" name="anio" [(ngModel)]="libro.anio" />
+    </div>
+    <div *ngIf="errors.anio">
+      {{ errors.anio }}
+    </div>
+    <label for="grado">Grado</label>
+    <div>
+      <select name="grado" id="grado" [(ngModel)]="libro.grado">
+        <option [ngValue]="0">-- Seleccionar --</option>
+        <option [ngValue]="1">1°</option>
+        <option [ngValue]="2">2°</option>
+        <option [ngValue]="3">3°</option>
+        <option [ngValue]="4">4°</option>
+        <option [ngValue]="5">5°</option>
+        <option [ngValue]="6">6°</option>
+      </select>
+    </div>
+    <div *ngIf="errors.grado">
+      {{ errors.grado }}
+    </div>
+    <label for="area">Area</label>
+    <div>
+      <select name="area" [(ngModel)]="libro.area" [compareWith]="compareArea">
+        <option [ngValue]="undefined">-- Seleccionar --</option>
+        <option *ngFor="let area of areas" [ngValue]="area">
+          {{ area.nombre }}
+        </option>
+      </select>
+    </div>
+    <div *ngIf="errors.area">
+      {{ errors.area }}
+    </div>
+    <label for="categoria">Categoria</label>
+    <div>
+      <select
+        name="categoria"
+        [(ngModel)]="libro.categoria"
+        [compareWith]="compareCategoria"
+      >
+        <option [ngValue]="undefined">-- Select --</option>
+        <option *ngFor="let categoria of categorias" [ngValue]="categoria">
+          {{ categoria.nombre }}
+        </option>
+      </select>
+    </div>
+    <div *ngIf="errors.categoria">
+      {{ errors.categoria }}
+    </div>
+    <label for="editorial">Editorial</label>
+    <div>
+      <select
+        name="editorial"
+        [(ngModel)]="libro.editorial"
+        [compareWith]="compareEditorial"
+      >
+        <option [ngValue]="undefined">-- Select --</option>
+        <option *ngFor="let editorial of editoriales" [ngValue]="editorial">
+          {{ editorial.nombre }}
+        </option>
+      </select>
+    </div>
+    <div *ngIf="errors.editorial">
+      {{ errors.editorial }}
+    </div>
+    <label for="autor">Autor</label>
+    <div>
+      <select
+        name="autor"
+        [(ngModel)]="libro.autor"
+        [compareWith]="compareAutor"
+      >
+        <option [ngValue]="undefined">-- Select --</option>
+        <option *ngFor="let autor of autores" [ngValue]="autor">
+          {{ autor.nombre }} {{ autor.apellido }}
+        </option>
+      </select>
+    </div>
+    <div *ngIf="errors.autor">
+      {{ errors.autor }}
+    </div>
+    <div>
+      <button type="submit" (click)="save()" *ngIf="!libro.id; else elseBlock">
+        Guardar
+      </button>
+      <ng-template #elseBlock>
+        <button type="submit" (click)="update()">Actualizar</button>
+      </ng-template>
+    </div>
+    <div>
+      <button
+        type="button"
+        [routerLink]="['/libros']"
+        *ngIf="!libro.id; else elseBack"
+      >
+        Cancelar
+      </button>
+      <ng-template #elseBack>
+        <button type="button" [routerLink]="['/libros/detail', libro.id]">
+          Cancelar
+        </button>
+      </ng-template>
+    </div>
+  </form>
+</div>

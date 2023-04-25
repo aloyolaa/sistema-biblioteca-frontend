@@ -1,0 +1,25 @@
+<div>
+  <button type="button" name="back" [routerLink]="['/materiales']">
+    Volver
+  </button>
+</div>
+<div *ngIf="material">
+  <ul>
+    <li>{{ material.id }}</li>
+    <li>{{ material.codigo }}</li>
+    <li>{{ material.nombre }}</li>
+    <li>{{ material.medidas }}</li>
+    <li>{{ material.area.nombre }}</li>
+    <li>{{ ejemplares }}</li>
+    <li>{{ ejemplaresDisponibles }}</li>
+  </ul>
+</div>
+<div>
+  <button
+    type="button"
+    name="update"
+    [routerLink]="['/materiales/form', material.id]"
+  >
+    Actualizar
+  </button>
+</div>

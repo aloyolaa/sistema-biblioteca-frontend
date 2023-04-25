@@ -1,1 +1,20 @@
-<p>editorial-detail works!</p>
+<div>
+  <button type="button" name="back" [routerLink]="['/editoriales']">
+    Volver
+  </button>
+</div>
+<div *ngIf="editorial">
+  <ul>
+    <li>{{ editorial.id }}</li>
+    <li>{{ editorial.nombre }}</li>
+  </ul>
+</div>
+<div>
+  <button
+    type="button"
+    name="update"
+    [routerLink]="['/editoriales/form', editorial.id]"
+  >
+    Actualizar
+  </button>
+</div>

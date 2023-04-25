@@ -1,36 +1,36 @@
 <div>
-    <button type="button" [routerLink]="['/docentes/form']">
-        Nuevo Docente
-    </button>
+  <button type="button" [routerLink]="['/docentes/form']">Nuevo Docente</button>
 </div>
-<div *ngIf="docentes.length == 0">
-    No hay docentes registrados.
-</div>
+<div *ngIf="docentes.length == 0">No hay docentes registrados.</div>
 <div>
-    <table *ngIf="docentes.length > 0">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>DNI</th>
-                <th>Teléfono</th>
-                <th>Detalle</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let docente of docentes">
-                <td>{{docente.id}}</td>
-                <td>{{docente.nombre}}</td>
-                <td>{{docente.apellido}}</td>
-                <td>{{docente.dni}}</td>
-                <td>{{docente.telefono}}</td>
-                <td>
-                    <button type="button" name="detail" [routerLink]="['/docentes/detail', docente.id]">
-                        Detalle
-                    </button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+  <table *ngIf="docentes.length > 0">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>DNI</th>
+        <th>Teléfono</th>
+        <th>Detalle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let docente of docentes">
+        <td>{{ docente.id }}</td>
+        <td>{{ docente.nombre }}</td>
+        <td>{{ docente.apellido }}</td>
+        <td>{{ docente.dni }}</td>
+        <td>{{ docente.telefono }}</td>
+        <td>
+          <button
+            type="button"
+            name="detail"
+            [routerLink]="['/docentes/detail', docente.id]"
+          >
+            Detalle
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

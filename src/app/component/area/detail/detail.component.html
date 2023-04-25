@@ -1,16 +1,14 @@
 <div>
-    <button type="button" name="back" [routerLink]="['/areas']">
-        Volver
-    </button>
+  <button type="button" name="back" [routerLink]="['/areas']">Volver</button>
 </div>
 <div *ngIf="area">
-    <ul>
-        <li>{{ area.id }}</li>
-        <li>{{ area.nombre }}</li>
-    </ul>
+  <ul>
+    <li>{{ area.id }}</li>
+    <li>{{ area.nombre }}</li>
+  </ul>
 </div>
 <div>
-    <button type="button" name="update" [routerLink]="['/areas/form', area.id]">
-        Actualizar
-    </button>
+  <button type="button" name="update" [routerLink]="['/areas/form', area.id]">
+    Actualizar
+  </button>
 </div>

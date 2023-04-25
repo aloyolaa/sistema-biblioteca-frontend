@@ -1,5 +1,5 @@
 import { Base } from './base.mode';
 
-export interface Editorial extends Base {
+export class Editorial extends Base {
   nombre: string;
 }

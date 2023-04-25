@@ -1,1 +1,45 @@
-<p>editorial-form works!</p>
+<div>
+  <form>
+    <label for="nombre">Nombre</label>
+    <div>
+      <input
+        type="text"
+        id="nombre"
+        name="nombre"
+        [(ngModel)]="editorial.nombre"
+      />
+    </div>
+    <div *ngIf="errors.nombre">
+      {{ errors.nombre }}
+    </div>
+    <div>
+      <button
+        type="submit"
+        (click)="save()"
+        *ngIf="!editorial.id; else elseBlock"
+      >
+        Guardar
+      </button>
+      <ng-template #elseBlock>
+        <button type="submit" (click)="update()">Actualizar</button>
+      </ng-template>
+    </div>
+    <div>
+      <button
+        type="button"
+        [routerLink]="['/editoriales']"
+        *ngIf="!editorial.id; else elseBack"
+      >
+        Cancelar
+      </button>
+      <ng-template #elseBack>
+        <button
+          type="button"
+          [routerLink]="['/editoriales/detail', editorial.id]"
+        >
+          Cancelar
+        </button>
+      </ng-template>
+    </div>
+  </form>
+</div>

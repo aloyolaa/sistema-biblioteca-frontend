@@ -9,16 +9,12 @@ import Swal from 'sweetalert2';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css'],
 })
-
 export class AreaFormComponent implements OnInit {
   title = 'Formulario de Area';
-  area: Area = {
-    id: 0,
+  area: Area = new Area();
+  errors = {
     nombre: '',
   };
-  errors = {
-    nombre: ''
-  }
 
   constructor(
     private areaService: AreaService,
@@ -34,9 +30,7 @@ export class AreaFormComponent implements OnInit {
     this.activedRoute.params.subscribe((params) => {
       let id = params['id'];
       if (id) {
-        this.areaService
-          .getOne(id)
-          .subscribe((docente) => (this.area = docente));
+        this.areaService.getOne(id).subscribe((area) => (this.area = area));
       }
     });
   }
@@ -75,7 +69,7 @@ export class AreaFormComponent implements OnInit {
       error: (err) => {
         this.errors = err.error.errors;
         console.log(this.errors);
-      }
+      },
     });
   }
 }

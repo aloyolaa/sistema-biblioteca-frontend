@@ -1,3 +1,3 @@
-export interface Base {
+export class Base {
   id: number;
 }

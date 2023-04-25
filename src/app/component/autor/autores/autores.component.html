@@ -1,1 +1,32 @@
-<p>autores works!</p>
+<div>
+  <button type="button" [routerLink]="['/autores/form']">Nuevo Autor</button>
+</div>
+<div *ngIf="autores.length == 0">No hay autores registrados</div>
+<div>
+  <table *ngIf="autores.length > 0">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Detalle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let autor of autores">
+        <td>{{ autor.id }}</td>
+        <td>{{ autor.nombre }}</td>
+        <td>{{ autor.apellido }}</td>
+        <td>
+          <button
+            type="button"
+            name="detail"
+            [routerLink]="['/autores/detail', autor.id]"
+          >
+            Detalle
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

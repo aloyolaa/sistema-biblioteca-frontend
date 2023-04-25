@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Docente } from 'src/app/core/model/docente.model';
 import { DocenteService } from 'src/app/service/docente.service';
@@ -9,15 +9,9 @@ import Swal from 'sweetalert2';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css'],
 })
-export class DocenteFormComponent {
+export class DocenteFormComponent implements OnInit {
   title = 'Formulario de Docente';
-  docente: Docente = {
-    id: 0,
-    nombre: '',
-    apellido: '',
-    dni: '',
-    telefono: '',
-  };
+  docente: Docente = new Docente();
   errors = {
     nombre: '',
     apellido: '',
@@ -54,7 +48,7 @@ export class DocenteFormComponent {
           Swal.fire({
             icon: 'success',
             title: 'Docente guardado correctamente.',
-            text: `Docente ${docente.nombre} ha sido guardado.`,
+            text: `Docente ${docente.nombre} ${docente.apellido} ha sido guardado.`,
           });
         });
       },
@@ -72,8 +66,8 @@ export class DocenteFormComponent {
           console.log(docente);
           Swal.fire({
             icon: 'success',
-            title: 'Area actualizada correctamente.',
-            text: `Area ${docente.nombre} ha sido guardada.`,
+            title: 'Docente actualizado correctamente.',
+            text: `Docente ${docente.nombre} ${docente.apellido} ha sido guardado.`,
           });
         });
       },

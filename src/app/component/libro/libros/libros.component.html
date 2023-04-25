@@ -1,1 +1,44 @@
-<p>libros works!</p>
+<div>
+  <button type="button" [routerLink]="['/libros/form']">Nuevo Libro</button>
+</div>
+<div *ngIf="libros.length == 0">No hay libros registrados.</div>
+<div>
+  <table *ngIf="libros.length > 0">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Código</th>
+        <th>Título</th>
+        <th>Año de Publicación</th>
+        <th>Grado</th>
+        <th>Area</th>
+        <th>Categoria</th>
+        <th>Editorial</th>
+        <th>Autor</th>
+        <th>Detalle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let libro of libros">
+        <td>{{ libro.id }}</td>
+        <td>{{ libro.codigo }}</td>
+        <td>{{ libro.titulo }}</td>
+        <td>{{ libro.anio }}</td>
+        <td>{{ libro.grado }}</td>
+        <td>{{ libro.area.nombre }}</td>
+        <td>{{ libro.categoria.nombre }}</td>
+        <td>{{ libro.editorial.nombre }}</td>
+        <td>{{ libro.autor.nombre }}</td>
+        <td>
+          <button
+            type="button"
+            name="detail"
+            [routerLink]="['/libros/detail', libro.id]"
+          >
+            Detalle
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

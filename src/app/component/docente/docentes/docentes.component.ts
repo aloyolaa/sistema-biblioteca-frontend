@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Docente } from 'src/app/core/model/docente.model';
 import { DocenteService } from 'src/app/service/docente.service';
 
@@ -7,7 +7,7 @@ import { DocenteService } from 'src/app/service/docente.service';
   templateUrl: './docentes.component.html',
   styleUrls: ['./docentes.component.css'],
 })
-export class DocentesComponent {
+export class DocentesComponent implements OnInit {
   title = 'Docentes';
   docentes: Docente[] = [];
 

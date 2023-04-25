@@ -21,13 +21,20 @@ import { DocenteDetailComponent } from './component/docente/detail/detail.compon
 import { EditorialesComponent } from './component/editorial/editoriales/editoriales.component';
 import { EditorialFormComponent } from './component/editorial/form/form.component';
 import { EditorialDetailComponent } from './component/editorial/detail/detail.component';
-import { EjemplaresComponent } from './component/ejemplar/ejemplares/ejemplares.component';
-import { EjemplarFormComponent } from './component/ejemplar/form/form.component';
-import { EjemplarDetailComponent } from './component/ejemplar/detail/detail.component';
-import { EjemplarCrearComponent } from './component/ejemplar/crear/crear.component';
+import { EjemplarLibroCrearComponent } from './component/ejemplar-libro/crear/crear.component';
+import { EjemplarLibroDetailComponent } from './component/ejemplar-libro/detail/detail.component';
+import { EjemplarLibroFormComponent } from './component/ejemplar-libro/form/form.component';
+import { EjemplaresLibrosComponent } from './component/ejemplar-libro/ejemplares-libros/ejemplares-libros.component';
+import { EjemplarMaterialCrearComponent } from './component/ejemplar-material/crear/crear.component';
+import { EjemplarMaterialDetailComponent } from './component/ejemplar-material/detail/detail.component';
+import { EjemplarMaterialFormComponent } from './component/ejemplar-material/form/form.component';
+import { EjemplaresMaterialesComponent } from './component/ejemplar-material/ejemplares-materiales/ejemplares-materiales.component';
 import { LibrosComponent } from './component/libro/libros/libros.component';
 import { LibroFormComponent } from './component/libro/form/form.component';
 import { LibroDetailComponent } from './component/libro/detail/detail.component';
+import { MaterialDetailComponent } from './component/material/detail/detail.component';
+import { MaterialFormComponent } from './component/material/form/form.component';
+import { MaterialesComponent } from './component/material/materiales/materiales.component';
 
 @NgModule({
   declarations: [
@@ -47,22 +54,29 @@ import { LibroDetailComponent } from './component/libro/detail/detail.component'
     EditorialesComponent,
     EditorialFormComponent,
     EditorialDetailComponent,
-    EjemplaresComponent,
-    EjemplarFormComponent,
-    EjemplarDetailComponent,
-    EjemplarCrearComponent,
+    EjemplarLibroCrearComponent,
+    EjemplarLibroDetailComponent,
+    EjemplarLibroFormComponent,
+    EjemplaresLibrosComponent,
+    EjemplarMaterialCrearComponent,
+    EjemplarMaterialDetailComponent,
+    EjemplarMaterialFormComponent,
+    EjemplaresMaterialesComponent,
     LibrosComponent,
     LibroFormComponent,
-    LibroDetailComponent
+    LibroDetailComponent,
+    MaterialesComponent,
+    MaterialFormComponent,
+    MaterialDetailComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

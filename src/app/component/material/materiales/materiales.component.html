@@ -1,0 +1,38 @@
+<div>
+  <button type="button" [routerLink]="['/materiales/form']">
+    Nuevo Material
+  </button>
+</div>
+<div *ngIf="materiales.length == 0">No hay materiales registrados.</div>
+<div>
+  <table *ngIf="materiales.length > 0">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Código</th>
+        <th>Nombre</th>
+        <th>Medidas</th>
+        <th>Area</th>
+        <th>Detalle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let material of materiales">
+        <td>{{ material.id }}</td>
+        <td>{{ material.codigo }}</td>
+        <td>{{ material.nombre }}</td>
+        <td>{{ material.medidas }}</td>
+        <td>{{ material.area.nombre }}</td>
+        <td>
+          <button
+            type="button"
+            name="detail"
+            [routerLink]="['/materiales/detail', material.id]"
+          >
+            Detalle
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

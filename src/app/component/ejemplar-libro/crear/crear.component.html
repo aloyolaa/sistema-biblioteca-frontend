@@ -1,0 +1,69 @@
+<div>
+  <form>
+    <label for="codigo">Código del Libro</label>
+    <div>
+      <input type="text" id="codigo" name="codigo" [(ngModel)]="codigo" />
+    </div>
+    <div *ngIf="errors.libro">
+      {{ errors.libro }}
+    </div>
+    <div>
+      <button type="submit" (click)="getOneByCodigo()" [disabled]="!codigo">
+        Buscar Libro
+      </button>
+    </div>
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Código</th>
+            <th>Título</th>
+            <th>Año de Publicación</th>
+            <th>Grado</th>
+            <th>Area</th>
+            <th>Categoria</th>
+            <th>Editorial</th>
+            <th>Autor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ libro.id }}</td>
+            <td>{{ libro.codigo }}</td>
+            <td>{{ libro.titulo }}</td>
+            <td>{{ libro.anio }}</td>
+            <td>{{ libro.grado }}</td>
+            <td>{{ libro.area.nombre }}</td>
+            <td>{{ libro.categoria.nombre }}</td>
+            <td>{{ libro.editorial.nombre }}</td>
+            <td>{{ libro.autor.nombre }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <label for="cantidad">Cantidad</label>
+      <div>
+        <input
+          type="number"
+          id="cantidad"
+          name="cantidad"
+          [(ngModel)]="cantidad"
+          min="1"
+        />
+      </div>
+      <div *ngIf="cantidad <= 0">La cantidad mínima es 1</div>
+    </div>
+    <div>
+      <button type="submit" (click)="save()" [disabled]="cantidad === null">
+        Guardar
+      </button>
+    </div>
+    <div>
+      <button type="button" [routerLink]="['/ejemplares-libros']">
+        Cancelar
+      </button>
+    </div>
+  </form>
+</div>

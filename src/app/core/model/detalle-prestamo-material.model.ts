@@ -1,5 +1,6 @@
-import { Base } from "./base.mode";
+import { Base } from './base.mode';
+import { EjemplarMaterial } from './ejemplar-material.model';
 
-export interface DetallePrestamoMaterial extends Base {
-    
+export class DetallePrestamoMaterial extends Base {
+  ejemplarMaterial: EjemplarMaterial;
 }

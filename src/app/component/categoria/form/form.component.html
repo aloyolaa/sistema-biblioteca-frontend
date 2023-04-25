@@ -1,1 +1,45 @@
-<p>categoria-form works!</p>
+<div>
+  <form>
+    <label for="nombre">Nombre</label>
+    <div>
+      <input
+        type="text"
+        id="nombre"
+        name="nombre"
+        [(ngModel)]="categoria.nombre"
+      />
+    </div>
+    <div *ngIf="errors.nombre">
+      {{ errors.nombre }}
+    </div>
+    <div>
+      <button
+        type="submit"
+        (click)="save()"
+        *ngIf="!categoria.id; else elseBlock"
+      >
+        Guardar
+      </button>
+      <ng-template #elseBlock>
+        <button type="submit" (click)="update()">Actualizar</button>
+      </ng-template>
+    </div>
+    <div>
+      <button
+        type="button"
+        [routerLink]="['/categorias']"
+        *ngIf="!categoria.id; else elseBack"
+      >
+        Cancelar
+      </button>
+      <ng-template #elseBack>
+        <button
+          type="button"
+          [routerLink]="['/categorias/detail', categoria.id]"
+        >
+          Cancelar
+        </button>
+      </ng-template>
+    </div>
+  </form>
+</div>

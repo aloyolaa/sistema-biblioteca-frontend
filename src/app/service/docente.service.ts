@@ -75,4 +75,8 @@ export class DocenteService {
       })
     );
   }
+
+  count(): Observable<number> {
+    return this.httpClient.get<number>(`${this.url}/count`);
+  }
 }

@@ -1,1 +1,21 @@
-<p>docente-detail works!</p>
+<div>
+  <button type="button" name="back" [routerLink]="['/docentes']">Volver</button>
+</div>
+<div *ngIf="docente">
+  <ul>
+    <li>{{ docente.id }}</li>
+    <li>{{ docente.nombre }}</li>
+    <li>{{ docente.apellido }}</li>
+    <li>{{ docente.dni }}</li>
+    <li>{{ docente.telefono }}</li>
+  </ul>
+</div>
+<div>
+  <button
+    type="button"
+    name="update"
+    [routerLink]="['/docentes/form', docente.id]"
+  >
+    Actualizar
+  </button>
+</div>

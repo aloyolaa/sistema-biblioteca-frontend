@@ -1,0 +1,61 @@
+<div>
+  <form>
+    <label for="codigo">Código del Material</label>
+    <div>
+      <input type="text" id="codigo" name="codigo" [(ngModel)]="codigo" />
+    </div>
+    <div *ngIf="errors.material">
+      {{ errors.material }}
+    </div>
+    <div>
+      <button type="submit" (click)="getOneByCodigo()" [disabled]="!codigo">
+        Buscar Material
+      </button>
+    </div>
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Código</th>
+            <th>Nombre</th>
+            <th>Medidas</th>
+            <th>Area</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ material.id }}</td>
+            <td>{{ material.codigo }}</td>
+            <td>{{ material.nombre }}</td>
+            <td>{{ material.medidas }}</td>
+            <td>{{ material.area.nombre }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <label for="cantidad">Cantidad</label>
+      <div>
+        <input
+          type="number"
+          id="cantidad"
+          name="cantidad"
+          [(ngModel)]="cantidad"
+          min="1"
+        />
+      </div>
+      <div *ngIf="cantidad <= 0">La cantidad mínima es 1</div>
+    </div>
+    <div>
+      <button type="submit" (click)="save()" [disabled]="cantidad === null">
+        Guardar
+      </button>
+    </div>
+    <div>
+      <button type="button" [routerLink]="['/ejemplares-materiales']">
+        Cancelar
+      </button>
+    </div>
+  </form>
+</div>

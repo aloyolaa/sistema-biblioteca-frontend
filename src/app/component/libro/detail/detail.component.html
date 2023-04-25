@@ -1,1 +1,23 @@
-<p>libro-detail works!</p>
+<div>
+  <button type="button" name="back" [routerLink]="['/libros']">Volver</button>
+</div>
+<div *ngIf="libro">
+  <ul>
+    <li>{{ libro.id }}</li>
+    <li>{{ libro.codigo }}</li>
+    <li>{{ libro.titulo }}</li>
+    <li>{{ libro.anio }}</li>
+    <li>{{ libro.grado }}</li>
+    <li>{{ libro.area.nombre }}</li>
+    <li>{{ libro.categoria.nombre }}</li>
+    <li>{{ libro.editorial.nombre }}</li>
+    <li>{{ libro.autor.nombre }} {{ libro.autor.apellido }}</li>
+    <li>{{ ejemplares }}</li>
+    <li>{{ ejemplaresDisponibles }}</li>
+  </ul>
+</div>
+<div>
+  <button type="button" name="update" [routerLink]="['/libros/form', libro.id]">
+    Actualizar
+  </button>
+</div>

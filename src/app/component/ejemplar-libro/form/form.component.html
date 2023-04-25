@@ -1,0 +1,31 @@
+<div>
+  <form>
+    <div>{{ ejemplarLibro.libro.codigo }} {{ ejemplarLibro.numero }}</div>
+    <label for="estado">Estado</label>
+    <div>
+      <select name="estado" id="estado" [(ngModel)]="ejemplarLibro.estado">
+        <option value="DISPONIBLE">DISPONIBLE</option>
+        <option value="NO DIPOSNIBLE">NO DISPONIBLE</option>
+      </select>
+    </div>
+    <div>
+      <textarea
+        id="observaciones"
+        name="observaciones"
+        [(ngModel)]="ejemplarLibro.observaciones"
+      >
+      </textarea>
+    </div>
+    <div>
+      <button type="submit" (click)="update()">Actualizar</button>
+    </div>
+    <div>
+      <button
+        type="button"
+        [routerLink]="['/ejemplares-libros/detail', ejemplarLibro.id]"
+      >
+        Cancelar
+      </button>
+    </div>
+  </form>
+</div>

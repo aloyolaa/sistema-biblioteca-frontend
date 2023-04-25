@@ -1,0 +1,26 @@
+<div>
+  <button type="button" name="back" [routerLink]="['/ejemplares-materiales']">
+    Volver
+  </button>
+</div>
+<div *ngIf="ejemplarMaterial">
+  <ul>
+    <li>{{ ejemplarMaterial.id }}</li>
+    <li>{{ ejemplarMaterial.material.codigo }}</li>
+    <li>{{ ejemplarMaterial.numero }}</li>
+    <li>{{ ejemplarMaterial.estado }}</li>
+    <li>{{ ejemplarMaterial.observaciones }}</li>
+  </ul>
+</div>
+<div *ngIf="ejemplarMaterial.estado == 'PRESTADO'">
+  No se puede actualizar un ejemplar prestado
+</div>
+<div *ngIf="ejemplarMaterial.estado != 'PRESTADO'">
+  <button
+    type="button"
+    name="update"
+    [routerLink]="['/ejemplares-materiales/form', ejemplarMaterial.id]"
+  >
+    Actualizar
+  </button>
+</div>

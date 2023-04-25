@@ -10,10 +10,7 @@ import { AreaService } from 'src/app/service/area.service';
 })
 export class AreaDetailComponent implements OnInit {
   title = 'Detalle de Area';
-  area: Area = {
-    id: 0,
-    nombre: '',
-  };
+  area: Area = new Area();
 
   constructor(
     private areaService: AreaService,
@@ -24,8 +21,8 @@ export class AreaDetailComponent implements OnInit {
     this.activedRoute.paramMap.subscribe((params) => {
       let id: number = Number(params.get('id'));
       if (id) {
-        this.areaService.getOne(id).subscribe((response) => {
-          this.area = response;
+        this.areaService.getOne(id).subscribe((area) => {
+          this.area = area;
         });
       }
     });

@@ -1,5 +1,5 @@
 import { Base } from './base.mode';
 
-export interface Area extends Base {
+export class Area extends Base {
   nombre: string;
 }

@@ -1,6 +1,6 @@
 import { Base } from './base.mode';
-import { Ejemplar } from './ejemplar.model';
+import { EjemplarLibro } from './ejemplar-libro.model';
 
-export interface DetallePrestamoLibro extends Base {
-  ejemplar: Ejemplar;
+export class DetallePrestamoLibro extends Base {
+  ejemplarLibro: EjemplarLibro;
 }

@@ -1,1 +1,32 @@
-<p>editoriales works!</p>
+<div>
+  <button type="button" [routerLink]="['/editoriales/form']">
+    Nueva Editorial
+  </button>
+</div>
+<div *ngIf="editoriales.length == 0">No hay editoriales registradas</div>
+<div>
+  <table *ngIf="editoriales.length > 0">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Nombre</th>
+        <th>Detalle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let editorial of editoriales">
+        <td>{{ editorial.id }}</td>
+        <td>{{ editorial.nombre }}</td>
+        <td>
+          <button
+            type="button"
+            name="detail"
+            [routerLink]="['/editoriales/detail', editorial.id]"
+          >
+            Detalle
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

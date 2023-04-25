@@ -1,5 +1,6 @@
 import { Base } from './base.mode';
 
-export interface Autor extends Base {
+export class Autor extends Base {
   nombre: string;
+  apellido: string;
 }

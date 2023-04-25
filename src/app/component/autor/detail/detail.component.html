@@ -1,1 +1,15 @@
-<p>autor-detail works!</p>
+<div>
+  <button type="button" name="back" [routerLink]="['/autores']">Volver</button>
+</div>
+<div *ngIf="autor">
+  <ul>
+    <li>{{ autor.id }}</li>
+    <li>{{ autor.nombre }}</li>
+    <li>{{ autor.apellido }}</li>
+  </ul>
+</div>
+<div>
+  <button type="button" name="update" [routerLink]="['/autores/form', autor.id]">
+    Actualizar
+  </button>
+</div>

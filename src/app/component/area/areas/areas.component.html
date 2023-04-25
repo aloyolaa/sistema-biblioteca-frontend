@@ -1,30 +1,30 @@
 <div>
-    <button type="button" [routerLink]="['/areas/form']">
-      Nueva Area
-    </button>
-  </div>
-<div *ngIf="areas.length == 0">
-    No hay areas registradas.
+  <button type="button" [routerLink]="['/areas/form']">Nueva Area</button>
 </div>
+<div *ngIf="areas.length == 0">No hay areas registradas.</div>
 <div>
-    <table *ngIf="areas.length > 0">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Nombre</th>
-                <th>Detalle</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let area of areas">
-                <td>{{area.id}}</td>
-                <td>{{area.nombre}}</td>
-                <td>
-                    <button type="button" name="detail" [routerLink]="['/areas/detail', area.id]">
-                        Detalle
-                    </button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+  <table *ngIf="areas.length > 0">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Nombre</th>
+        <th>Detalle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let area of areas">
+        <td>{{ area.id }}</td>
+        <td>{{ area.nombre }}</td>
+        <td>
+          <button
+            type="button"
+            name="detail"
+            [routerLink]="['/areas/detail', area.id]"
+          >
+            Detalle
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

@@ -4,14 +4,13 @@ import { Base } from './base.mode';
 import { Categoria } from './categoria.model';
 import { Editorial } from './editorial.model';
 
-export interface Libro extends Base {
+export class Libro extends Base {
   codigo: string;
   titulo: string;
   anio: number;
   grado: number;
-  observaciones: string;
-  autor: Autor;
+  area: Area;
   categoria: Categoria;
   editorial: Editorial;
-  area: Area;
+  autor: Autor;
 }
