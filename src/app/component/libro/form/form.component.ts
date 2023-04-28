@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, map, mergeMap } from 'rxjs';
 import { Area } from 'src/app/core/model/area.model';
 import { Autor } from 'src/app/core/model/autor.model';
 import { Categoria } from 'src/app/core/model/categoria.model';
@@ -20,10 +23,9 @@ import Swal from 'sweetalert2';
 export class LibroFormComponent implements OnInit {
   title = 'Formulario de Libro';
   libro: Libro = new Libro();
-  autores: Autor[] = [];
+  areas: Area[] = [];
   categorias: Categoria[] = [];
   editoriales: Editorial[] = [];
-  areas: Area[] = [];
   errors = {
     codigo: '',
     titulo: '',
@@ -32,31 +34,27 @@ export class LibroFormComponent implements OnInit {
     area: '',
     categoria: '',
     editorial: '',
-    autor: '',
+    autores: '',
   };
+  autocompleteControl = new FormControl('');
+  filteredAutores: Observable<Autor[]>;
 
   constructor(
     private libroService: LibroService,
-    private autorService: AutorService,
+    private areaService: AreaService,
     private categoriaService: CategoriaService,
     private editorialService: EditorialService,
-    private areaService: AreaService,
+    private autorService: AutorService,
     private router: Router,
     private activedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.chargeLibro();
-  }
-
-  chargeLibro(): void {
-    this.activedRoute.params.subscribe((params) => {
-      let id = params['id'];
-      if (id) {
-        this.libroService.getOne(id).subscribe((libro) => (this.libro = libro));
-      }
-    });
-    this.autorService.getAll().subscribe((autores) => (this.autores = autores));
+    this.filteredAutores = this.autocompleteControl.valueChanges.pipe(
+      map((value) => (typeof value === 'string' ? value : '')),
+      mergeMap((value) => (value ? this._filter(value || '') : []))
+    );
     this.categoriaService
       .getAll()
       .subscribe((categorias) => (this.categorias = categorias));
@@ -66,7 +64,17 @@ export class LibroFormComponent implements OnInit {
     this.areaService.getAll().subscribe((areas) => (this.areas = areas));
   }
 
+  chargeLibro(): void {
+    this.activedRoute.params.subscribe((params) => {
+      let id = params['id'];
+      if (id) {
+        this.libroService.getOne(id).subscribe((libro) => (this.libro = libro));
+      }
+    });
+  }
+
   save(): void {
+    console.log(this.libro);
     this.libroService.save(this.libro).subscribe({
       next: (libro) => {
         this.router.navigate(['/libros/detail', libro.id]).then(() => {
@@ -104,11 +112,11 @@ export class LibroFormComponent implements OnInit {
     });
   }
 
-  compareAutor(autor1: Autor, autor2: Autor): boolean {
-    if (autor1 === undefined && autor2 === undefined) {
+  compareArea(area1: Area, area2: Area): boolean {
+    if (area1 === undefined && area2 === undefined) {
       return true;
     }
-    return autor1 == null || autor2 == null ? false : autor1.id === autor2.id;
+    return area1 == null || area2 == null ? false : area1.id === area2.id;
   }
 
   compareCategoria(categoria1: Categoria, categoria2: Categoria): boolean {
@@ -129,10 +137,39 @@ export class LibroFormComponent implements OnInit {
       : editorial1.id === editorial2.id;
   }
 
-  compareArea(area1: Area, area2: Area): boolean {
-    if (area1 === undefined && area2 === undefined) {
-      return true;
+  private _filter(value: string): Observable<Autor[]> {
+    const filterValue = value.toLowerCase();
+    return this.autorService.getAllByNombreAndApellido(filterValue);
+  }
+
+  byNombreOrApellido(autor?: Autor): string {
+    return autor ? autor.nombre : '';
+  }
+
+  existItem(id: number): boolean {
+    let exist = false;
+    this.libro.autores.forEach((autor: Autor) => {
+      if (id === autor.id) {
+        exist = true;
+      }
+    });
+    return exist;
+  }
+
+  selectAutor(event: MatAutocompleteSelectedEvent): void {
+    let autor = event.option.value as Autor;
+    console.log(autor);
+    if (!this.existItem(autor.id)) {
+      this.libro.autores.push(autor);
+      this.autocompleteControl.setValue('');
+      event.option.focus();
+      event.option.deselect();
     }
-    return area1 == null || area2 == null ? false : area1.id === area2.id;
+  }
+
+  deleteAutor(id: number): void {
+    this.libro.autores = this.libro.autores.filter(
+      (autor: Autor) => id !== autor.id
+    );
   }
 }

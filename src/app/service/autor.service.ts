@@ -79,4 +79,10 @@ export class AutorService {
   count(): Observable<number> {
     return this.httpClient.get<number>(`${this.url}/count`);
   }
+
+  getAllByNombreAndApellido(value: string): Observable<Autor[]> {
+    return this.httpClient.get<Autor[]>(
+      `${this.url}/getAllByNombreAndApellido/${value}`
+    );
+  }
 }

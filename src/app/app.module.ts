@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AreasComponent } from './component/area/areas/areas.component';
 import { AreaFormComponent } from './component/area/form/form.component';
 import { AreaDetailComponent } from './component/area/detail/detail.component';
@@ -35,6 +35,9 @@ import { LibroDetailComponent } from './component/libro/detail/detail.component'
 import { MaterialDetailComponent } from './component/material/detail/detail.component';
 import { MaterialFormComponent } from './component/material/form/form.component';
 import { MaterialesComponent } from './component/material/materiales/materiales.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -75,6 +78,10 @@ import { MaterialesComponent } from './component/material/materiales/materiales.
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

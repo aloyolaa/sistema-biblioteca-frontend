@@ -8,7 +8,7 @@ export class PrestamoMaterial extends Base {
   descripcion: string;
   grado: number;
   seccion: string;
-  estado: string;
+  activo: boolean;
   observaciones: string;
   docente: Docente;
   detalle: DetallePrestamoMaterial[];

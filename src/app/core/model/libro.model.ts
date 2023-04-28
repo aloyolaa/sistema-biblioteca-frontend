@@ -12,5 +12,5 @@ export class Libro extends Base {
   area: Area;
   categoria: Categoria;
   editorial: Editorial;
-  autor: Autor;
+  autores: Autor[] = [];
 }

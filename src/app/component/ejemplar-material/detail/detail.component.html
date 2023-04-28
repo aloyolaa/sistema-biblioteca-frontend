@@ -12,10 +12,10 @@
     <li>{{ ejemplarMaterial.observaciones }}</li>
   </ul>
 </div>
-<div *ngIf="ejemplarMaterial.estado == 'PRESTADO'">
+<div *ngIf="ejemplarMaterial.prestado">
   No se puede actualizar un ejemplar prestado
 </div>
-<div *ngIf="ejemplarMaterial.estado != 'PRESTADO'">
+<div *ngIf="!ejemplarMaterial.prestado">
   <button
     type="button"
     name="update"

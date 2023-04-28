@@ -11,9 +11,24 @@
     <li>{{ libro.area.nombre }}</li>
     <li>{{ libro.categoria.nombre }}</li>
     <li>{{ libro.editorial.nombre }}</li>
-    <li>{{ libro.autor.nombre }} {{ libro.autor.apellido }}</li>
     <li>{{ ejemplares }}</li>
     <li>{{ ejemplaresDisponibles }}</li>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let autor of libro.autores">
+          <td>{{ autor.id }}</td>
+          <td>{{ autor.nombre }}</td>
+          <td>{{ autor.apellido }}</td>
+        </tr>
+      </tbody>
+    </table>
   </ul>
 </div>
 <div>

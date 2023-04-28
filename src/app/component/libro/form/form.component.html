@@ -24,7 +24,7 @@
     <label for="grado">Grado</label>
     <div>
       <select name="grado" id="grado" [(ngModel)]="libro.grado">
-        <option [ngValue]="0">-- Seleccionar --</option>
+        <option [ngValue]="undefined">-- Seleccionar --</option>
         <option [ngValue]="1">1°</option>
         <option [ngValue]="2">2°</option>
         <option [ngValue]="3">3°</option>
@@ -55,7 +55,7 @@
         [(ngModel)]="libro.categoria"
         [compareWith]="compareCategoria"
       >
-        <option [ngValue]="undefined">-- Select --</option>
+        <option [ngValue]="undefined">-- Seleccionar --</option>
         <option *ngFor="let categoria of categorias" [ngValue]="categoria">
           {{ categoria.nombre }}
         </option>
@@ -71,7 +71,7 @@
         [(ngModel)]="libro.editorial"
         [compareWith]="compareEditorial"
       >
-        <option [ngValue]="undefined">-- Select --</option>
+        <option [ngValue]="undefined">-- Seleccionar --</option>
         <option *ngFor="let editorial of editoriales" [ngValue]="editorial">
           {{ editorial.nombre }}
         </option>
@@ -80,21 +80,64 @@
     <div *ngIf="errors.editorial">
       {{ errors.editorial }}
     </div>
-    <label for="autor">Autor</label>
+    <label for="autor">Autores</label>
     <div>
-      <select
-        name="autor"
-        [(ngModel)]="libro.autor"
-        [compareWith]="compareAutor"
-      >
-        <option [ngValue]="undefined">-- Select --</option>
-        <option *ngFor="let autor of autores" [ngValue]="autor">
-          {{ autor.nombre }} {{ autor.apellido }}
-        </option>
-      </select>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Autor</mat-label>
+        <input
+          type="text"
+          placeholder="Agregar Autor"
+          aria-label="Autor"
+          matInput
+          [formControl]="autocompleteControl"
+          [matAutocomplete]="auto"
+        />
+        <mat-autocomplete
+          #auto="matAutocomplete"
+          [displayWith]="byNombreOrApellido"
+          (optionSelected)="selectAutor($event)"
+        >
+          <mat-option
+            *ngFor="let autor of filteredAutores | async"
+            [value]="autor"
+          >
+            {{ autor.nombre }} {{ autor.apellido }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
     </div>
-    <div *ngIf="errors.autor">
-      {{ errors.autor }}
+    <div *ngIf="libro.autores.length == 0">
+      El libro no tiene autores asignados
+    </div>
+    <div>
+      <table *ngIf="libro.autores.length > 0">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Eliminar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let autor of libro.autores">
+            <td>{{ autor.id }}</td>
+            <td>{{ autor.nombre }}</td>
+            <td>{{ autor.apellido }}</td>
+            <td>
+              <button
+                class="btn btn-danger btn-sm"
+                (click)="deleteAutor(autor.id)"
+              >
+                X
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="errors.autores">
+      {{ errors.autores }}
     </div>
     <div>
       <button type="submit" (click)="save()" *ngIf="!libro.id; else elseBlock">

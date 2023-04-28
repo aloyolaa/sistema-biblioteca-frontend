@@ -31,6 +31,7 @@ export class MaterialFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.chargeMaterial();
+    this.areaService.getAll().subscribe((areas) => (this.areas = areas));
   }
 
   chargeMaterial(): void {
@@ -42,7 +43,6 @@ export class MaterialFormComponent implements OnInit {
           .subscribe((material) => (this.material = material));
       }
     });
-    this.areaService.getAll().subscribe((areas) => (this.areas = areas));
   }
 
   save(): void {
