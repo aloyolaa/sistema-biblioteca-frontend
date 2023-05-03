@@ -10,10 +10,16 @@ import { LibroService } from 'src/app/service/libro.service';
 export class LibrosComponent implements OnInit {
   title = 'Libros';
   libros: Libro[] = [];
+  buscar = '';
+  tipo = '';
 
   constructor(private libroService: LibroService) {}
 
   ngOnInit(): void {
+    this.getAll();
+  }
+
+  getAll(): void {
     this.libroService.getAll().subscribe((libros) => (this.libros = libros));
   }
 
@@ -25,5 +31,31 @@ export class LibrosComponent implements OnInit {
         this.libros.splice(index, 1);
       }
     });
+  }
+
+  getAllByTitulo(): void {
+    this.libroService
+      .getAllByTitulo(this.buscar)
+      .subscribe((libros) => (this.libros = libros));
+  }
+
+  getAllByCodigo(): void {
+    this.libroService
+      .getAllByCodigo(this.buscar)
+      .subscribe((libros) => (this.libros = libros));
+  }
+
+  buscador(): void {
+    if (this.tipo == 'titulo') {
+      this.getAllByTitulo();
+    } else {
+      if (this.tipo == 'codigo') {
+        this.getAllByCodigo();
+      } else {
+        this.getAll();
+      }
+    }
+    this.buscar = '';
+    this.tipo = '';
   }
 }

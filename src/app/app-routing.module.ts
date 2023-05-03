@@ -26,9 +26,11 @@ import { EjemplarMaterialDetailComponent } from './component/ejemplar-material/d
 import { LibrosComponent } from './component/libro/libros/libros.component';
 import { LibroFormComponent } from './component/libro/form/form.component';
 import { LibroDetailComponent } from './component/libro/detail/detail.component';
+import { LibroFilterComponent } from './component/libro/filter/filter.component';
 import { MaterialesComponent } from './component/material/materiales/materiales.component';
 import { MaterialFormComponent } from './component/material/form/form.component';
 import { MaterialDetailComponent } from './component/material/detail/detail.component';
+import { MaterialFilterComponent } from './component/material/filter/filter.component';
 import { PrestamosLibrosComponent } from './component/prestamo-libro/prestamos-libros/prestamos-libros.component';
 import { PrestamoLibroFormComponent } from './component/prestamo-libro/form/form.component';
 import { PrestamoLibroDetailComponent } from './component/prestamo-libro/detail/detail.component';
@@ -76,11 +78,13 @@ const routes: Routes = [
   { path: 'libros/form', component: LibroFormComponent },
   { path: 'libros/form/:id', component: LibroFormComponent },
   { path: 'libros/detail/:id', component: LibroDetailComponent },
+  { path: 'libros/filter', component: LibroFilterComponent },
 
   { path: 'materiales', component: MaterialesComponent },
   { path: 'materiales/form', component: MaterialFormComponent },
   { path: 'materiales/form/:id', component: MaterialFormComponent },
   { path: 'materiales/detail/:id', component: MaterialDetailComponent },
+  { path: 'materiales/filter', component: MaterialFilterComponent },
 
   { path: 'prestamos-libros', component: PrestamosLibrosComponent },
   { path: 'prestamos-libros/form', component: PrestamoLibroFormComponent },

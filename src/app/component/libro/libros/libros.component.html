@@ -1,6 +1,18 @@
 <div>
   <button type="button" [routerLink]="['/libros/form']">Nuevo Libro</button>
 </div>
+<form>
+  <label for="buscar">Filtrar</label>
+  <div>
+    <input type="text" id="buscar" name="buscar" [(ngModel)]="buscar" />
+    <select name="tipo" id="tipo" [(ngModel)]="tipo">
+      <option value="">-- Seleccionar --</option>
+      <option value="titulo">Título</option>
+      <option value="codigo">Código</option>
+    </select>
+    <button type="button" (click)="buscador()">Buscar</button>
+  </div>
+</form>
 <div *ngIf="libros.length == 0">No hay libros registrados.</div>
 <div>
   <table *ngIf="libros.length > 0">

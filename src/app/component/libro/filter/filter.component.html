@@ -1,0 +1,79 @@
+<form>
+  <label for="filtro">Filtrar</label>
+  <div>
+    <select name="id" [(ngModel)]="id" *ngIf="tipo == 'area'">
+      <option [ngValue]="0">-- Seleccionar --</option>
+      <option *ngFor="let area of areas" [ngValue]="area.id">
+        {{ area.nombre }}
+      </option>
+    </select>
+    <select name="id" [(ngModel)]="id" *ngIf="tipo == 'categoria'">
+      <option [ngValue]="0">-- Seleccionar --</option>
+      <option *ngFor="let categoria of categorias" [ngValue]="categoria.id">
+        {{ categoria.nombre }}
+      </option>
+    </select>
+    <select name="id" [(ngModel)]="id" *ngIf="tipo == 'editorial'">
+      <option [ngValue]="0">-- Seleccionar --</option>
+      <option *ngFor="let editorial of editoriales" [ngValue]="editorial.id">
+        {{ editorial.nombre }}
+      </option>
+    </select>
+    <select name="id" [(ngModel)]="id" *ngIf="tipo == 'autor'">
+      <option [ngValue]="0">-- Seleccionar --</option>
+      <option *ngFor="let autor of autores" [ngValue]="autor.id">
+        {{ autor.apellido }} {{ autor.nombre }}
+      </option>
+    </select>
+    <select name="tipo" id="tipo" [(ngModel)]="tipo">
+      <option value="">-- Seleccionar --</option>
+      <option value="area">Area</option>
+      <option value="categoria">Categoria</option>
+      <option value="editorial">Editorial</option>
+      <option value="autor">Autor</option>
+    </select>
+    <button type="button" (click)="filtrar()">Filtrar</button>
+    <input type="number" id="page" name="page" [(ngModel)]="page"/>
+  </div>
+</form>
+<div *ngIf="libros.length == 0">No hay libros registrados.</div>
+<div>
+  <table *ngIf="libros.length > 0">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Código</th>
+        <th>Título</th>
+        <th>Año</th>
+        <th>Grado</th>
+        <th>Area</th>
+        <th>Categoria</th>
+        <th>Editorial</th>
+        <th>N° de Autores</th>
+        <th>Detalle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let libro of libros">
+        <td>{{ libro.id }}</td>
+        <td>{{ libro.codigo }}</td>
+        <td>{{ libro.titulo }}</td>
+        <td>{{ libro.anio }}</td>
+        <td>{{ libro.grado }}</td>
+        <td>{{ libro.area.nombre }}</td>
+        <td>{{ libro.categoria.nombre }}</td>
+        <td>{{ libro.editorial.nombre }}</td>
+        <td>{{ libro.autores.length }}</td>
+        <td>
+          <button
+            type="button"
+            name="detail"
+            [routerLink]="['/libros/detail', libro.id]"
+          >
+            Detalle
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

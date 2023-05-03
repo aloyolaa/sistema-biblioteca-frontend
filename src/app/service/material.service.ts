@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, map, throwError } from 'rxjs';
 import { Material } from '../core/model/material.model';
 import Swal from 'sweetalert2';
 
@@ -93,5 +93,30 @@ export class MaterialService {
 
   count(): Observable<number> {
     return this.httpClient.get<number>(`${this.url}/count`);
+  }
+
+  getAllByNombre(nombre: string): Observable<Material[]> {
+    return this.httpClient.get<Material[]>(
+      `${this.url}/getAllByNombre/${nombre}`
+    );
+  }
+
+  getAllByCodigo(codigo: string): Observable<Material[]> {
+    return this.httpClient.get<Material[]>(
+      `${this.url}/getAllByCodigo/${codigo}`
+    );
+  }
+
+  paginationByArea(id: number, page: number): Observable<any> {
+    return this.httpClient
+      .get(`${this.url}/paginationByArea/${id}/${page}`)
+      .pipe(
+        map((response: any) => {
+          (response.content as Material[]).forEach((material) => {
+            return material;
+          });
+          return response;
+        })
+      );
   }
 }

@@ -1,18 +1,18 @@
-<div>
-  <button type="button" [routerLink]="['/materiales/form']">
-    Nuevo Material
-  </button>
-</div>
 <form>
   <label for="filtro">Filtrar</label>
   <div>
-    <input type="text" id="filtro" name="filtro" [(ngModel)]="buscar" />
+    <select name="id" [(ngModel)]="id" *ngIf="tipo == 'area'">
+      <option [ngValue]="0">-- Seleccionar --</option>
+      <option *ngFor="let area of areas" [ngValue]="area.id">
+        {{ area.nombre }}
+      </option>
+    </select>
     <select name="tipo" id="tipo" [(ngModel)]="tipo">
       <option value="">-- Seleccionar --</option>
-      <option value="nombre">Nombre</option>
-      <option value="codigo">Código</option>
+      <option value="area">Area</option>
     </select>
-    <button type="button" (click)="buscador()">Filtrar</button>
+    <button type="button" (click)="filtrar()">Filtrar</button>
+    <input type="number" id="page" name="page" [(ngModel)]="page" />
   </div>
 </form>
 <div *ngIf="materiales.length == 0">No hay materiales registrados.</div>

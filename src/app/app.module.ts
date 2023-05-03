@@ -32,8 +32,10 @@ import { EjemplaresMaterialesComponent } from './component/ejemplar-material/eje
 import { LibrosComponent } from './component/libro/libros/libros.component';
 import { LibroFormComponent } from './component/libro/form/form.component';
 import { LibroDetailComponent } from './component/libro/detail/detail.component';
+import { LibroFilterComponent } from './component/libro/filter/filter.component';
 import { MaterialDetailComponent } from './component/material/detail/detail.component';
 import { MaterialFormComponent } from './component/material/form/form.component';
+import { MaterialFilterComponent } from './component/material/filter/filter.component';
 import { MaterialesComponent } from './component/material/materiales/materiales.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -74,9 +76,11 @@ import { PrestamoMaterialFormComponent } from './component/prestamo-material/for
     LibrosComponent,
     LibroFormComponent,
     LibroDetailComponent,
+    LibroFilterComponent,
     MaterialesComponent,
     MaterialFormComponent,
     MaterialDetailComponent,
+    MaterialFilterComponent,
     PrestamoLibroFormComponent,
     PrestamosLibrosComponent,
     PrestamoLibroDetailComponent,
