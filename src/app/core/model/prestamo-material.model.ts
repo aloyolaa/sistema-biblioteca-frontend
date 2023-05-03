@@ -9,7 +9,7 @@ export class PrestamoMaterial extends Base {
   grado: number;
   seccion: string;
   activo: boolean;
-  observaciones: string;
+  observaciones: string = '';
   docente: Docente;
-  detalle: DetallePrestamoMaterial[];
+  detalle: DetallePrestamoMaterial[] = [];
 }

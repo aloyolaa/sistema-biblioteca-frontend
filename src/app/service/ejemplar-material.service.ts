@@ -78,4 +78,13 @@ export class EjemplarMaterialService {
       `${this.url}/countByMaterialAndEstado/${codigo}`
     );
   }
+
+  getAllByMaterialAndEstado(
+    codigo: string,
+    cantidad: number
+  ): Observable<EjemplarMaterial[]> {
+    return this.httpClient.get<EjemplarMaterial[]>(
+      `${this.url}/getAllByMaterialAndEstado/${codigo}/${cantidad}`
+    );
+  }
 }

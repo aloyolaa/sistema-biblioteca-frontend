@@ -29,6 +29,12 @@ import { LibroDetailComponent } from './component/libro/detail/detail.component'
 import { MaterialesComponent } from './component/material/materiales/materiales.component';
 import { MaterialFormComponent } from './component/material/form/form.component';
 import { MaterialDetailComponent } from './component/material/detail/detail.component';
+import { PrestamosLibrosComponent } from './component/prestamo-libro/prestamos-libros/prestamos-libros.component';
+import { PrestamoLibroFormComponent } from './component/prestamo-libro/form/form.component';
+import { PrestamoLibroDetailComponent } from './component/prestamo-libro/detail/detail.component';
+import { PrestamosMaterialesComponent } from './component/prestamo-material/prestamos-materiales/prestamos-materiales.component';
+import { PrestamoMaterialFormComponent } from './component/prestamo-material/form/form.component';
+import { PrestamoMaterialDetailComponent } from './component/prestamo-material/detail/detail.component';
 
 const routes: Routes = [
   { path: 'areas', component: AreasComponent },
@@ -75,6 +81,14 @@ const routes: Routes = [
   { path: 'materiales/form', component: MaterialFormComponent },
   { path: 'materiales/form/:id', component: MaterialFormComponent },
   { path: 'materiales/detail/:id', component: MaterialDetailComponent },
+
+  { path: 'prestamos-libros', component: PrestamosLibrosComponent },
+  { path: 'prestamos-libros/form', component: PrestamoLibroFormComponent },
+  { path: 'prestamos-libros/detail/:id', component: PrestamoLibroDetailComponent },
+
+  { path: 'prestamos-materiales', component: PrestamosMaterialesComponent },
+  { path: 'prestamos-materiales/form', component: PrestamoMaterialFormComponent },
+  { path: 'prestamos-materiales/detail/:id', component: PrestamoMaterialDetailComponent },
 ];
 
 @NgModule({

@@ -38,6 +38,12 @@ import { MaterialesComponent } from './component/material/materiales/materiales.
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { PrestamoLibroFormComponent } from './component/prestamo-libro/form/form.component';
+import { PrestamosLibrosComponent } from './component/prestamo-libro/prestamos-libros/prestamos-libros.component';
+import { PrestamoLibroDetailComponent } from './component/prestamo-libro/detail/detail.component';
+import { PrestamosMaterialesComponent } from './component/prestamo-material/prestamos-materiales/prestamos-materiales.component';
+import { PrestamoMaterialDetailComponent } from './component/prestamo-material/detail/detail.component';
+import { PrestamoMaterialFormComponent } from './component/prestamo-material/form/form.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +77,12 @@ import { MatInputModule } from '@angular/material/input';
     MaterialesComponent,
     MaterialFormComponent,
     MaterialDetailComponent,
+    PrestamoLibroFormComponent,
+    PrestamosLibrosComponent,
+    PrestamoLibroDetailComponent,
+    PrestamosMaterialesComponent,
+    PrestamoMaterialDetailComponent,
+    PrestamoMaterialFormComponent,
   ],
   imports: [
     BrowserModule,

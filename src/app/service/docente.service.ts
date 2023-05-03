@@ -79,4 +79,17 @@ export class DocenteService {
   count(): Observable<number> {
     return this.httpClient.get<number>(`${this.url}/count`);
   }
+
+  getOneByDni(dni: string): Observable<Docente> {
+    return this.httpClient.get<Docente>(`${this.url}/getOneByDni/${dni}`).pipe(
+      catchError((e) => {
+        Swal.fire({
+          icon: 'error',
+          title: `${e.error.title}`,
+          text: `${e.error.detail}`,
+        });
+        return throwError(() => e);
+      })
+    );
+  }
 }

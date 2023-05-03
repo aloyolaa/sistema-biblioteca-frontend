@@ -1,0 +1,61 @@
+<div>
+  <button type="button" name="back" [routerLink]="['/prestamos-libros']">
+    Volver
+  </button>
+</div>
+<div *ngIf="prestamo">
+  <div>
+    <h3>Datos del Docente</h3>
+    <ul>
+      <li>{{ prestamo.id }}</li>
+      <li>{{ prestamo.docente.apellido }}</li>
+      <li>{{ prestamo.docente.nombre }}</li>
+      <li>{{ prestamo.docente.dni }}</li>
+      <li>{{ prestamo.docente.telefono }}</li>
+    </ul>
+  </div>
+  <div>
+    <h3>Detalle del Préstamo</h3>
+    <ul>
+      <li>{{ prestamo.id }}</li>
+      <li>{{ prestamo.descripcion }}</li>
+      <li>{{ prestamo.grado }}</li>
+      <li>{{ prestamo.seccion }}</li>
+      <li>
+        <div [ngSwitch]="prestamo.activo">
+          <div *ngSwitchCase="true">ACTIVO</div>
+          <div *ngSwitchDefault>DEVUELTO</div>
+        </div>
+      </li>
+      <li>{{ prestamo.fechaPrestamo | date : "dd-MM-yyyy HH:mm:ss" }}</li>
+      <li>{{ prestamo.fechaDevolucion | date : "dd-MM-yyyy HH:mm:ss" }}</li>
+      <li>{{ prestamo.observaciones }}</li>
+    </ul>
+    <table>
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Título</th>
+          <th>N° de Ejemplar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let detalle of prestamo.detalle">
+          <td>{{ detalle.ejemplarLibro.libro.codigo }}</td>
+          <td>{{ detalle.ejemplarLibro.libro.titulo }}</td>
+          <td>{{ detalle.ejemplarLibro.numero }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div>
+  <button type="button" name="eliminar" (click)="delete(prestamo)">
+    Eliminar
+  </button>
+</div>
+<div>
+  <button type="button" name="cerrar" *ngIf="prestamo.activo" (click)="close()">
+    Cerrar
+  </button>
+</div>

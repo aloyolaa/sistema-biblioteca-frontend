@@ -1,0 +1,49 @@
+<div>
+  <button type="button" [routerLink]="['/prestamos-materiales/form']">
+    Nuevo Préstamo
+  </button>
+</div>
+<div *ngIf="prestamos.length == 0">No hay prestamos registrados</div>
+<div>
+  <table *ngIf="prestamos.length > 0">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Descripción</th>
+        <th>Grado</th>
+        <th>Sección</th>
+        <th>Activo</th>
+        <th>Docente</th>
+        <th>Fecha de Préstamo</th>
+        <th>Fecha de Devolución</th>
+        <th>Detalle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let prestamo of prestamos">
+        <td>{{ prestamo.id }}</td>
+        <td>{{ prestamo.descripcion }}</td>
+        <td>{{ prestamo.grado }}</td>
+        <td>{{ prestamo.seccion }}</td>
+        <td>
+          <div [ngSwitch]="prestamo.activo">
+            <div *ngSwitchCase="true">ACTIVO</div>
+            <div *ngSwitchDefault>DEVUELTO</div>
+          </div>
+        </td>
+        <td>{{ prestamo.docente.apellido }} {{ prestamo.docente.nombre }}</td>
+        <td>{{ prestamo.fechaPrestamo | date : "dd-MM-yyyy HH:mm:ss" }}</td>
+        <td>{{ prestamo.fechaDevolucion | date : "dd-MM-yyyy HH:mm:ss" }}</td>
+        <td>
+          <button
+            type="button"
+            name="detail"
+            [routerLink]="['/prestamos-materiales/detail', prestamo.id]"
+          >
+            Detalle
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

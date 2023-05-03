@@ -76,4 +76,13 @@ export class EjemplarLibroService {
       `${this.url}/countByLibroAndEstado/${codigo}`
     );
   }
+
+  getAllByLibroAndEstado(
+    codigo: string,
+    cantidad: number
+  ): Observable<EjemplarLibro[]> {
+    return this.httpClient.get<EjemplarLibro[]>(
+      `${this.url}/getAllByLibroAndEstado/${codigo}/${cantidad}`
+    );
+  }
 }
