@@ -1,39 +1,24 @@
 <form>
   <label for="filtro">Filtrar</label>
   <div>
-    <select name="id" [(ngModel)]="id" *ngIf="tipo == 'area'">
+    <select name="id" [(ngModel)]="id">
       <option [ngValue]="0">-- Seleccionar --</option>
       <option *ngFor="let area of areas" [ngValue]="area.id">
         {{ area.nombre }}
       </option>
     </select>
-    <select name="id" [(ngModel)]="id" *ngIf="tipo == 'categoria'">
-      <option [ngValue]="0">-- Seleccionar --</option>
-      <option *ngFor="let categoria of categorias" [ngValue]="categoria.id">
-        {{ categoria.nombre }}
-      </option>
-    </select>
-    <select name="id" [(ngModel)]="id" *ngIf="tipo == 'editorial'">
-      <option [ngValue]="0">-- Seleccionar --</option>
-      <option *ngFor="let editorial of editoriales" [ngValue]="editorial.id">
-        {{ editorial.nombre }}
-      </option>
-    </select>
-    <select name="id" [(ngModel)]="id" *ngIf="tipo == 'autor'">
-      <option [ngValue]="0">-- Seleccionar --</option>
-      <option *ngFor="let autor of autores" [ngValue]="autor.id">
-        {{ autor.apellido }} {{ autor.nombre }}
-      </option>
-    </select>
-    <select name="tipo" id="tipo" [(ngModel)]="tipo">
-      <option value="">-- Seleccionar --</option>
-      <option value="area">Area</option>
-      <option value="categoria">Categoria</option>
-      <option value="editorial">Editorial</option>
-      <option value="autor">Autor</option>
-    </select>
-    <button type="button" (click)="filtrar()">Filtrar</button>
-    <input type="number" id="page" name="page" [(ngModel)]="page"/>
+    <button type="button" (click)="paginationByArea()" [disabled]="id == 0">
+      Filtrar
+    </button>
+    <input type="number" id="page" name="page" [(ngModel)]="page" />
+    <input
+      type="number"
+      id="pages"
+      name="pages"
+      *ngIf="pages > 0"
+      [(ngModel)]="pages"
+      disabled="true"
+    />
   </div>
 </form>
 <div *ngIf="libros.length == 0">No hay libros registrados.</div>

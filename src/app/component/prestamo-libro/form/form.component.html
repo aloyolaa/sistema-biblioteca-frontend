@@ -162,14 +162,14 @@
             <td>{{ ejemplar.libro.titulo }}</td>
             <td>{{ ejemplar.numero }}</td>
             <td>{{ ejemplar.estado }}</td>
-            <td>
+            <!-- <td>
               <button
                 class="btn btn-danger btn-sm"
                 (click)="deleteEjemplar(ejemplar.id)"
               >
                 X
               </button>
-            </td>
+            </td> -->
           </tr>
         </tbody>
       </table>
@@ -181,6 +181,7 @@
       <textarea
         id="descripcion"
         name="descripcion"
+        disabled="true"
         [(ngModel)]="prestamo.descripcion"
       >
       </textarea>

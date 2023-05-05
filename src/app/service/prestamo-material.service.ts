@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, map, throwError } from 'rxjs';
 import Swal from 'sweetalert2';
 import { PrestamoMaterial } from '../core/model/prestamo-material.model';
+import { formatDate } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
@@ -82,6 +83,134 @@ export class PrestamoMaterialService {
             text: `${e.error.detail}`,
           });
           return throwError(() => e);
+        })
+      );
+  }
+
+  paginationByDocente(dni: string, page: number): Observable<any> {
+    return this.httpClient
+      .get(`${this.url}/paginationByDocente/${dni}/${page}`)
+      .pipe(
+        map((response: any) => {
+          (response.content as PrestamoMaterial[]).forEach(
+            (prestamoMaterial) => {
+              return prestamoMaterial;
+            }
+          );
+          return response;
+        })
+      );
+  }
+
+  paginationByGradoAndSeccion(
+    grado: number,
+    seccion: string,
+    page: number
+  ): Observable<any> {
+    return this.httpClient
+      .get(
+        `${this.url}/paginationByGradoAndSeccion/${grado}/${seccion}/${page}`
+      )
+      .pipe(
+        map((response: any) => {
+          (response.content as PrestamoMaterial[]).forEach((prestamoMaterial) => {
+            return prestamoMaterial;
+          });
+          return response;
+        })
+      );
+  }
+
+  paginationByFechaPrestamo(
+    fechaPrestamoStartStr: string,
+    fechaPrestamoEndStr: string,
+    page: number
+  ): Observable<any> {
+    fechaPrestamoStartStr = formatDate(
+      fechaPrestamoStartStr,
+      'yyyy-MM-dd HH:mm:ss',
+      'en-US'
+    );
+    fechaPrestamoEndStr = formatDate(
+      fechaPrestamoEndStr,
+      'yyyy-MM-dd HH:mm:ss',
+      'en-US'
+    );
+    return this.httpClient
+      .get(
+        `${this.url}/paginationByFechaPrestamo/${fechaPrestamoStartStr}/${fechaPrestamoEndStr}/${page}`
+      )
+      .pipe(
+        map((response: any) => {
+          (response.content as PrestamoMaterial[]).forEach(
+            (prestamoMaterial) => {
+              return prestamoMaterial;
+            }
+          );
+          return response;
+        })
+      );
+  }
+
+  paginationByFechaPrestamoAndDocente(
+    fechaPrestamoStartStr: string,
+    fechaPrestamoEndStr: string,
+    docenteId: number,
+    page: number
+  ): Observable<any> {
+    fechaPrestamoStartStr = formatDate(
+      fechaPrestamoStartStr,
+      'yyyy-MM-dd HH:mm:ss',
+      'en-US'
+    );
+    fechaPrestamoEndStr = formatDate(
+      fechaPrestamoEndStr,
+      'yyyy-MM-dd HH:mm:ss',
+      'en-US'
+    );
+    return this.httpClient
+      .get(
+        `${this.url}/paginationByFechaPrestamoAndDocente/${fechaPrestamoStartStr}/${fechaPrestamoEndStr}/${docenteId}/${page}`
+      )
+      .pipe(
+        map((response: any) => {
+          (response.content as PrestamoMaterial[]).forEach(
+            (prestamoMaterial) => {
+              return prestamoMaterial;
+            }
+          );
+          return response;
+        })
+      );
+  }
+
+  paginationByFechaPrestamoAndGradoAndSeccion(
+    fechaPrestamoStartStr: string,
+    fechaPrestamoEndStr: string,
+    grado: number,
+    seccion: string,
+    page: number
+  ): Observable<any> {
+    fechaPrestamoStartStr = formatDate(
+      fechaPrestamoStartStr,
+      'yyyy-MM-dd HH:mm:ss',
+      'en-US'
+    );
+    fechaPrestamoEndStr = formatDate(
+      fechaPrestamoEndStr,
+      'yyyy-MM-dd HH:mm:ss',
+      'en-US'
+    );
+    return this.httpClient
+      .get(
+        `${this.url}/paginationByFechaPrestamoAndGradoAndSeccion/${fechaPrestamoStartStr}/${fechaPrestamoEndStr}/${grado}/${seccion}/${page}`
+      )
+      .pipe(
+        map((response: any) => {
+          (response.content as PrestamoMaterial[]).forEach((prestamoMaterial) => {
+            return prestamoMaterial;
+          });
+          return response;
         })
       );
   }

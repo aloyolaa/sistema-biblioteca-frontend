@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, map, throwError } from 'rxjs';
 import { EjemplarLibro } from '../core/model/ejemplar-libro.model';
 import Swal from 'sweetalert2';
 
@@ -84,5 +84,18 @@ export class EjemplarLibroService {
     return this.httpClient.get<EjemplarLibro[]>(
       `${this.url}/getAllByLibroAndEstado/${codigo}/${cantidad}`
     );
+  }
+
+  paginationByLibro(codigo: string, page: number): Observable<any> {
+    return this.httpClient
+      .get(`${this.url}/paginationByLibro/${codigo}/${page}`)
+      .pipe(
+        map((response: any) => {
+          (response.content as EjemplarLibro[]).forEach((ejemplarLibro) => {
+            return ejemplarLibro;
+          });
+          return response;
+        })
+      );
   }
 }

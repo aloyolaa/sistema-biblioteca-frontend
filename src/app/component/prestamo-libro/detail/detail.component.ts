@@ -12,8 +12,6 @@ import Swal from 'sweetalert2';
 export class PrestamoLibroDetailComponent implements OnInit {
   title = 'Detalle del Préstamo';
   prestamo: PrestamoLibro = new PrestamoLibro();
-  ejemplares = 0;
-  ejemplaresDisponibles = 0;
 
   constructor(
     private prestamoLibroService: PrestamoLibroService,
@@ -68,25 +66,5 @@ export class PrestamoLibroDetailComponent implements OnInit {
             });
         }
       });
-  }
-
-  close(): void {
-    this.prestamoLibroService.close(this.prestamo).subscribe({
-      next: (prestamo) => {
-        this.router
-          .navigate(['/prestamos-libros/detail', prestamo.id])
-          .then(() => {
-            console.log(prestamo);
-            Swal.fire({
-              icon: 'success',
-              title: 'Préstamo cerrado correctamente.',
-              text: `Préstamo ${prestamo.id} ha sido cerrado.`,
-            });
-          });
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
   }
 }

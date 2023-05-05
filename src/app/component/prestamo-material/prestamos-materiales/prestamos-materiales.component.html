@@ -3,6 +3,31 @@
     Nuevo Préstamo
   </button>
 </div>
+<form>
+  <label for="fechaPrestamoStart">Desde</label>
+  <input
+    type="datetime-local"
+    id="fechaPrestamoStart"
+    name="fechaPrestamoStart"
+    [(ngModel)]="fechaPrestamoStart"
+  />
+  <label for="fechaPrestamoEnd">Hasta</label>
+  <input
+    type="datetime-local"
+    id="fechaPrestamoEnd"
+    name="fechaPrestamoEnd"
+    [(ngModel)]="fechaPrestamoEnd"
+  />
+  <button
+    type="button"
+    (click)="paginationByFechaPrestamo()"
+    [disabled]="!fechaPrestamoStart || !fechaPrestamoEnd"
+  >
+    Buscar
+  </button>
+  <button type="button" (click)="cargarTodo()">Cagar Todo</button>
+  <input type="number" id="page" name="page" [(ngModel)]="page" />
+</form>
 <div *ngIf="prestamos.length == 0">No hay prestamos registrados</div>
 <div>
   <table *ngIf="prestamos.length > 0">

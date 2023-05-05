@@ -49,12 +49,12 @@ export class LibrosComponent implements OnInit {
     if (this.tipo == 'titulo') {
       this.getAllByTitulo();
     } else {
-      if (this.tipo == 'codigo') {
-        this.getAllByCodigo();
-      } else {
-        this.getAll();
-      }
+      this.getAllByCodigo();
     }
+  }
+
+  cargarTodo(): void {
+    this.getAll();
     this.buscar = '';
     this.tipo = '';
   }

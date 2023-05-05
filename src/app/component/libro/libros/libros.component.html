@@ -10,7 +10,10 @@
       <option value="titulo">Título</option>
       <option value="codigo">Código</option>
     </select>
-    <button type="button" (click)="buscador()">Buscar</button>
+    <button type="button" (click)="buscador()" [disabled]="!buscar || !tipo">
+      Buscar
+    </button>
+    <button type="button" (click)="cargarTodo()">Cargar Todo</button>
   </div>
 </form>
 <div *ngIf="libros.length == 0">No hay libros registrados.</div>

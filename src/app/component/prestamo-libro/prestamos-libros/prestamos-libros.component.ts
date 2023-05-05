@@ -10,12 +10,37 @@ import { PrestamoLibroService } from 'src/app/service/prestamo-libro.service';
 export class PrestamosLibrosComponent implements OnInit {
   title = 'Préstamos de Libros';
   prestamos: PrestamoLibro[] = [];
+  fechaPrestamoStart = '';
+  fechaPrestamoEnd = '';
+  page = 1;
 
   constructor(private prestamoLibroService: PrestamoLibroService) {}
 
   ngOnInit(): void {
+    this.getAll();
+  }
+
+  getAll(): void {
     this.prestamoLibroService
       .getAll()
       .subscribe((prestamos) => (this.prestamos = prestamos));
+  }
+
+  paginationByFechaPrestamo(): void {
+    this.prestamoLibroService
+      .paginationByFechaPrestamo(
+        this.fechaPrestamoStart,
+        this.fechaPrestamoEnd,
+        this.page - 1
+      )
+      .subscribe(
+        (response) => (this.prestamos = response.content as PrestamoLibro[])
+      );
+  }
+
+  cargarTodo(): void {
+    this.getAll();
+    this.fechaPrestamoStart = '';
+    this.fechaPrestamoEnd = '';
   }
 }

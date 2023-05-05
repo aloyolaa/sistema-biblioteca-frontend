@@ -12,7 +12,10 @@
       <option value="nombre">Nombre</option>
       <option value="codigo">Código</option>
     </select>
-    <button type="button" (click)="buscador()">Filtrar</button>
+    <button type="button" (click)="buscador()" [disabled]="!buscar || !tipo">
+      Buscar
+    </button>
+    <button type="button" (click)="cargarTodo()">Cargar Todo</button>
   </div>
 </form>
 <div *ngIf="materiales.length == 0">No hay materiales registrados.</div>

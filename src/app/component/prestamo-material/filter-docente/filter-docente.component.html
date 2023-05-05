@@ -1,0 +1,107 @@
+<div></div>
+<form>
+  <label for="dni">DNI del Docente</label>
+  <div>
+    <input type="text" id="dni" name="dni" [(ngModel)]="dni" />
+  </div>
+  <div>
+    <button type="submit" (click)="getOneByDni()" [disabled]="!dni">
+      Buscar Docente
+    </button>
+  </div>
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Apellido</th>
+          <th>Nombre</th>
+          <th>DNI</th>
+          <th>Teléfono</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ docente.id }}</td>
+          <td>{{ docente.apellido }}</td>
+          <td>{{ docente.nombre }}</td>
+          <td>{{ docente.dni }}</td>
+          <td>{{ docente.telefono }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <button
+      type="button"
+      (click)="paginationByDocente()"
+      [disabled]="!docente.id"
+    >
+      Buscar por Docente
+    </button>
+  </div>
+  <label for="fechaPrestamoStart">Desde</label>
+  <input
+    type="datetime-local"
+    id="fechaPrestamoStart"
+    name="fechaPrestamoStart"
+    [(ngModel)]="fechaPrestamoStart"
+  />
+  <label for="fechaPrestamoEnd">Hasta</label>
+  <input
+    type="datetime-local"
+    id="fechaPrestamoEnd"
+    name="fechaPrestamoEnd"
+    [(ngModel)]="fechaPrestamoEnd"
+  />
+  <button
+    type="button"
+    (click)="paginationByFechaPrestamoAndDocente()"
+    [disabled]="!fechaPrestamoStart || !fechaPrestamoEnd"
+  >
+    Añadir fechas
+  </button>
+  <input type="number" id="page" name="page" [(ngModel)]="page" />
+</form>
+<div *ngIf="prestamos.length == 0">No hay prestamos registrados</div>
+<div>
+  <table *ngIf="prestamos.length > 0">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Descripción</th>
+        <th>Grado</th>
+        <th>Sección</th>
+        <th>Activo</th>
+        <th>Docente</th>
+        <th>Fecha de Préstamo</th>
+        <th>Fecha de Devolución</th>
+        <th>Detalle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let prestamo of prestamos">
+        <td>{{ prestamo.id }}</td>
+        <td>{{ prestamo.descripcion }}</td>
+        <td>{{ prestamo.grado }}</td>
+        <td>{{ prestamo.seccion }}</td>
+        <td>
+          <div [ngSwitch]="prestamo.activo">
+            <div *ngSwitchCase="true">ACTIVO</div>
+            <div *ngSwitchDefault>DEVUELTO</div>
+          </div>
+        </td>
+        <td>{{ prestamo.docente.apellido }} {{ prestamo.docente.nombre }}</td>
+        <td>{{ prestamo.fechaPrestamo | date : "dd-MM-yyyy HH:mm:ss" }}</td>
+        <td>{{ prestamo.fechaDevolucion | date : "dd-MM-yyyy HH:mm:ss" }}</td>
+        <td>
+          <button
+            type="button"
+            name="detail"
+            [routerLink]="['/prestamos-libros/detail', prestamo.id]"
+          >
+            Detalle
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

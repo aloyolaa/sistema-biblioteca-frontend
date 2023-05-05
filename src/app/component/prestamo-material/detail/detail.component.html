@@ -55,7 +55,12 @@
   </button>
 </div>
 <div>
-  <button type="button" name="cerrar" *ngIf="prestamo.activo" (click)="close()">
+  <button
+    type="button"
+    name="cerrar"
+    *ngIf="prestamo.activo"
+    [routerLink]="['/prestamos-materiales/cerrar', prestamo.id]"
+  >
     Cerrar
   </button>
 </div>

@@ -1,0 +1,79 @@
+<div></div>
+<form>
+  <label for="codigo">Código del Material</label>
+  <div>
+    <input type="text" id="codigo" name="codigo" [(ngModel)]="codigo" />
+  </div>
+  <div>
+    <button type="submit" (click)="getOneByCodigo()" [disabled]="!codigo">
+      Buscar Material
+    </button>
+  </div>
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Código</th>
+          <th>Nombre</th>
+          <th>Medidas</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ material.id }}</td>
+          <td>{{ material.codigo }}</td>
+          <td>{{ material.nombre }}</td>
+          <td>{{ material.medidas }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <button
+      type="button"
+      (click)="paginationByMaterial()"
+      [disabled]="!material.id"
+    >
+      Buscar por Material
+    </button>
+  </div>
+  <input type="number" id="page" name="page" [(ngModel)]="page" />
+</form>
+<div *ngIf="ejemplares.length == 0">No hay ejemplares que coincidan</div>
+<div>
+  <table *ngIf="ejemplares.length > 0">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Código Libro</th>
+        <th>Título</th>
+        <th>Número</th>
+        <th>Estado</th>
+        <th>Prestado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ejemplar of ejemplares">
+        <td>{{ ejemplar.id }}</td>
+        <td>{{ ejemplar.material.codigo }}</td>
+        <td>{{ ejemplar.material.nombre }}</td>
+        <td>{{ ejemplar.numero }}</td>
+        <td>{{ ejemplar.estado }}</td>
+        <td>
+          <div [ngSwitch]="ejemplar.prestado">
+            <div *ngSwitchCase="true">SI</div>
+            <div *ngSwitchDefault>NO</div>
+          </div>
+        </td>
+        <td>
+          <button
+            type="button"
+            name="detail"
+            [routerLink]="['/ejemplares-materiales/detail', ejemplar.id]"
+          >
+            Detalle
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

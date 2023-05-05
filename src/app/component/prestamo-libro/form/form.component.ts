@@ -97,6 +97,8 @@ export class PrestamoLibroFormComponent {
             }
           });
         });
+      /* this.prestamo.descripcion +=
+        this.cantidad + ' ' + this.libro.titulo + '\n'; */
     } else {
       Swal.fire({
         icon: 'error',
@@ -143,4 +145,11 @@ export class PrestamoLibroFormComponent {
       },
     });
   }
+
+  /* generateDescripcion(): void {
+    this.ejemplares.forEach((e) => {
+
+    });
+    this.prestamo.descripcion += this.cantidad + ' ' + this.libro.titulo + '\n';
+  } */
 }

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { EjemplarMaterial } from '../core/model/ejemplar-material.model';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, map, throwError } from 'rxjs';
 import Swal from 'sweetalert2';
 
 @Injectable({
@@ -51,9 +51,9 @@ export class EjemplarMaterialService {
       );
   }
 
-  update(ejemplarLibro: EjemplarMaterial): Observable<EjemplarMaterial> {
+  update(ejemplarMaterial: EjemplarMaterial): Observable<EjemplarMaterial> {
     return this.httpClient
-      .put<EjemplarMaterial>(`${this.url}/update`, ejemplarLibro)
+      .put<EjemplarMaterial>(`${this.url}/update`, ejemplarMaterial)
       .pipe(
         catchError((e) => {
           if (e.error.status == 400) {
@@ -86,5 +86,20 @@ export class EjemplarMaterialService {
     return this.httpClient.get<EjemplarMaterial[]>(
       `${this.url}/getAllByMaterialAndEstado/${codigo}/${cantidad}`
     );
+  }
+
+  paginationByMaterial(codigo: string, page: number): Observable<any> {
+    return this.httpClient
+      .get(`${this.url}/paginationByMaterial/${codigo}/${page}`)
+      .pipe(
+        map((response: any) => {
+          (response.content as EjemplarMaterial[]).forEach(
+            (ejemplarMaterial) => {
+              return ejemplarMaterial;
+            }
+          );
+          return response;
+        })
+      );
   }
 }

@@ -51,12 +51,12 @@ export class MaterialesComponent implements OnInit {
     if (this.tipo == 'nombre') {
       this.getAllByNombre();
     } else {
-      if (this.tipo == 'codigo') {
-        this.getAllByCodigo();
-      } else {
-        this.getAll();
-      }
+      this.getAllByCodigo();
     }
+  }
+
+  cargarTodo(): void {
+    this.getAll();
     this.buscar = '';
     this.tipo = '';
   }
