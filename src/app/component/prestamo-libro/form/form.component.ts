@@ -145,11 +145,4 @@ export class PrestamoLibroFormComponent {
       },
     });
   }
-
-  /* generateDescripcion(): void {
-    this.ejemplares.forEach((e) => {
-
-    });
-    this.prestamo.descripcion += this.cantidad + ' ' + this.libro.titulo + '\n';
-  } */
 }

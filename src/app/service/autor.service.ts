@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Autor } from '../core/model/autor.model';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, map, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
@@ -83,6 +83,17 @@ export class AutorService {
   getAllByNombreAndApellido(value: string): Observable<Autor[]> {
     return this.httpClient.get<Autor[]>(
       `${this.url}/getAllByNombreAndApellido/${value}`
+    );
+  }
+
+  pagination(page: number): Observable<any> {
+    return this.httpClient.get(`${this.url}/pagination/${page}`).pipe(
+      map((response: any) => {
+        (response.content as Autor[]).forEach((autor) => {
+          return autor;
+        });
+        return response;
+      })
     );
   }
 }

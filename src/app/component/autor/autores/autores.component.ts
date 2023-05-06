@@ -10,10 +10,17 @@ import { AutorService } from 'src/app/service/autor.service';
 export class AutoresComponent implements OnInit {
   title = 'Autores';
   autores: Autor[] = [];
+  page = 1;
 
   constructor(private autorService: AutorService) {}
 
   ngOnInit(): void {
-    this.autorService.getAll().subscribe((autores) => (this.autores = autores));
+    this.pagination();
+  }
+
+  pagination(): void {
+    this.autorService.pagination(this.page - 1).subscribe((response) => {
+      this.autores = response.content as Autor[];
+    });
   }
 }

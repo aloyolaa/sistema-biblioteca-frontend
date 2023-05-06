@@ -17,13 +17,21 @@ export class PrestamosLibrosComponent implements OnInit {
   constructor(private prestamoLibroService: PrestamoLibroService) {}
 
   ngOnInit(): void {
-    this.getAll();
+    this.pagination();
   }
 
   getAll(): void {
     this.prestamoLibroService
       .getAll()
       .subscribe((prestamos) => (this.prestamos = prestamos));
+  }
+
+  pagination(): void {
+    this.prestamoLibroService
+      .pagination(this.page - 1)
+      .subscribe((response) => {
+        this.prestamos = response.content as PrestamoLibro[];
+      });
   }
 
   paginationByFechaPrestamo(): void {
@@ -39,7 +47,8 @@ export class PrestamosLibrosComponent implements OnInit {
   }
 
   cargarTodo(): void {
-    this.getAll();
+    this.page = 1;
+    this.pagination();
     this.fechaPrestamoStart = '';
     this.fechaPrestamoEnd = '';
   }

@@ -10,13 +10,12 @@ import { DocenteService } from 'src/app/service/docente.service';
 export class DocentesComponent implements OnInit {
   title = 'Docentes';
   docentes: Docente[] = [];
+  page = 1;
 
   constructor(private docenteService: DocenteService) {}
 
   ngOnInit(): void {
-    this.docenteService
-      .getAll()
-      .subscribe((docentes) => (this.docentes = docentes));
+    this.pagination();
   }
 
   delete(docente: Docente): void {
@@ -26,6 +25,12 @@ export class DocentesComponent implements OnInit {
         const index = this.docentes.findIndex((a) => a.id === docente.id);
         this.docentes.splice(index, 1);
       }
+    });
+  }
+
+  pagination(): void {
+    this.docenteService.pagination(this.page - 1).subscribe((response) => {
+      this.docentes = response.content as Docente[];
     });
   }
 }

@@ -10,6 +10,7 @@ import { EditorialService } from 'src/app/service/editorial.service';
 export class EditorialesComponent implements OnInit {
   title = 'Editoriales';
   editoriales: Editorial[] = [];
+  page = 1;
 
   constructor(private editorialService: EditorialService) {}
 
@@ -17,5 +18,11 @@ export class EditorialesComponent implements OnInit {
     this.editorialService
       .getAll()
       .subscribe((editoriales) => (this.editoriales = editoriales));
+  }
+
+  pagination(): void {
+    this.editorialService.pagination(this.page - 1).subscribe((response) => {
+      this.editoriales = response.content as Editorial[];
+    });
   }
 }

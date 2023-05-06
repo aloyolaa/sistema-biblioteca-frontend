@@ -85,6 +85,17 @@ export class PrestamoLibroService {
       );
   }
 
+  pagination(page: number): Observable<any> {
+    return this.httpClient.get(`${this.url}/pagination/${page}`).pipe(
+      map((response: any) => {
+        (response.content as PrestamoLibro[]).forEach((prestamoLibro) => {
+          return prestamoLibro;
+        });
+        return response;
+      })
+    );
+  }
+
   paginationByDocente(dni: string, page: number): Observable<any> {
     return this.httpClient
       .get(`${this.url}/paginationByDocente/${dni}/${page}`)

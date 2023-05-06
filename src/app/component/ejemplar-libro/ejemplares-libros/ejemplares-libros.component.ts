@@ -10,12 +10,19 @@ import { EjemplarLibroService } from 'src/app/service/ejemplar-libro.service';
 export class EjemplaresLibrosComponent implements OnInit {
   title = 'Ejemplares de Libros';
   ejemplares: EjemplarLibro[] = [];
+  page = 1;
 
   constructor(private ejemplarLibroService: EjemplarLibroService) {}
 
   ngOnInit(): void {
+    this.pagination();
+  }
+
+  pagination(): void {
     this.ejemplarLibroService
-      .getAll()
-      .subscribe((ejemplares) => (this.ejemplares = ejemplares));
+      .pagination(this.page - 1)
+      .subscribe((response) => {
+        this.ejemplares = response.content as EjemplarLibro[];
+      });
   }
 }

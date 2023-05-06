@@ -87,6 +87,17 @@ export class PrestamoMaterialService {
       );
   }
 
+  pagination(page: number): Observable<any> {
+    return this.httpClient.get(`${this.url}/pagination/${page}`).pipe(
+      map((response: any) => {
+        (response.content as PrestamoMaterial[]).forEach((prestamoMaterial) => {
+          return prestamoMaterial;
+        });
+        return response;
+      })
+    );
+  }
+
   paginationByDocente(dni: string, page: number): Observable<any> {
     return this.httpClient
       .get(`${this.url}/paginationByDocente/${dni}/${page}`)
@@ -113,9 +124,11 @@ export class PrestamoMaterialService {
       )
       .pipe(
         map((response: any) => {
-          (response.content as PrestamoMaterial[]).forEach((prestamoMaterial) => {
-            return prestamoMaterial;
-          });
+          (response.content as PrestamoMaterial[]).forEach(
+            (prestamoMaterial) => {
+              return prestamoMaterial;
+            }
+          );
           return response;
         })
       );
@@ -207,9 +220,11 @@ export class PrestamoMaterialService {
       )
       .pipe(
         map((response: any) => {
-          (response.content as PrestamoMaterial[]).forEach((prestamoMaterial) => {
-            return prestamoMaterial;
-          });
+          (response.content as PrestamoMaterial[]).forEach(
+            (prestamoMaterial) => {
+              return prestamoMaterial;
+            }
+          );
           return response;
         })
       );

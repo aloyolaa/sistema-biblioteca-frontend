@@ -12,11 +12,12 @@ export class MaterialesComponent implements OnInit {
   materiales: Material[] = [];
   buscar = '';
   tipo = '';
+  page = 1;
 
   constructor(private materialService: MaterialService) {}
 
   ngOnInit(): void {
-    this.getAll();
+    this.pagination();
   }
 
   getAll(): void {
@@ -35,28 +36,39 @@ export class MaterialesComponent implements OnInit {
     });
   }
 
-  getAllByNombre(): void {
-    this.materialService
-      .getAllByNombre(this.buscar)
-      .subscribe((materiales) => (this.materiales = materiales));
+  pagination(): void {
+    this.materialService.pagination(this.page - 1).subscribe((response) => {
+      this.materiales = response.content as Material[];
+    });
   }
 
-  getAllByCodigo(): void {
+  paginationByNombre(): void {
     this.materialService
-      .getAllByCodigo(this.buscar)
-      .subscribe((materiales) => (this.materiales = materiales));
+      .paginationByNombre(this.buscar, this.page - 1)
+      .subscribe((response) => {
+        this.materiales = response.content as Material[];
+      });
+  }
+
+  paginationByCodigo(): void {
+    this.materialService
+      .paginationByCodigo(this.buscar, this.page - 1)
+      .subscribe((response) => {
+        this.materiales = response.content as Material[];
+      });
   }
 
   buscador(): void {
     if (this.tipo == 'nombre') {
-      this.getAllByNombre();
+      this.paginationByNombre();
     } else {
-      this.getAllByCodigo();
+      this.paginationByCodigo();
     }
   }
 
   cargarTodo(): void {
-    this.getAll();
+    this.page = 1;
+    this.pagination();
     this.buscar = '';
     this.tipo = '';
   }

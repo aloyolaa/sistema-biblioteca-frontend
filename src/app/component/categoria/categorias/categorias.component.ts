@@ -10,12 +10,17 @@ import { CategoriaService } from 'src/app/service/categoria.service';
 export class CategoriasComponent implements OnInit {
   title = 'Categorias';
   categorias: Categoria[] = [];
+  page = 1;
 
   constructor(private categoriaService: CategoriaService) {}
 
   ngOnInit(): void {
-    this.categoriaService
-      .getAll()
-      .subscribe((categorias) => (this.categorias = categorias));
+    this.pagination();
+  }
+
+  pagination(): void {
+    this.categoriaService.pagination(this.page - 1).subscribe((response) => {
+      this.categorias = response.content as Categoria[];
+    });
   }
 }

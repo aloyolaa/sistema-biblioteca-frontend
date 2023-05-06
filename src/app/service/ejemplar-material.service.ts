@@ -69,6 +69,19 @@ export class EjemplarMaterialService {
       );
   }
 
+  count(): Observable<number> {
+    return this.httpClient.get<number>(`${this.url}/count`);
+  }
+
+  getAllByMaterialAndEstado(
+    codigo: string,
+    cantidad: number
+  ): Observable<EjemplarMaterial[]> {
+    return this.httpClient.get<EjemplarMaterial[]>(
+      `${this.url}/getAllByMaterialAndEstado/${codigo}/${cantidad}`
+    );
+  }
+
   countByMaterial(codigo: string): Observable<number> {
     return this.httpClient.get<number>(`${this.url}/countByMaterial/${codigo}`);
   }
@@ -79,12 +92,14 @@ export class EjemplarMaterialService {
     );
   }
 
-  getAllByMaterialAndEstado(
-    codigo: string,
-    cantidad: number
-  ): Observable<EjemplarMaterial[]> {
-    return this.httpClient.get<EjemplarMaterial[]>(
-      `${this.url}/getAllByMaterialAndEstado/${codigo}/${cantidad}`
+  pagination(page: number): Observable<any> {
+    return this.httpClient.get(`${this.url}/pagination/${page}`).pipe(
+      map((response: any) => {
+        (response.content as EjemplarMaterial[]).forEach((ejemplarMaterial) => {
+          return ejemplarMaterial;
+        });
+        return response;
+      })
     );
   }
 

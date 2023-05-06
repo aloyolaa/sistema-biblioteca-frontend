@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, map, throwError } from 'rxjs';
 import { Categoria } from '../core/model/categoria.model';
 import Swal from 'sweetalert2';
 
@@ -78,5 +78,16 @@ export class CategoriaService {
 
   count(): Observable<number> {
     return this.httpClient.get<number>(`${this.url}/count`);
+  }
+
+  pagination(page: number): Observable<any> {
+    return this.httpClient.get(`${this.url}/pagination/${page}`).pipe(
+      map((response: any) => {
+        (response.content as Categoria[]).forEach((categoria) => {
+          return categoria;
+        });
+        return response;
+      })
+    );
   }
 }

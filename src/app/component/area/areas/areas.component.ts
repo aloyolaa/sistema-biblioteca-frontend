@@ -10,11 +10,12 @@ import { AreaService } from 'src/app/service/area.service';
 export class AreasComponent implements OnInit {
   title = 'Areas';
   areas: Area[] = [];
+  page = 1;
 
   constructor(private areaService: AreaService) {}
 
   ngOnInit(): void {
-    this.areaService.getAll().subscribe((areas) => (this.areas = areas));
+    this.pagination();
   }
 
   delete(area: Area): void {
@@ -24,6 +25,12 @@ export class AreasComponent implements OnInit {
         const index = this.areas.findIndex((a) => a.id === area.id);
         this.areas.splice(index, 1);
       }
+    });
+  }
+
+  pagination(): void {
+    this.areaService.pagination(this.page - 1).subscribe((response) => {
+      this.areas = response.content as Area[];
     });
   }
 }

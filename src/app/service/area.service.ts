@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, map, throwError } from 'rxjs';
 import { Area } from '../core/model/area.model';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
@@ -78,5 +78,16 @@ export class AreaService {
 
   count(): Observable<number> {
     return this.httpClient.get<number>(`${this.url}/count`);
+  }
+
+  pagination(page: number): Observable<any> {
+    return this.httpClient.get(`${this.url}/pagination/${page}`).pipe(
+      map((response: any) => {
+        (response.content as Area[]).forEach((area) => {
+          return area;
+        });
+        return response;
+      })
+    );
   }
 }

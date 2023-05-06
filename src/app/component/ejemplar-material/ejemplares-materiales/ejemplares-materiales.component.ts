@@ -10,12 +10,19 @@ import { EjemplarMaterialService } from 'src/app/service/ejemplar-material.servi
 export class EjemplaresMaterialesComponent implements OnInit {
   title = 'Ejemplares de Materiales';
   ejemplares: EjemplarMaterial[] = [];
+  page = 1;
 
   constructor(private ejemplarMaterialService: EjemplarMaterialService) {}
 
   ngOnInit(): void {
+    this.pagination();
+  }
+
+  pagination(): void {
     this.ejemplarMaterialService
-      .getAll()
-      .subscribe((ejemplares) => (this.ejemplares = ejemplares));
+      .pagination(this.page - 1)
+      .subscribe((response) => {
+        this.ejemplares = response.content as EjemplarMaterial[];
+      });
   }
 }

@@ -5,7 +5,7 @@ import { Docente } from './docente.model';
 export class PrestamoMaterial extends Base {
   fechaPrestamo: string;
   fechaDevolucion: string;
-  descripcion: string;
+  descripcion: string = '';
   grado: number;
   seccion: string;
   activo: boolean;

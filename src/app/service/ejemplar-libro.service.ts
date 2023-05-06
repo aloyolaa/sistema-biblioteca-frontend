@@ -67,6 +67,19 @@ export class EjemplarLibroService {
       );
   }
 
+  count(): Observable<number> {
+    return this.httpClient.get<number>(`${this.url}/count`);
+  }
+
+  getAllByLibroAndEstado(
+    codigo: string,
+    cantidad: number
+  ): Observable<EjemplarLibro[]> {
+    return this.httpClient.get<EjemplarLibro[]>(
+      `${this.url}/getAllByLibroAndEstado/${codigo}/${cantidad}`
+    );
+  }
+
   countByLibro(codigo: string): Observable<number> {
     return this.httpClient.get<number>(`${this.url}/countByLibro/${codigo}`);
   }
@@ -77,12 +90,14 @@ export class EjemplarLibroService {
     );
   }
 
-  getAllByLibroAndEstado(
-    codigo: string,
-    cantidad: number
-  ): Observable<EjemplarLibro[]> {
-    return this.httpClient.get<EjemplarLibro[]>(
-      `${this.url}/getAllByLibroAndEstado/${codigo}/${cantidad}`
+  pagination(page: number): Observable<any> {
+    return this.httpClient.get(`${this.url}/pagination/${page}`).pipe(
+      map((response: any) => {
+        (response.content as EjemplarLibro[]).forEach((ejemplarLibro) => {
+          return ejemplarLibro;
+        });
+        return response;
+      })
     );
   }
 

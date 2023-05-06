@@ -17,13 +17,21 @@ export class PrestamosMaterialesComponent implements OnInit {
   constructor(private prestamoMaterialService: PrestamoMaterialService) {}
 
   ngOnInit(): void {
-    this.getAll();
+    this.pagination();
   }
 
   getAll(): void {
     this.prestamoMaterialService
       .getAll()
       .subscribe((prestamos) => (this.prestamos = prestamos));
+  }
+
+  pagination(): void {
+    this.prestamoMaterialService
+      .pagination(this.page - 1)
+      .subscribe((response) => {
+        this.prestamos = response.content as PrestamoMaterial[];
+      });
   }
 
   paginationByFechaPrestamo(): void {
@@ -39,7 +47,8 @@ export class PrestamosMaterialesComponent implements OnInit {
   }
 
   cargarTodo(): void {
-    this.getAll();
+    this.page = 1;
+    this.pagination();
     this.fechaPrestamoStart = '';
     this.fechaPrestamoEnd = '';
   }

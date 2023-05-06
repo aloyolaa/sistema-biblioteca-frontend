@@ -31,21 +31,6 @@ export class LibroService {
     );
   }
 
-  getOneByCodigo(codigo: string): Observable<Libro> {
-    return this.httpClient
-      .get<Libro>(`${this.url}/getOneByCodigo/${codigo}`)
-      .pipe(
-        catchError((e) => {
-          Swal.fire({
-            icon: 'error',
-            title: `${e.error.title}`,
-            text: `${e.error.detail}`,
-          });
-          return throwError(() => e);
-        })
-      );
-  }
-
   save(libro: Libro): Observable<Libro> {
     return this.httpClient.post<Libro>(`${this.url}/save`, libro).pipe(
       catchError((e) => {
@@ -95,12 +80,52 @@ export class LibroService {
     return this.httpClient.get<number>(`${this.url}/count`);
   }
 
-  getAllByTitulo(titulo: string): Observable<Libro[]> {
-    return this.httpClient.get<Libro[]>(`${this.url}/getAllByTitulo/${titulo}`);
+  getOneByCodigo(codigo: string): Observable<Libro> {
+    return this.httpClient
+      .get<Libro>(`${this.url}/getOneByCodigo/${codigo}`)
+      .pipe(
+        catchError((e) => {
+          Swal.fire({
+            icon: 'error',
+            title: `${e.error.title}`,
+            text: `${e.error.detail}`,
+          });
+          return throwError(() => e);
+        })
+      );
   }
 
-  getAllByCodigo(codigo: string): Observable<Libro[]> {
-    return this.httpClient.get<Libro[]>(`${this.url}/getAllByCodigo/${codigo}`);
+  pagination(page: number): Observable<any> {
+    return this.httpClient.get(`${this.url}/pagination/${page}`).pipe(
+      map((response: any) => {
+        (response.content as Libro[]).forEach((libro) => {
+          return libro;
+        });
+        return response;
+      })
+    );
+  }
+
+  paginationByTitulo(titulo: string, page: number): Observable<any> {
+    return this.httpClient.get(`${this.url}/paginationByTitulo/${titulo}/${page}`).pipe(
+      map((response: any) => {
+        (response.content as Libro[]).forEach((libro) => {
+          return libro;
+        });
+        return response;
+      })
+    );
+  }
+
+  paginationByCodigo(codigo: string, page: number): Observable<any> {
+    return this.httpClient.get(`${this.url}/paginationByCodigo/${codigo}/${page}`).pipe(
+      map((response: any) => {
+        (response.content as Libro[]).forEach((libro) => {
+          return libro;
+        });
+        return response;
+      })
+    );
   }
 
   paginationByArea(id: number, page: number): Observable<any> {

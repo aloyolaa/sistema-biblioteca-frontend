@@ -12,11 +12,12 @@ export class LibrosComponent implements OnInit {
   libros: Libro[] = [];
   buscar = '';
   tipo = '';
+  page = 1;
 
   constructor(private libroService: LibroService) {}
 
   ngOnInit(): void {
-    this.getAll();
+    this.pagination();
   }
 
   getAll(): void {
@@ -33,28 +34,39 @@ export class LibrosComponent implements OnInit {
     });
   }
 
-  getAllByTitulo(): void {
-    this.libroService
-      .getAllByTitulo(this.buscar)
-      .subscribe((libros) => (this.libros = libros));
+  pagination(): void {
+    this.libroService.pagination(this.page - 1).subscribe((response) => {
+      this.libros = response.content as Libro[];
+    });
   }
 
-  getAllByCodigo(): void {
+  paginationByTitulo(): void {
     this.libroService
-      .getAllByCodigo(this.buscar)
-      .subscribe((libros) => (this.libros = libros));
+      .paginationByTitulo(this.buscar, this.page - 1)
+      .subscribe((response) => {
+        this.libros = response.content as Libro[];
+      });
+  }
+
+  paginationByCodigo(): void {
+    this.libroService
+      .paginationByCodigo(this.buscar, this.page - 1)
+      .subscribe((response) => {
+        this.libros = response.content as Libro[];
+      });
   }
 
   buscador(): void {
     if (this.tipo == 'titulo') {
-      this.getAllByTitulo();
+      this.paginationByTitulo();
     } else {
-      this.getAllByCodigo();
+      this.paginationByCodigo();
     }
   }
 
   cargarTodo(): void {
-    this.getAll();
+    this.page = 1;
+    this.pagination();
     this.buscar = '';
     this.tipo = '';
   }
