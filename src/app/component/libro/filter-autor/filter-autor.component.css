@@ -1,0 +1,18 @@
+.demo-button + .demo-button {
+  margin-left: 8px;
+}
+
+.demo-button-container {
+  margin: 16px 8px;
+}
+
+.demo-table {
+  width: 100%;
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 40%;
+  margin-left: 8px;
+  margin-right: 8px;
+}

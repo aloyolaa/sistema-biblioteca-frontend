@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { Categoria } from 'src/app/core/model/categoria.model';
 import { CategoriaService } from 'src/app/service/categoria.service';
 
@@ -7,20 +9,51 @@ import { CategoriaService } from 'src/app/service/categoria.service';
   templateUrl: './categorias.component.html',
   styleUrls: ['./categorias.component.css'],
 })
-export class CategoriasComponent implements OnInit {
-  title = 'Categorias';
-  categorias: Categoria[] = [];
-  page = 1;
+export class CategoriasComponent {
+  isLoading = false;
+  totalRows = 0;
+  pageSize = 5;
+  currentPage = 0;
+  pageSizeOptions: number[] = [5, 10, 20];
+
+  columnas: string[] = ['id', 'nombre', 'detalle'];
+  dataSource: MatTableDataSource<Categoria> = new MatTableDataSource();
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private categoriaService: CategoriaService) {}
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
 
   ngOnInit(): void {
     this.pagination();
   }
 
+  pageChanged(event: PageEvent) {
+    console.log({ event });
+    this.pageSize = event.pageSize;
+    this.currentPage = event.pageIndex;
+    this.pagination();
+  }
+
   pagination(): void {
-    this.categoriaService.pagination(this.page - 1).subscribe((response) => {
-      this.categorias = response.content as Categoria[];
-    });
+    this.isLoading = true;
+    this.categoriaService
+      .pagination(this.currentPage, this.pageSize)
+      .subscribe({
+        next: (response) => {
+          this.dataSource.data = response.content as Categoria[];
+          setTimeout(() => {
+            this.paginator.pageIndex = this.currentPage;
+            this.paginator.length = response.totalElements;
+          });
+          this.isLoading = false;
+        },
+        error: (e) => {
+          console.log(e);
+        },
+      });
   }
 }

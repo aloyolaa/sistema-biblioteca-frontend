@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { Autor } from 'src/app/core/model/autor.model';
 import { AutorService } from 'src/app/service/autor.service';
 
@@ -7,20 +9,49 @@ import { AutorService } from 'src/app/service/autor.service';
   templateUrl: './autores.component.html',
   styleUrls: ['./autores.component.css'],
 })
-export class AutoresComponent implements OnInit {
-  title = 'Autores';
-  autores: Autor[] = [];
-  page = 1;
+export class AutoresComponent {
+  isLoading = false;
+  totalRows = 0;
+  pageSize = 5;
+  currentPage = 0;
+  pageSizeOptions: number[] = [5, 10, 20];
+
+  columnas: string[] = ['id', 'nombre', 'apellido', 'detalle'];
+  dataSource: MatTableDataSource<Autor> = new MatTableDataSource();
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private autorService: AutorService) {}
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
 
   ngOnInit(): void {
     this.pagination();
   }
 
+  pageChanged(event: PageEvent) {
+    console.log({ event });
+    this.pageSize = event.pageSize;
+    this.currentPage = event.pageIndex;
+    this.pagination();
+  }
+
   pagination(): void {
-    this.autorService.pagination(this.page - 1).subscribe((response) => {
-      this.autores = response.content as Autor[];
+    this.isLoading = true;
+    this.autorService.pagination(this.currentPage, this.pageSize).subscribe({
+      next: (response) => {
+        this.dataSource.data = response.content as Autor[];
+        setTimeout(() => {
+          this.paginator.pageIndex = this.currentPage;
+          this.paginator.length = response.totalElements;
+        });
+        this.isLoading = false;
+      },
+      error: (e) => {
+        console.log(e);
+      },
     });
   }
 }

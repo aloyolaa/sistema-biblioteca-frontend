@@ -1,36 +1,60 @@
-<div>
-  <button type="button" [routerLink]="['/docentes/form']">Nuevo Docente</button>
-</div>
-<div *ngIf="docentes.length == 0">No hay docentes registrados.</div>
-<div>
-  <table *ngIf="docentes.length > 0">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Nombre</th>
-        <th>Apellido</th>
-        <th>DNI</th>
-        <th>Teléfono</th>
-        <th>Detalle</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let docente of docentes">
-        <td>{{ docente.id }}</td>
-        <td>{{ docente.nombre }}</td>
-        <td>{{ docente.apellido }}</td>
-        <td>{{ docente.dni }}</td>
-        <td>{{ docente.telefono }}</td>
-        <td>
+<mat-card>
+  <div class="demo-button-container">
+    <button
+      mat-raised-button
+      class="demo-button"
+      [routerLink]="['/docentes/form']"
+    >
+      Nuevo Docente
+    </button>
+  </div>
+  <div *ngIf="dataSource.data.length == 0">
+    <h3 class="text-center">No hay Docentes registrados</h3>
+  </div>
+  <div *ngIf="dataSource.data.length > 0">
+    <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      class="mat-elevation-z8 demo-table"
+    >
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>No.</th>
+        <td mat-cell *matCellDef="let docente">{{ docente.id }}</td>
+      </ng-container>
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef>Nombre</th>
+        <td mat-cell *matCellDef="let docente">{{ docente.nombre }}</td>
+      </ng-container>
+      <ng-container matColumnDef="apellido">
+        <th mat-header-cell *matHeaderCellDef>Apellido</th>
+        <td mat-cell *matCellDef="let docente">{{ docente.apellido }}</td>
+      </ng-container>
+      <ng-container matColumnDef="detalle">
+        <th mat-header-cell *matHeaderCellDef>Detalle</th>
+        <td mat-cell *matCellDef="let docente">
           <button
+            mat-raised-button
+            color="primary"
             type="button"
-            name="detail"
             [routerLink]="['/docentes/detail', docente.id]"
           >
             Detalle
           </button>
         </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnas"></tr>
+    </table>
+    <mat-paginator
+      [length]="totalRows"
+      [pageIndex]="currentPage"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="pageSizeOptions"
+      (page)="pageChanged($event)"
+      showFirstLastButtons
+      aria-label="Select page of periodic elements"
+    >
+    </mat-paginator>
+  </div>
+</mat-card>

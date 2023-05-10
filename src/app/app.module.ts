@@ -9,6 +9,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatCardModule } from '@angular/material/card';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSelectModule } from '@angular/material/select';
 
 import { AreasComponent } from './component/area/areas/areas.component';
 import { AreaFormComponent } from './component/area/form/form.component';
@@ -68,6 +78,11 @@ import { PrestamoMaterialDetailComponent } from './component/prestamo-material/d
 import { PrestamoMaterialCerrarComponent } from './component/prestamo-material/cerrar/cerrar.component';
 import { PrestamoMaterialFilterDocenteComponent } from './component/prestamo-material/filter-docente/filter-docente.component';
 import { PrestamoMaterialFilterGradoSeccionComponent } from './component/prestamo-material/filter-grado-seccion/filter-grado-seccion.component';
+import { NavbarComponent } from './component/navbar/navbar/navbar.component';
+import { SignupComponent } from './component/signup/signup/signup.component';
+import { LoginComponent } from './component/login/login/login.component';
+import { HomeComponent } from './component/home/home/home.component';
+import { SidebarComponent } from './component/sidebar/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -131,6 +146,11 @@ import { PrestamoMaterialFilterGradoSeccionComponent } from './component/prestam
     PrestamoMaterialCerrarComponent,
     PrestamoMaterialFilterDocenteComponent,
     PrestamoMaterialFilterGradoSeccionComponent,
+    NavbarComponent,
+    SignupComponent,
+    LoginComponent,
+    HomeComponent,
+    SidebarComponent,
   ],
   imports: [
     BrowserModule,
@@ -142,6 +162,16 @@ import { PrestamoMaterialFilterGradoSeccionComponent } from './component/prestam
     MatAutocompleteModule,
     MatFormFieldModule,
     MatInputModule,
+    MatButtonModule,
+    MatSnackBarModule,
+    MatCardModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatListModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatProgressBarModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent],

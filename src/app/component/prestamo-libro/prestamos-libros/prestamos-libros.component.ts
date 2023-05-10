@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { PrestamoLibro } from 'src/app/core/model/prestamo-libro.model';
 import { PrestamoLibroService } from 'src/app/service/prestamo-libro.service';
 
@@ -8,34 +10,58 @@ import { PrestamoLibroService } from 'src/app/service/prestamo-libro.service';
   styleUrls: ['./prestamos-libros.component.css'],
 })
 export class PrestamosLibrosComponent implements OnInit {
-  title = 'Préstamos de Libros';
-  prestamos: PrestamoLibro[] = [];
+  isLoading = false;
+  totalRows = 0;
+  pageSize = 5;
+  currentPage = 0;
+  pageSizeOptions: number[] = [5, 10, 20];
+
+  columnas: string[] = ['id', 'descripcion', 'grado', 'seccion', 'fecha_prestamo', 'detalle'];
+  dataSource: MatTableDataSource<PrestamoLibro> = new MatTableDataSource();
+
   fechaPrestamoStart = '';
   fechaPrestamoEnd = '';
-  page = 1;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private prestamoLibroService: PrestamoLibroService) {}
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
 
   ngOnInit(): void {
     this.pagination();
   }
 
-  getAll(): void {
-    this.prestamoLibroService
-      .getAll()
-      .subscribe((prestamos) => (this.prestamos = prestamos));
+  pageChanged(event: PageEvent) {
+    console.log({ event });
+    this.pageSize = event.pageSize;
+    this.currentPage = event.pageIndex;
+    this.pagination();
   }
 
   pagination(): void {
+    this.isLoading = true;
     this.prestamoLibroService
-      .pagination(this.page - 1)
-      .subscribe((response) => {
-        this.prestamos = response.content as PrestamoLibro[];
+      .pagination(this.currentPage, this.pageSize)
+      .subscribe({
+        next: (response) => {
+          this.dataSource.data = response.content as PrestamoLibro[];
+          setTimeout(() => {
+            this.paginator.pageIndex = this.currentPage;
+            this.paginator.length = response.totalElements;
+          });
+          this.isLoading = false;
+        },
+        error: (e) => {
+          console.log(e);
+        },
       });
   }
 
   paginationByFechaPrestamo(): void {
-    this.prestamoLibroService
+    /* this.prestamoLibroService
       .paginationByFechaPrestamo(
         this.fechaPrestamoStart,
         this.fechaPrestamoEnd,
@@ -43,11 +69,11 @@ export class PrestamosLibrosComponent implements OnInit {
       )
       .subscribe(
         (response) => (this.prestamos = response.content as PrestamoLibro[])
-      );
+      ); */
   }
 
   cargarTodo(): void {
-    this.page = 1;
+    this.currentPage = 0;
     this.pagination();
     this.fechaPrestamoStart = '';
     this.fechaPrestamoEnd = '';

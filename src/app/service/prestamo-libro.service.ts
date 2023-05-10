@@ -85,45 +85,86 @@ export class PrestamoLibroService {
       );
   }
 
-  pagination(page: number): Observable<any> {
-    return this.httpClient.get(`${this.url}/pagination/${page}`).pipe(
+  pagination(page: number, size: number): Observable<any> {
+    const params = {
+      page: page,
+      size: size,
+    };
+    return this.httpClient.get(`${this.url}/pagination`, { params }).pipe(
       map((response: any) => {
         (response.content as PrestamoLibro[]).forEach((prestamoLibro) => {
           return prestamoLibro;
         });
         return response;
+      }),
+      catchError((e) => {
+        Swal.fire({
+          icon: 'error',
+          title: `${e.error.title}`,
+          text: `${e.error.detail}`,
+        });
+        return throwError(() => e);
       })
     );
   }
 
-  paginationByDocente(dni: string, page: number): Observable<any> {
+  paginationByDocente(
+    dni: string,
+    page: number,
+    size: number
+  ): Observable<any> {
+    const params = {
+      page: page,
+      size: size,
+    };
     return this.httpClient
-      .get(`${this.url}/paginationByDocente/${dni}/${page}`)
+      .get(`${this.url}/paginationByDocente/${dni}`, { params })
       .pipe(
         map((response: any) => {
           (response.content as PrestamoLibro[]).forEach((prestamoLibro) => {
             return prestamoLibro;
           });
           return response;
+        }),
+        catchError((e) => {
+          Swal.fire({
+            icon: 'error',
+            title: `${e.error.title}`,
+            text: `${e.error.detail}`,
+          });
+          return throwError(() => e);
         })
       );
   }
 
   paginationByGradoAndSeccion(
-    grado: number,
+    grado: string,
     seccion: string,
-    page: number
+    page: number,
+    size: number
   ): Observable<any> {
+    const params = {
+      page: page,
+      size: size,
+    };
     return this.httpClient
-      .get(
-        `${this.url}/paginationByGradoAndSeccion/${grado}/${seccion}/${page}`
-      )
+      .get(`${this.url}/paginationByGradoAndSeccion/${grado}/${seccion}`, {
+        params,
+      })
       .pipe(
         map((response: any) => {
           (response.content as PrestamoLibro[]).forEach((prestamoLibro) => {
             return prestamoLibro;
           });
           return response;
+        }),
+        catchError((e) => {
+          Swal.fire({
+            icon: 'error',
+            title: `${e.error.title}`,
+            text: `${e.error.detail}`,
+          });
+          return throwError(() => e);
         })
       );
   }
@@ -131,8 +172,13 @@ export class PrestamoLibroService {
   paginationByFechaPrestamo(
     fechaPrestamoStartStr: string,
     fechaPrestamoEndStr: string,
-    page: number
+    page: number,
+    size: number
   ): Observable<any> {
+    const params = {
+      page: page,
+      size: size,
+    };
     fechaPrestamoStartStr = formatDate(
       fechaPrestamoStartStr,
       'yyyy-MM-dd HH:mm:ss',
@@ -145,7 +191,8 @@ export class PrestamoLibroService {
     );
     return this.httpClient
       .get(
-        `${this.url}/paginationByFechaPrestamo/${fechaPrestamoStartStr}/${fechaPrestamoEndStr}/${page}`
+        `${this.url}/paginationByFechaPrestamo/${fechaPrestamoStartStr}/${fechaPrestamoEndStr}`,
+        { params }
       )
       .pipe(
         map((response: any) => {
@@ -153,6 +200,14 @@ export class PrestamoLibroService {
             return prestamoLibro;
           });
           return response;
+        }),
+        catchError((e) => {
+          Swal.fire({
+            icon: 'error',
+            title: `${e.error.title}`,
+            text: `${e.error.detail}`,
+          });
+          return throwError(() => e);
         })
       );
   }
@@ -161,8 +216,13 @@ export class PrestamoLibroService {
     fechaPrestamoStartStr: string,
     fechaPrestamoEndStr: string,
     docenteId: number,
-    page: number
+    page: number,
+    size: number
   ): Observable<any> {
+    const params = {
+      page: page,
+      size: size,
+    };
     fechaPrestamoStartStr = formatDate(
       fechaPrestamoStartStr,
       'yyyy-MM-dd HH:mm:ss',
@@ -175,7 +235,8 @@ export class PrestamoLibroService {
     );
     return this.httpClient
       .get(
-        `${this.url}/paginationByFechaPrestamoAndDocente/${fechaPrestamoStartStr}/${fechaPrestamoEndStr}/${docenteId}/${page}`
+        `${this.url}/paginationByFechaPrestamoAndDocente/${fechaPrestamoStartStr}/${fechaPrestamoEndStr}/${docenteId}`,
+        { params }
       )
       .pipe(
         map((response: any) => {
@@ -192,7 +253,8 @@ export class PrestamoLibroService {
     fechaPrestamoEndStr: string,
     grado: number,
     seccion: string,
-    page: number
+    page: number,
+    size: number
   ): Observable<any> {
     fechaPrestamoStartStr = formatDate(
       fechaPrestamoStartStr,
@@ -204,9 +266,14 @@ export class PrestamoLibroService {
       'yyyy-MM-dd HH:mm:ss',
       'en-US'
     );
+    const params = {
+      page: page,
+      size: size,
+    };
     return this.httpClient
       .get(
-        `${this.url}/paginationByFechaPrestamoAndGradoAndSeccion/${fechaPrestamoStartStr}/${fechaPrestamoEndStr}/${grado}/${seccion}/${page}`
+        `${this.url}/paginationByFechaPrestamoAndGradoAndSeccion/${fechaPrestamoStartStr}/${fechaPrestamoEndStr}/${grado}/${seccion}`,
+        { params }
       )
       .pipe(
         map((response: any) => {

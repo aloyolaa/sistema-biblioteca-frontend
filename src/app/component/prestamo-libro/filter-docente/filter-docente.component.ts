@@ -24,17 +24,17 @@ export class PrestamoLibroFilterDocenteComponent {
   ) {}
 
   paginationByDocente(): void {
-    this.prestamoLibroService
+    /* this.prestamoLibroService
       .paginationByDocente(this.dni, this.page - 1)
       .subscribe(
         (response) => (this.prestamos = response.content as PrestamoLibro[])
       );
       this.fechaPrestamoStart = '';
-      this.fechaPrestamoEnd = '';
+      this.fechaPrestamoEnd = ''; */
   }
 
   paginationByFechaPrestamoAndDocente(): void {
-    this.prestamoLibroService
+    /* this.prestamoLibroService
       .paginationByFechaPrestamoAndDocente(
         this.fechaPrestamoStart,
         this.fechaPrestamoEnd,
@@ -43,7 +43,7 @@ export class PrestamoLibroFilterDocenteComponent {
       )
       .subscribe(
         (response) => (this.prestamos = response.content as PrestamoLibro[])
-      );
+      ); */
   }
 
   getOneByDni(): void {

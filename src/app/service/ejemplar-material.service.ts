@@ -92,20 +92,40 @@ export class EjemplarMaterialService {
     );
   }
 
-  pagination(page: number): Observable<any> {
-    return this.httpClient.get(`${this.url}/pagination/${page}`).pipe(
+  pagination(page: number, size: number): Observable<any> {
+    const params = {
+      page: page,
+      size: size,
+    };
+    return this.httpClient.get(`${this.url}/pagination`, { params }).pipe(
       map((response: any) => {
         (response.content as EjemplarMaterial[]).forEach((ejemplarMaterial) => {
           return ejemplarMaterial;
         });
         return response;
+      }),
+      catchError((e) => {
+        Swal.fire({
+          icon: 'error',
+          title: `${e.error.title}`,
+          text: `${e.error.detail}`,
+        });
+        return throwError(() => e);
       })
     );
   }
 
-  paginationByMaterial(codigo: string, page: number): Observable<any> {
+  paginationByMaterial(
+    codigo: string,
+    page: number,
+    size: number
+  ): Observable<any> {
+    const params = {
+      page: page,
+      size: size,
+    };
     return this.httpClient
-      .get(`${this.url}/paginationByMaterial/${codigo}/${page}`)
+      .get(`${this.url}/paginationByMaterial/${codigo}`, { params })
       .pipe(
         map((response: any) => {
           (response.content as EjemplarMaterial[]).forEach(
@@ -114,6 +134,14 @@ export class EjemplarMaterialService {
             }
           );
           return response;
+        }),
+        catchError((e) => {
+          Swal.fire({
+            icon: 'error',
+            title: `${e.error.title}`,
+            text: `${e.error.detail}`,
+          });
+          return throwError(() => e);
         })
       );
   }

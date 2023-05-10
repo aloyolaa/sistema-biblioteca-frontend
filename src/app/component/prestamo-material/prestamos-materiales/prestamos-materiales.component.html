@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
   <button type="button" [routerLink]="['/prestamos-materiales/form']">
     Nuevo Préstamo
   </button>
@@ -71,4 +71,74 @@
       </tr>
     </tbody>
   </table>
-</div>
+</div> -->
+<mat-card>
+  <div class="demo-button-container">
+    <button
+      mat-raised-button
+      class="demo-button"
+      [routerLink]="['/prestamos-materiales/form']"
+    >
+      Nuevo Prestamo
+    </button>
+  </div>
+  <div *ngIf="dataSource.data.length == 0">
+    <h3 class="text-center">No hay Prestamos registrados</h3>
+  </div>
+  <div *ngIf="dataSource.data.length > 0">
+    <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      class="mat-elevation-z8 demo-table"
+    >
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>No.</th>
+        <td mat-cell *matCellDef="let prestamo">{{ prestamo.id }}</td>
+      </ng-container>
+      <ng-container matColumnDef="descripcion">
+        <th mat-header-cell *matHeaderCellDef>Descripción</th>
+        <td mat-cell *matCellDef="let prestamo">{{ prestamo.descripcion }}</td>
+      </ng-container>
+      <ng-container matColumnDef="grado">
+        <th mat-header-cell *matHeaderCellDef>Grado</th>
+        <td mat-cell *matCellDef="let prestamo">{{ prestamo.grado }}</td>
+      </ng-container>
+      <ng-container matColumnDef="seccion">
+        <th mat-header-cell *matHeaderCellDef>Sección</th>
+        <td mat-cell *matCellDef="let prestamo">{{ prestamo.seccion }}</td>
+      </ng-container>
+      <ng-container matColumnDef="fecha_prestamo">
+        <th mat-header-cell *matHeaderCellDef>Fecha Prestamo</th>
+        <td mat-cell *matCellDef="let prestamo">
+          {{ prestamo.fechaPrestamo | date : "dd-MM-yyyy HH:mm:ss" }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="detalle">
+        <th mat-header-cell *matHeaderCellDef>Detalle</th>
+        <td mat-cell *matCellDef="let prestamo">
+          <button
+            mat-raised-button
+            color="primary"
+            type="button"
+            [routerLink]="['/prestamos-materiales/detail', prestamo.id]"
+          >
+            Detalle
+          </button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnas"></tr>
+    </table>
+    <mat-paginator
+      [length]="totalRows"
+      [pageIndex]="currentPage"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="pageSizeOptions"
+      (page)="pageChanged($event)"
+      showFirstLastButtons
+      aria-label="Select page of periodic elements"
+    >
+    </mat-paginator>
+  </div>
+</mat-card>

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { Editorial } from 'src/app/core/model/editorial.model';
 import { EditorialService } from 'src/app/service/editorial.service';
 
@@ -7,22 +9,51 @@ import { EditorialService } from 'src/app/service/editorial.service';
   templateUrl: './editoriales.component.html',
   styleUrls: ['./editoriales.component.css'],
 })
-export class EditorialesComponent implements OnInit {
-  title = 'Editoriales';
-  editoriales: Editorial[] = [];
-  page = 1;
+export class EditorialesComponent {
+  isLoading = false;
+  totalRows = 0;
+  pageSize = 5;
+  currentPage = 0;
+  pageSizeOptions: number[] = [5, 10, 20];
+
+  columnas: string[] = ['id', 'nombre', 'detalle'];
+  dataSource: MatTableDataSource<Editorial> = new MatTableDataSource();
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private editorialService: EditorialService) {}
 
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
+
   ngOnInit(): void {
-    this.editorialService
-      .getAll()
-      .subscribe((editoriales) => (this.editoriales = editoriales));
+    this.pagination();
+  }
+
+  pageChanged(event: PageEvent) {
+    console.log({ event });
+    this.pageSize = event.pageSize;
+    this.currentPage = event.pageIndex;
+    this.pagination();
   }
 
   pagination(): void {
-    this.editorialService.pagination(this.page - 1).subscribe((response) => {
-      this.editoriales = response.content as Editorial[];
-    });
+    this.isLoading = true;
+    this.editorialService
+      .pagination(this.currentPage, this.pageSize)
+      .subscribe({
+        next: (response) => {
+          this.dataSource.data = response.content as Editorial[];
+          setTimeout(() => {
+            this.paginator.pageIndex = this.currentPage;
+            this.paginator.length = response.totalElements;
+          });
+          this.isLoading = false;
+        },
+        error: (e) => {
+          console.log(e);
+        },
+      });
   }
 }

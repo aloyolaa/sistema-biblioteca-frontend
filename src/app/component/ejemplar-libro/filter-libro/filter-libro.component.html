@@ -1,77 +1,86 @@
-<div></div>
-<form>
-  <label for="codigo">Código del Libro</label>
-  <div>
-    <input type="text" id="codigo" name="codigo" [(ngModel)]="codigo" />
-  </div>
-  <div>
-    <button type="submit" (click)="getOneByCodigo()" [disabled]="!codigo">
-      Buscar Libro
+<mat-card>
+  <div class="demo-button-container">
+    <button
+      mat-raised-button
+      class="demo-button"
+      [routerLink]="['/ejemplares-libros/save']"
+    >
+      Nuevo Ejemplar
     </button>
   </div>
   <div>
-    <table>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Código</th>
-          <th>Título</th>
-          <th>Año</th>
-          <th>Grado</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>{{ libro.id }}</td>
-          <td>{{ libro.codigo }}</td>
-          <td>{{ libro.titulo }}</td>
-          <td>{{ libro.anio }}</td>
-          <td>{{ libro.grado }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <button type="button" (click)="paginationByLibro()" [disabled]="!libro.id">
+    <mat-form-field>
+      <mat-label>Buscar Libro</mat-label>
+      <input
+        matInput
+        [(ngModel)]="codigo"
+        placeholder="Ingrese el código"
+        #input
+      />
+    </mat-form-field>
+    <button
+      mat-raised-button
+      class="demo-button"
+      type="button"
+      (click)="getOneByCodigo()"
+      [disabled]="!codigo"
+    >
       Buscar por Libro
     </button>
+    <h4 class="text-center" *ngIf="libro.id">Libro: {{ libro.titulo }}</h4>
   </div>
-  <input type="number" id="page" name="page" [(ngModel)]="page" />
-</form>
-<div *ngIf="ejemplares.length == 0">No hay ejemplares que coincidan</div>
-<div>
-  <table *ngIf="ejemplares.length > 0">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Código Libro</th>
-        <th>Título</th>
-        <th>Número</th>
-        <th>Estado</th>
-        <th>Prestado</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let ejemplar of ejemplares">
-        <td>{{ ejemplar.id }}</td>
-        <td>{{ ejemplar.libro.codigo }}</td>
-        <td>{{ ejemplar.libro.titulo }}</td>
-        <td>{{ ejemplar.numero }}</td>
-        <td>{{ ejemplar.estado }}</td>
-        <td>
-          <div [ngSwitch]="ejemplar.prestado">
-            <div *ngSwitchCase="true">SI</div>
-            <div *ngSwitchDefault>NO</div>
-          </div>
+  <div *ngIf="!codigo">
+    <h3 class="text-center">Ingrese un código de Libro</h3>
+  </div>
+  <div *ngIf="codigo && dataSource.data.length == 0">
+    <h3 class="text-center">No hay Ejemplares registrados</h3>
+  </div>
+  <div *ngIf="dataSource.data.length > 0">
+    <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      class="mat-elevation-z8 demo-table"
+    >
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>No.</th>
+        <td mat-cell *matCellDef="let ejemplar">{{ ejemplar.id }}</td>
+      </ng-container>
+      <ng-container matColumnDef="codigo">
+        <th mat-header-cell *matHeaderCellDef>Código</th>
+        <td mat-cell *matCellDef="let ejemplar">
+          {{ ejemplar.libro.codigo }}-{{ ejemplar.numero }}
         </td>
-        <td>
+      </ng-container>
+      <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef>Estado</th>
+        <td mat-cell *matCellDef="let ejemplar">{{ ejemplar.estado }}</td>
+      </ng-container>
+      <ng-container matColumnDef="detalle">
+        <th mat-header-cell *matHeaderCellDef>Detalle</th>
+        <td mat-cell *matCellDef="let ejemplar">
           <button
+            mat-raised-button
+            color="primary"
             type="button"
-            name="detail"
             [routerLink]="['/ejemplares-libros/detail', ejemplar.id]"
           >
             Detalle
           </button>
         </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnas"></tr>
+    </table>
+    <mat-paginator
+      [length]="totalRows"
+      [pageIndex]="currentPage"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="pageSizeOptions"
+      (page)="pageChanged($event)"
+      showFirstLastButtons
+      aria-label="Select page of periodic elements"
+    >
+    </mat-paginator>
+  </div>
+</mat-card>

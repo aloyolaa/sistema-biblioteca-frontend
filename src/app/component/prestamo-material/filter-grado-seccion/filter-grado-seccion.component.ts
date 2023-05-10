@@ -19,17 +19,17 @@ export class PrestamoMaterialFilterGradoSeccionComponent {
   constructor(private prestamoMaterialService: PrestamoMaterialService) {}
 
   paginationByGradoAndSeccion(): void {
-    this.prestamoMaterialService
+    /* this.prestamoMaterialService
       .paginationByGradoAndSeccion(this.grado, this.seccion, this.page - 1)
       .subscribe(
         (response) => (this.prestamos = response.content as PrestamoMaterial[])
       );
       this.fechaPrestamoStart = '';
-      this.fechaPrestamoEnd = '';
+      this.fechaPrestamoEnd = ''; */
   }
 
   paginationByFechaPrestamoAndGradoAndSeccion(): void {
-    this.prestamoMaterialService
+    /* this.prestamoMaterialService
       .paginationByFechaPrestamoAndGradoAndSeccion(
         this.fechaPrestamoStart,
         this.fechaPrestamoEnd,
@@ -39,6 +39,6 @@ export class PrestamoMaterialFilterGradoSeccionComponent {
       )
       .subscribe(
         (response) => (this.prestamos = response.content as PrestamoMaterial[])
-      );
+      ); */
   }
 }

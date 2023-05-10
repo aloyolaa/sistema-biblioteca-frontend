@@ -95,87 +95,191 @@ export class LibroService {
       );
   }
 
-  pagination(page: number): Observable<any> {
-    return this.httpClient.get(`${this.url}/pagination/${page}`).pipe(
+  pagination(page: number, size: number): Observable<any> {
+    const params = {
+      page: page,
+      size: size,
+    };
+    return this.httpClient.get(`${this.url}/pagination`, { params }).pipe(
       map((response: any) => {
         (response.content as Libro[]).forEach((libro) => {
           return libro;
         });
         return response;
-      })
-    );
-  }
-
-  paginationByTitulo(titulo: string, page: number): Observable<any> {
-    return this.httpClient.get(`${this.url}/paginationByTitulo/${titulo}/${page}`).pipe(
-      map((response: any) => {
-        (response.content as Libro[]).forEach((libro) => {
-          return libro;
+      }),
+      catchError((e) => {
+        Swal.fire({
+          icon: 'error',
+          title: `${e.error.title}`,
+          text: `${e.error.detail}`,
         });
-        return response;
+        return throwError(() => e);
       })
     );
   }
 
-  paginationByCodigo(codigo: string, page: number): Observable<any> {
-    return this.httpClient.get(`${this.url}/paginationByCodigo/${codigo}/${page}`).pipe(
-      map((response: any) => {
-        (response.content as Libro[]).forEach((libro) => {
-          return libro;
-        });
-        return response;
-      })
-    );
-  }
-
-  paginationByArea(id: number, page: number): Observable<any> {
+  paginationByTitulo(
+    titulo: string,
+    page: number,
+    size: number
+  ): Observable<any> {
+    const params = {
+      page: page,
+      size: size,
+    };
     return this.httpClient
-      .get(`${this.url}/paginationByArea/${id}/${page}`)
+      .get(`${this.url}/paginationByTitulo/${titulo}`, { params })
       .pipe(
         map((response: any) => {
           (response.content as Libro[]).forEach((libro) => {
             return libro;
           });
           return response;
+        }),
+        catchError((e) => {
+          Swal.fire({
+            icon: 'error',
+            title: `${e.error.title}`,
+            text: `${e.error.detail}`,
+          });
+          return throwError(() => e);
         })
       );
   }
 
-  paginationByCategoria(id: number, page: number): Observable<any> {
+  paginationByCodigo(
+    codigo: string,
+    page: number,
+    size: number
+  ): Observable<any> {
+    const params = {
+      page: page,
+      size: size,
+    };
     return this.httpClient
-      .get(`${this.url}/paginationByCategoria/${id}/${page}`)
+      .get(`${this.url}/paginationByCodigo/${codigo}`, { params })
       .pipe(
         map((response: any) => {
           (response.content as Libro[]).forEach((libro) => {
             return libro;
           });
           return response;
+        }),
+        catchError((e) => {
+          Swal.fire({
+            icon: 'error',
+            title: `${e.error.title}`,
+            text: `${e.error.detail}`,
+          });
+          return throwError(() => e);
         })
       );
   }
 
-  paginationByEditorial(id: number, page: number): Observable<any> {
+  paginationByArea(id: number, page: number, size: number): Observable<any> {
+    const params = {
+      page: page,
+      size: size,
+    };
     return this.httpClient
-      .get(`${this.url}/paginationByEditorial/${id}/${page}`)
+      .get(`${this.url}/paginationByArea/${id}`, { params })
       .pipe(
         map((response: any) => {
           (response.content as Libro[]).forEach((libro) => {
             return libro;
           });
           return response;
+        }),
+        catchError((e) => {
+          Swal.fire({
+            icon: 'error',
+            title: `${e.error.title}`,
+            text: `${e.error.detail}`,
+          });
+          return throwError(() => e);
         })
       );
   }
 
-  paginationByAutor(id: number, page: number): Observable<any> {
+  paginationByCategoria(
+    id: number,
+    page: number,
+    size: number
+  ): Observable<any> {
+    const params = {
+      page: page,
+      size: size,
+    };
     return this.httpClient
-      .get(`${this.url}/paginationByAutor/${id}/${page}`)
+      .get(`${this.url}/paginationByCategoria/${id}`, { params })
       .pipe(
         map((response: any) => {
           (response.content as Libro[]).forEach((libro) => {
             return libro;
           });
           return response;
+        }),
+        catchError((e) => {
+          Swal.fire({
+            icon: 'error',
+            title: `${e.error.title}`,
+            text: `${e.error.detail}`,
+          });
+          return throwError(() => e);
+        })
+      );
+  }
+
+  paginationByEditorial(
+    id: number,
+    page: number,
+    size: number
+  ): Observable<any> {
+    const params = {
+      page: page,
+      size: size,
+    };
+    return this.httpClient
+      .get(`${this.url}/paginationByEditorial/${id}`, { params })
+      .pipe(
+        map((response: any) => {
+          (response.content as Libro[]).forEach((libro) => {
+            return libro;
+          });
+          return response;
+        }),
+        catchError((e) => {
+          Swal.fire({
+            icon: 'error',
+            title: `${e.error.title}`,
+            text: `${e.error.detail}`,
+          });
+          return throwError(() => e);
+        })
+      );
+  }
+
+  paginationByAutor(id: number, page: number, size: number): Observable<any> {
+    const params = {
+      page: page,
+      size: size,
+    };
+    return this.httpClient
+      .get(`${this.url}/paginationByAutor/${id}`, { params })
+      .pipe(
+        map((response: any) => {
+          (response.content as Libro[]).forEach((libro) => {
+            return libro;
+          });
+          return response;
+        }),
+        catchError((e) => {
+          Swal.fire({
+            icon: 'error',
+            title: `${e.error.title}`,
+            text: `${e.error.detail}`,
+          });
+          return throwError(() => e);
         })
       );
   }

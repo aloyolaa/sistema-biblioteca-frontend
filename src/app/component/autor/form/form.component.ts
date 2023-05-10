@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Autor } from 'src/app/core/model/autor.model';
 import { AutorService } from 'src/app/service/autor.service';
@@ -9,8 +9,7 @@ import Swal from 'sweetalert2';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css'],
 })
-export class AutorFormComponent implements OnInit {
-  title = 'Formulario de Autor';
+export class AutorFormComponent {
   autor: Autor = new Autor();
   errors = {
     nombre: '',
@@ -34,6 +33,13 @@ export class AutorFormComponent implements OnInit {
         this.autorService.getOne(id).subscribe((autor) => (this.autor = autor));
       }
     });
+  }
+
+  limpiar(): void {
+    this.errors = {
+      nombre: '',
+      apellido: '',
+    };
   }
 
   save(): void {

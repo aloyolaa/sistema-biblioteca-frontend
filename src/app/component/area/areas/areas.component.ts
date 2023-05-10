@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { Area } from 'src/app/core/model/area.model';
 import { AreaService } from 'src/app/service/area.service';
 
@@ -7,30 +9,49 @@ import { AreaService } from 'src/app/service/area.service';
   templateUrl: './areas.component.html',
   styleUrls: ['./areas.component.css'],
 })
-export class AreasComponent implements OnInit {
-  title = 'Areas';
-  areas: Area[] = [];
-  page = 1;
+export class AreasComponent {
+  isLoading = false;
+  totalRows = 0;
+  pageSize = 5;
+  currentPage = 0;
+  pageSizeOptions: number[] = [5, 10, 20];
+
+  columnas: string[] = ['id', 'nombre', 'detalle'];
+  dataSource: MatTableDataSource<Area> = new MatTableDataSource();
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private areaService: AreaService) {}
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
 
   ngOnInit(): void {
     this.pagination();
   }
 
-  delete(area: Area): void {
-    this.areaService.delete(area.id).subscribe((response) => {
-      console.log(response);
-      if (response) {
-        const index = this.areas.findIndex((a) => a.id === area.id);
-        this.areas.splice(index, 1);
-      }
-    });
+  pageChanged(event: PageEvent) {
+    console.log({ event });
+    this.pageSize = event.pageSize;
+    this.currentPage = event.pageIndex;
+    this.pagination();
   }
 
   pagination(): void {
-    this.areaService.pagination(this.page - 1).subscribe((response) => {
-      this.areas = response.content as Area[];
+    this.isLoading = true;
+    this.areaService.pagination(this.currentPage, this.pageSize).subscribe({
+      next: (response) => {
+        this.dataSource.data = response.content as Area[];
+        setTimeout(() => {
+          this.paginator.pageIndex = this.currentPage;
+          this.paginator.length = response.totalElements;
+        });
+        this.isLoading = false;
+      },
+      error: (e) => {
+        console.log(e);
+      },
     });
   }
 }

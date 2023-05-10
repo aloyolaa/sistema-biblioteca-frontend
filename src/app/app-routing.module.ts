@@ -59,8 +59,16 @@ import { PrestamoMaterialDetailComponent } from './component/prestamo-material/d
 import { PrestamoMaterialCerrarComponent } from './component/prestamo-material/cerrar/cerrar.component';
 import { PrestamoMaterialFilterDocenteComponent } from './component/prestamo-material/filter-docente/filter-docente.component';
 import { PrestamoMaterialFilterGradoSeccionComponent } from './component/prestamo-material/filter-grado-seccion/filter-grado-seccion.component';
+import { HomeComponent } from './component/home/home/home.component';
+import { SignupComponent } from './component/signup/signup/signup.component';
+import { LoginComponent } from './component/login/login/login.component';
 
 const routes: Routes = [
+  { path : '', component: HomeComponent, pathMatch : 'full'},
+  { path : 'signup', component : SignupComponent, pathMatch : 'full'},
+  { path : 'login', component : LoginComponent, pathMatch : 'full'
+  },
+
   { path: 'areas', component: AreasComponent },
   { path: 'areas/form', component: AreaFormComponent },
   { path: 'areas/form/:id', component: AreaFormComponent },

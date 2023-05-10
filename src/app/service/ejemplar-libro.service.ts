@@ -90,26 +90,54 @@ export class EjemplarLibroService {
     );
   }
 
-  pagination(page: number): Observable<any> {
-    return this.httpClient.get(`${this.url}/pagination/${page}`).pipe(
+  pagination(page: number, size: number): Observable<any> {
+    const params = {
+      page: page,
+      size: size,
+    };
+    return this.httpClient.get(`${this.url}/pagination`, { params }).pipe(
       map((response: any) => {
         (response.content as EjemplarLibro[]).forEach((ejemplarLibro) => {
           return ejemplarLibro;
         });
         return response;
+      }),
+      catchError((e) => {
+        Swal.fire({
+          icon: 'error',
+          title: `${e.error.title}`,
+          text: `${e.error.detail}`,
+        });
+        return throwError(() => e);
       })
     );
   }
 
-  paginationByLibro(codigo: string, page: number): Observable<any> {
+  paginationByLibro(
+    codigo: string,
+    page: number,
+    size: number
+  ): Observable<any> {
+    const params = {
+      page: page,
+      size: size,
+    };
     return this.httpClient
-      .get(`${this.url}/paginationByLibro/${codigo}/${page}`)
+      .get(`${this.url}/paginationByLibro/${codigo}`, { params })
       .pipe(
         map((response: any) => {
           (response.content as EjemplarLibro[]).forEach((ejemplarLibro) => {
             return ejemplarLibro;
           });
           return response;
+        }),
+        catchError((e) => {
+          Swal.fire({
+            icon: 'error',
+            title: `${e.error.title}`,
+            text: `${e.error.detail}`,
+          });
+          return throwError(() => e);
         })
       );
   }

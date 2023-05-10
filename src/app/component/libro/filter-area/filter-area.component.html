@@ -1,64 +1,83 @@
-<form>
-  <label for="filtro">Filtrar</label>
-  <div>
-    <select name="id" [(ngModel)]="id">
-      <option [ngValue]="0">-- Seleccionar --</option>
-      <option *ngFor="let area of areas" [ngValue]="area.id">
-        {{ area.nombre }}
-      </option>
-    </select>
-    <button type="button" (click)="paginationByArea()" [disabled]="id == 0">
-      Filtrar
+<mat-card>
+  <div class="demo-button-container">
+    <button
+      mat-raised-button
+      class="demo-button"
+      [routerLink]="['/libros/form']"
+    >
+      Nuevo Libro
     </button>
-    <input type="number" id="page" name="page" [(ngModel)]="page" />
-    <input
-      type="number"
-      id="pages"
-      name="pages"
-      *ngIf="pages > 0"
-      [(ngModel)]="pages"
-      disabled="true"
-    />
   </div>
-</form>
-<div *ngIf="libros.length == 0">No hay libros registrados.</div>
-<div>
-  <table *ngIf="libros.length > 0">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Código</th>
-        <th>Título</th>
-        <th>Año</th>
-        <th>Grado</th>
-        <th>Area</th>
-        <th>Categoria</th>
-        <th>Editorial</th>
-        <th>N° de Autores</th>
-        <th>Detalle</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let libro of libros">
-        <td>{{ libro.id }}</td>
-        <td>{{ libro.codigo }}</td>
-        <td>{{ libro.titulo }}</td>
-        <td>{{ libro.anio }}</td>
-        <td>{{ libro.grado }}</td>
-        <td>{{ libro.area.nombre }}</td>
-        <td>{{ libro.categoria.nombre }}</td>
-        <td>{{ libro.editorial.nombre }}</td>
-        <td>{{ libro.autores.length }}</td>
-        <td>
+  <div>
+    <mat-form-field appearance="fill">
+      <mat-label>Filtro</mat-label>
+      <mat-select [(ngModel)]="id">
+        <mat-option [value]="0">-- Seleccionar --</mat-option>
+        <mat-option *ngFor="let area of areas" value="{{ area.id }}">
+          {{ area.nombre }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button
+      mat-raised-button
+      class="demo-button"
+      type="button"
+      (click)="paginationByArea()"
+      [disabled]="id == 0"
+    >
+      Buscar
+    </button>
+  </div>
+  <div *ngIf="id == 0">
+    <h3 class="text-center">Seleccione un filtro</h3>
+  </div>
+  <div *ngIf="id > 0 && dataSource.data.length == 0">
+    <h3 class="text-center">No hay Libros que conincidan</h3>
+  </div>
+  <div *ngIf="dataSource.data.length > 0">
+    <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      class="mat-elevation-z8 demo-table"
+    >
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>No.</th>
+        <td mat-cell *matCellDef="let libro">{{ libro.id }}</td>
+      </ng-container>
+      <ng-container matColumnDef="codigo">
+        <th mat-header-cell *matHeaderCellDef>Código</th>
+        <td mat-cell *matCellDef="let libro">{{ libro.codigo }}</td>
+      </ng-container>
+      <ng-container matColumnDef="titulo">
+        <th mat-header-cell *matHeaderCellDef>Título</th>
+        <td mat-cell *matCellDef="let libro">{{ libro.titulo }}</td>
+      </ng-container>
+      <ng-container matColumnDef="detalle">
+        <th mat-header-cell *matHeaderCellDef>Detalle</th>
+        <td mat-cell *matCellDef="let libro">
           <button
+            mat-raised-button
+            color="primary"
             type="button"
-            name="detail"
             [routerLink]="['/libros/detail', libro.id]"
           >
             Detalle
           </button>
         </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnas"></tr>
+    </table>
+    <mat-paginator
+      [length]="totalRows"
+      [pageIndex]="currentPage"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="pageSizeOptions"
+      (page)="pageChanged($event)"
+      showFirstLastButtons
+      aria-label="Select page of periodic elements"
+    >
+    </mat-paginator>
+  </div>
+</mat-card>

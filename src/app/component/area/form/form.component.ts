@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Area } from 'src/app/core/model/area.model';
 import { AreaService } from 'src/app/service/area.service';
@@ -9,8 +9,7 @@ import Swal from 'sweetalert2';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css'],
 })
-export class AreaFormComponent implements OnInit {
-  title = 'Formulario de Area';
+export class AreaFormComponent {
   area: Area = new Area();
   errors = {
     nombre: '',
@@ -33,6 +32,12 @@ export class AreaFormComponent implements OnInit {
         this.areaService.getOne(id).subscribe((area) => (this.area = area));
       }
     });
+  }
+
+  limpiar(): void {
+    this.errors = {
+      nombre: '',
+    };
   }
 
   save(): void {

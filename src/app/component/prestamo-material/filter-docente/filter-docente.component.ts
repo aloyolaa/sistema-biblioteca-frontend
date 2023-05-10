@@ -24,17 +24,17 @@ export class PrestamoMaterialFilterDocenteComponent {
   ) {}
 
   paginationByDocente(): void {
-    this.prestamoMaterialService
+    /* this.prestamoMaterialService
       .paginationByDocente(this.dni, this.page - 1)
       .subscribe(
         (response) => (this.prestamos = response.content as PrestamoMaterial[])
       );
       this.fechaPrestamoStart = '';
-      this.fechaPrestamoEnd = '';
+      this.fechaPrestamoEnd = ''; */
   }
 
   paginationByFechaPrestamoAndDocente(): void {
-    this.prestamoMaterialService
+    /* this.prestamoMaterialService
       .paginationByFechaPrestamoAndDocente(
         this.fechaPrestamoStart,
         this.fechaPrestamoEnd,
@@ -43,7 +43,7 @@ export class PrestamoMaterialFilterDocenteComponent {
       )
       .subscribe(
         (response) => (this.prestamos = response.content as PrestamoMaterial[])
-      );
+      ); */
   }
 
   getOneByDni(): void {

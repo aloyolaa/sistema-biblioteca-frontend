@@ -1,32 +1,56 @@
-<div>
-  <button type="button" [routerLink]="['/categorias/form']">
-    Nueva Categoria
-  </button>
-</div>
-<div *ngIf="categorias.length == 0">No hay categorias registradas</div>
-<div>
-  <table *ngIf="categorias.length > 0">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Nombre</th>
-        <th>Detalle</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let categoria of categorias">
-        <td>{{ categoria.id }}</td>
-        <td>{{ categoria.nombre }}</td>
-        <td>
+<mat-card>
+  <div class="demo-button-container">
+    <button
+      mat-raised-button
+      class="demo-button"
+      [routerLink]="['/categorias/form']"
+    >
+      Nueva Categoria
+    </button>
+  </div>
+  <div *ngIf="dataSource.data.length == 0">
+    <h3 class="text-center">No hay Categorias registradas</h3>
+  </div>
+  <div *ngIf="dataSource.data.length > 0">
+    <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      class="mat-elevation-z8 demo-table"
+    >
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>No.</th>
+        <td mat-cell *matCellDef="let categoria">{{ categoria.id }}</td>
+      </ng-container>
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef>Nombre</th>
+        <td mat-cell *matCellDef="let categoria">{{ categoria.nombre }}</td>
+      </ng-container>
+      <ng-container matColumnDef="detalle">
+        <th mat-header-cell *matHeaderCellDef>Detalle</th>
+        <td mat-cell *matCellDef="let categoria">
           <button
+            mat-raised-button
+            color="primary"
             type="button"
-            name="detail"
             [routerLink]="['/categorias/detail', categoria.id]"
           >
             Detalle
           </button>
         </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnas"></tr>
+    </table>
+    <mat-paginator
+      [length]="totalRows"
+      [pageIndex]="currentPage"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="pageSizeOptions"
+      (page)="pageChanged($event)"
+      showFirstLastButtons
+      aria-label="Select page of periodic elements"
+    >
+    </mat-paginator>
+  </div>
+</mat-card>

@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { Autor } from 'src/app/core/model/autor.model';
+import { Editorial } from 'src/app/core/model/editorial.model';
 import { Libro } from 'src/app/core/model/libro.model';
-import { AutorService } from 'src/app/service/autor.service';
+import { EditorialService } from 'src/app/service/editorial.service';
 import { LibroService } from 'src/app/service/libro.service';
 
 @Component({
@@ -9,27 +12,59 @@ import { LibroService } from 'src/app/service/libro.service';
   templateUrl: './filter-editorial.component.html',
   styleUrls: ['./filter-editorial.component.css'],
 })
-export class LibroFilterEditorialComponent implements OnInit {
-  title = 'Libros';
-  libros: Libro[] = [];
-  page = 1;
+export class LibroFilterEditorialComponent {
+  isLoading = false;
+  totalRows = 0;
+  pageSize = 5;
+  currentPage = 0;
+  pageSizeOptions: number[] = [5, 10, 20];
+
+  columnas: string[] = ['id', 'codigo', 'titulo', 'detalle'];
+  dataSource: MatTableDataSource<Libro> = new MatTableDataSource();
+
   id = 0;
-  autores: Autor[] = [];
+  editoriales: Editorial[] = [];
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
     private libroService: LibroService,
-    private autorService: AutorService
+    private editorialService: EditorialService
   ) {}
 
-  ngOnInit(): void {
-    this.autorService.getAll().subscribe((autores) => (this.autores = autores));
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
   }
 
-  paginationByAutor(): void {
+  ngOnInit(): void {
+    this.editorialService
+      .getAll()
+      .subscribe((editoriales) => (this.editoriales = editoriales));
+  }
+
+  pageChanged(event: PageEvent) {
+    console.log({ event });
+    this.pageSize = event.pageSize;
+    this.currentPage = event.pageIndex;
+    this.paginationByEditorial();
+  }
+
+  paginationByEditorial(): void {
+    this.isLoading = true;
     this.libroService
-      .paginationByAutor(this.id, this.page - 1)
-      .subscribe((response) => {
-        this.libros = response.content as Libro[];
+      .paginationByEditorial(this.id, this.currentPage, this.pageSize)
+      .subscribe({
+        next: (response) => {
+          this.dataSource.data = response.content as Libro[];
+          setTimeout(() => {
+            this.paginator.pageIndex = this.currentPage;
+            this.paginator.length = response.totalElements;
+          });
+          this.isLoading = false;
+        },
+        error: (e) => {
+          console.log(e);
+        },
       });
   }
 }
