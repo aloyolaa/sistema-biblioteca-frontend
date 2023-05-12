@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { DetallePrestamoLibro } from 'src/app/core/model/detalle-prestamo-libro.model';
 import { Docente } from 'src/app/core/model/docente.model';
@@ -17,7 +18,6 @@ import Swal from 'sweetalert2';
   styleUrls: ['./form.component.css'],
 })
 export class PrestamoLibroFormComponent {
-  title = 'Nuevo Préstamo';
   prestamo: PrestamoLibro = new PrestamoLibro();
   docente: Docente = new Docente();
   libro: Libro = new Libro();
@@ -27,13 +27,15 @@ export class PrestamoLibroFormComponent {
   dni: string = '';
   cantidad: number = 0;
   errors = {
-    fechaPrestamo: '',
     descripcion: '',
     grado: '',
     seccion: '',
     docente: '',
     detalle: '',
   };
+
+  columnas: string[] = ['codigo', 'titulo', 'estado'];
+  dataSource: MatTableDataSource<EjemplarLibro> = new MatTableDataSource();
 
   constructor(
     private prestamoLibroService: PrestamoLibroService,
@@ -94,6 +96,7 @@ export class PrestamoLibroFormComponent {
           ejemplares.forEach((e) => {
             if (!this.existItem(e.id)) {
               this.ejemplares.push(e);
+              this.dataSource.data = this.ejemplares;
             }
           });
         });

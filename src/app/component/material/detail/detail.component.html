@@ -1,25 +1,38 @@
-<div>
-  <button type="button" name="back" [routerLink]="['/materiales']">
-    Volver
-  </button>
-</div>
-<div *ngIf="material">
-  <ul>
-    <li>{{ material.id }}</li>
-    <li>{{ material.codigo }}</li>
-    <li>{{ material.nombre }}</li>
-    <li>{{ material.medidas }}</li>
-    <li>{{ material.area.nombre }}</li>
-    <li>{{ ejemplares }}</li>
-    <li>{{ ejemplaresDisponibles }}</li>
-  </ul>
-</div>
-<div>
-  <button
-    type="button"
-    name="update"
-    [routerLink]="['/materiales/form', material.id]"
-  >
-    Actualizar
-  </button>
-</div>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Detalle de Material</mat-card-title>
+  </mat-card-header>
+  <br />
+  <mat-card-content>
+    <h4>ID: {{ material.id }}</h4>
+    <h4>Codigo: {{ material.codigo }}</h4>
+    <h4>Título: {{ material.nombre }}</h4>
+    <h4>
+      Medidas: {{ material.medidas ? material.medidas : "No hay medidas" }}
+    </h4>
+    <h4>Area: {{ material.area.nombre }}</h4>
+    <h4>N° de Ejemplares Totales: {{ ejemplares }}</h4>
+    <h4>N° de Ejemplares Disponibles: {{ ejemplaresDisponibles }}</h4>
+  </mat-card-content>
+  <br />
+  <mat-card-actions>
+    <button
+      mat-raised-button
+      type="button"
+      [routerLink]="['/materiales']"
+      style="margin-left: 20px"
+    >
+      Volver
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      type="button"
+      [routerLink]="['/materiales/form', material.id]"
+      style="margin-left: 20px"
+    >
+      Actualizar
+    </button>
+  </mat-card-actions>
+  <br />
+</mat-card>

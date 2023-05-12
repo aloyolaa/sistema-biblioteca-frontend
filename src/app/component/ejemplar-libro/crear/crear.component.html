@@ -1,67 +1,77 @@
-<div>
-  <form>
-    <label for="codigo">Código del Libro</label>
-    <div>
-      <input type="text" id="codigo" name="codigo" [(ngModel)]="codigo" />
-    </div>
-    <div *ngIf="errors.libro">
-      {{ errors.libro }}
-    </div>
-    <div>
-      <button type="submit" (click)="getOneByCodigo()" [disabled]="!codigo">
-        Buscar Libro
-      </button>
-    </div>
-    <div>
-      <table>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Código</th>
-            <th>Título</th>
-            <th>Año</th>
-            <th>Grado</th>
-            <th>Area</th>
-            <th>Categoria</th>
-            <th>Editorial</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{{ libro.id }}</td>
-            <td>{{ libro.codigo }}</td>
-            <td>{{ libro.titulo }}</td>
-            <td>{{ libro.anio }}</td>
-            <td>{{ libro.grado }}</td>
-            <td>{{ libro.area.nombre }}</td>
-            <td>{{ libro.categoria.nombre }}</td>
-            <td>{{ libro.editorial.nombre }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div>
-      <label for="cantidad">Cantidad</label>
-      <div>
-        <input
-          type="number"
-          id="cantidad"
-          name="cantidad"
-          [(ngModel)]="cantidad"
-          min="1"
-        />
+<mat-card>
+  <div class="bootstrap-wrapper">
+    <div class="container">
+      <div class="row" style="margin-top: 20px">
+        <div class="col-md-6 offset-md-3">
+          <h1 class="text-center">Formulario de Ejemplares</h1>
+          <div>
+            <mat-form-field>
+              <mat-label>Buscar Libro</mat-label>
+              <input
+                matInput
+                [(ngModel)]="codigo"
+                placeholder="Ingrese el codigo"
+                #input
+              />
+            </mat-form-field>
+            <button
+              mat-raised-button
+              class="demo-button"
+              type="button"
+              (click)="getOneByCodigo()"
+              [disabled]="!codigo"
+            >
+              Buscar Libro
+            </button>
+            <h4 class="text-center" *ngIf="libro.id">
+              Libro: {{ libro.titulo }}
+            </h4>
+          </div>
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Cantidad</mat-label>
+            <input
+              required
+              type="number"
+              min="1"
+              [(ngModel)]="cantidad"
+              name="cantidad"
+              matInput
+              placeholder="Ingrese la cantidad de Ejemplares"
+              [disabled]="!libro.id"
+            />
+          </mat-form-field>
+          <div class="container text-center">
+            <button
+              mat-raised-button
+              color="primary"
+              type="submit"
+              (click)="save()"
+              [disabled]="!libro.id || cantidad < 1"
+            >
+              Guardar
+            </button>
+            <button
+              mat-raised-button
+              color="warn"
+              type="button"
+              [routerLink]="['/ejemplares-libros']"
+              style="margin-left: 20px"
+            >
+              Cancelar
+            </button>
+            <button
+              mat-raised-button
+              color="accent"
+              type="reset"
+              style="margin-left: 20px"
+              (click)="limpiar()"
+            >
+              Limpiar
+            </button>
+          </div>
+        </div>
       </div>
-      <div *ngIf="cantidad <= 0">La cantidad mínima es 1</div>
     </div>
-    <div>
-      <button type="submit" (click)="save()" [disabled]="cantidad === null">
-        Guardar
-      </button>
-    </div>
-    <div>
-      <button type="button" [routerLink]="['/ejemplares-libros']">
-        Cancelar
-      </button>
-    </div>
-  </form>
-</div>
+  </div>
+  <br />
+</mat-card>

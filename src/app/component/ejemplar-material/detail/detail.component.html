@@ -1,26 +1,49 @@
-<div>
-  <button type="button" name="back" [routerLink]="['/ejemplares-materiales']">
-    Volver
-  </button>
-</div>
-<div *ngIf="ejemplarMaterial">
-  <ul>
-    <li>{{ ejemplarMaterial.id }}</li>
-    <li>{{ ejemplarMaterial.material.codigo }}</li>
-    <li>{{ ejemplarMaterial.numero }}</li>
-    <li>{{ ejemplarMaterial.estado }}</li>
-    <li>{{ ejemplarMaterial.observaciones }}</li>
-  </ul>
-</div>
-<div *ngIf="ejemplarMaterial.prestado">
-  No se puede actualizar un ejemplar prestado
-</div>
-<div *ngIf="!ejemplarMaterial.prestado">
-  <button
-    type="button"
-    name="update"
-    [routerLink]="['/ejemplares-materiales/form', ejemplarMaterial.id]"
-  >
-    Actualizar
-  </button>
-</div>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Detalle de Ejemplar</mat-card-title>
+  </mat-card-header>
+  <br />
+  <mat-card-content>
+    <h4>ID: {{ ejemplarMaterial.id }}</h4>
+    <h4>
+      Codigo: {{ ejemplarMaterial.material.codigo }}-{{
+        ejemplarMaterial.numero
+      }}
+    </h4>
+    <h4>Estado: {{ ejemplarMaterial.estado }}</h4>
+    <h4>Prestado: {{ ejemplarMaterial.prestado ? "SI" : "NO" }}</h4>
+    <h4>
+      Observaciones:
+      {{
+        ejemplarMaterial.observaciones
+          ? ejemplarMaterial.observaciones
+          : "No hay observaciones"
+      }}
+    </h4>
+    <h4 *ngIf="ejemplarMaterial.prestado">
+      * No se puede actualizar un ejemplar prestado
+    </h4>
+  </mat-card-content>
+  <br />
+  <mat-card-actions>
+    <button
+      mat-raised-button
+      type="button"
+      [routerLink]="['/ejemplares-materiales']"
+      style="margin-left: 20px"
+    >
+      Volver
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      type="button"
+      [routerLink]="['/ejemplares-materiales/form', ejemplarMaterial.id]"
+      style="margin-left: 20px"
+      *ngIf="!ejemplarMaterial.prestado"
+    >
+      Actualizar
+    </button>
+  </mat-card-actions>
+  <br />
+</mat-card>

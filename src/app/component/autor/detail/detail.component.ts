@@ -8,8 +8,7 @@ import { AutorService } from 'src/app/service/autor.service';
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css'],
 })
-export class AutorDetailComponent implements OnInit {
-  title = 'Detalle de Autor';
+export class AutorDetailComponent {
   autor: Autor = new Autor();
 
   constructor(

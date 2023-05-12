@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Area } from 'src/app/core/model/area.model';
 import { AreaService } from 'src/app/service/area.service';
@@ -8,8 +8,7 @@ import { AreaService } from 'src/app/service/area.service';
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css'],
 })
-export class AreaDetailComponent implements OnInit {
-  title = 'Detalle de Area';
+export class AreaDetailComponent {
   area: Area = new Area();
 
   constructor(

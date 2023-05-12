@@ -1,22 +1,10 @@
-<div>
+<!-- <div>
   <button type="button" name="back" [routerLink]="['/prestamos-libros']">
     Volver
   </button>
 </div>
 <div>
   <form>
-    <label for="fechaPrestamo">Fecha de Prestamo</label>
-    <div>
-      <input
-        type="datetime-local"
-        id="fechaPrestamo"
-        name="fechaPrestamo"
-        [(ngModel)]="prestamo.fechaPrestamo"
-      />
-    </div>
-    <div *ngIf="errors.fechaPrestamo">
-      {{ errors.fechaPrestamo }}
-    </div>
     <label for="dni">Docente</label>
     <div>
       <input type="text" id="dni" name="dni" [(ngModel)]="dni" />
@@ -102,11 +90,7 @@
             <th>#</th>
             <th>Código</th>
             <th>Título</th>
-            <th>Año</th>
             <th>Grado</th>
-            <th>Area</th>
-            <th>Categoria</th>
-            <th>Editorial</th>
             <th>Disponibles</th>
           </tr>
         </thead>
@@ -115,11 +99,7 @@
             <td>{{ libro.id }}</td>
             <td>{{ libro.codigo }}</td>
             <td>{{ libro.titulo }}</td>
-            <td>{{ libro.anio }}</td>
             <td>{{ libro.grado }}</td>
-            <td>{{ libro.area.nombre }}</td>
-            <td>{{ libro.categoria.nombre }}</td>
-            <td>{{ libro.editorial.nombre }}</td>
             <td>{{ ejemplaresDisponibles }}</td>
           </tr>
         </tbody>
@@ -152,7 +132,6 @@
             <th>Título</th>
             <th>Número</th>
             <th>Estado</th>
-            <th>Eliminar</th>
           </tr>
         </thead>
         <tbody>
@@ -162,14 +141,14 @@
             <td>{{ ejemplar.libro.titulo }}</td>
             <td>{{ ejemplar.numero }}</td>
             <td>{{ ejemplar.estado }}</td>
-            <!-- <td>
+            <td>
               <button
                 class="btn btn-danger btn-sm"
                 (click)="deleteEjemplar(ejemplar.id)"
               >
                 X
               </button>
-            </td> -->
+            </td>
           </tr>
         </tbody>
       </table>
@@ -181,7 +160,6 @@
       <textarea
         id="descripcion"
         name="descripcion"
-      
         [(ngModel)]="prestamo.descripcion"
       >
       </textarea>
@@ -193,4 +171,206 @@
       <button type="submit" (click)="save()">Guardar</button>
     </div>
   </form>
-</div>
+</div> -->
+
+<mat-card>
+  <div class="bootstrap-wrapper">
+    <div class="container">
+      <div class="row" style="margin-top: 20px">
+        <div class="col-md-6 offset-md-3">
+          <h1 class="text-center">Formulario de Prestamo de Libros</h1>
+          <div>
+            <mat-form-field class="demo-input">
+              <mat-label>Buscar Docente</mat-label>
+              <input
+                matInput
+                [(ngModel)]="dni"
+                placeholder="Ingrese el dni"
+                #input
+              />
+            </mat-form-field>
+            <button
+              mat-raised-button
+              class="demo-button"
+              type="button"
+              (click)="getOneByDni()"
+              [disabled]="!dni"
+            >
+              Buscar Docente
+            </button>
+            <h4 class="text-center" *ngIf="docente.id">
+              Docente: {{ docente.nombre }} {{ docente.apellido }}
+            </h4>
+            <mat-hint *ngIf="errors.docente" style="color: red">
+              {{ errors.docente }}
+            </mat-hint>
+          </div>
+          <mat-form-field appearance="fill" class="demo-input">
+            <mat-label>Grado</mat-label>
+            <mat-select
+              [(ngModel)]="prestamo.grado"
+              name="grado"
+              [disabled]="!docente.id"
+            >
+              <mat-option [value]="undefined">-- Seleccionar --</mat-option>
+              <mat-option [value]="1">1°</mat-option>
+              <mat-option [value]="2">2°</mat-option>
+              <mat-option [value]="3">3°</mat-option>
+              <mat-option [value]="4">4°</mat-option>
+              <mat-option [value]="5">5°</mat-option>
+              <mat-option [value]="6">6°</mat-option>
+            </mat-select>
+            <mat-hint *ngIf="errors.grado" style="color: red">
+              {{ errors.grado }}
+            </mat-hint>
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="demo-input">
+            <mat-label>Seccion</mat-label>
+            <mat-select
+              [(ngModel)]="prestamo.seccion"
+              name="seccion"
+              [disabled]="!docente.id"
+            >
+              <mat-option [value]="undefined">-- Seleccionar --</mat-option>
+              <mat-option value="A">A</mat-option>
+              <mat-option value="B">B</mat-option>
+              <mat-option value="C">C</mat-option>
+              <mat-option value="D">D</mat-option>
+              <mat-option value="E">E</mat-option>
+              <mat-option value="F">F</mat-option>
+              <mat-option value="G">G</mat-option>
+              <mat-option value="H">H</mat-option>
+              <mat-option value="I">I</mat-option>
+              <mat-option value="J">J</mat-option>
+              <mat-option value="K">K</mat-option>
+            </mat-select>
+            <mat-hint *ngIf="errors.grado" style="color: red">
+              {{ errors.grado }}
+            </mat-hint>
+          </mat-form-field>
+          <div>
+            <mat-form-field class="demo-input">
+              <mat-label>Buscar Libro</mat-label>
+              <input
+                matInput
+                [(ngModel)]="codigo"
+                placeholder="Ingrese el codigo"
+                [disabled]="
+                  !docente.id || prestamo.grado == 0 || !prestamo.seccion
+                "
+                #input
+              />
+            </mat-form-field>
+            <button
+              mat-raised-button
+              class="demo-button"
+              type="button"
+              (click)="getOneByCodigo()"
+              [disabled]="!codigo"
+            >
+              Buscar Libro
+            </button>
+            <h4 class="text-center" *ngIf="libro.id">
+              Libro: {{ libro.titulo }}
+            </h4>
+            <h4 class="text-center" *ngIf="libro.id">
+              Disponibles: {{ ejemplaresDisponibles }}
+            </h4>
+          </div>
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Cantidad</mat-label>
+            <input
+              required
+              type="number"
+              min="1"
+              [(ngModel)]="cantidad"
+              name="cantidad"
+              matInput
+              placeholder="Ingrese la cantidad de Ejemplares"
+              [disabled]="!libro.id"
+            />
+          </mat-form-field>
+          <button
+            mat-raised-button
+            class="demo-button"
+            type="submit"
+            (click)="getAllByLibro()"
+            [disabled]="cantidad < 1"
+          >
+            Buscar por Libro
+          </button>
+          <br /><br />
+          <table
+            mat-table
+            [dataSource]="dataSource"
+            class="mat-elevation-z8 demo-table"
+          >
+            <ng-container matColumnDef="codigo">
+              <th mat-header-cell *matHeaderCellDef>Codigo de Ejemplar</th>
+              <td mat-cell *matCellDef="let ejemplar">
+                {{ ejemplar.libro.codigo }}-{{ ejemplar.numero }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="titulo">
+              <th mat-header-cell *matHeaderCellDef>Titulo</th>
+              <td mat-cell *matCellDef="let ejemplar">
+                {{ ejemplar.libro.titulo }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="estado">
+              <th mat-header-cell *matHeaderCellDef>Estado</th>
+              <td
+                mat-cell
+                *matCellDef="let ejemplar"
+                class="bueno"
+                [ngClass]="{ malo: ejemplar.estado == 'MALO' }"
+              >
+                <b>{{ ejemplar.estado }}</b>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnas"></tr>
+          </table>
+          <mat-hint *ngIf="errors.detalle" style="color: red">
+            {{ errors.detalle }}
+          </mat-hint>
+          <br />
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Descripcion</mat-label>
+            <textarea
+              type="text"
+              [(ngModel)]="prestamo.descripcion"
+              name="descripcion"
+              matInput
+              placeholder="Ingrese la descripcion del Prestamo"
+            ></textarea>
+            <mat-hint *ngIf="errors.descripcion" style="color: red">
+              {{ errors.descripcion }}
+            </mat-hint>
+          </mat-form-field>
+          <br /><br />
+          <div class="container text-center">
+            <button
+              mat-raised-button
+              color="primary"
+              type="submit"
+              (click)="save()"
+            >
+              Guardar
+            </button>
+            <button
+              mat-raised-button
+              color="warn"
+              type="button"
+              [routerLink]="['/prestamos-libros']"
+              style="margin-left: 20px"
+            >
+              Cancelar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+</mat-card>

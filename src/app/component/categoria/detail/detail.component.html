@@ -1,20 +1,31 @@
-<div>
-  <button type="button" name="back" [routerLink]="['/categorias']">
-    Volver
-  </button>
-</div>
-<div *ngIf="categoria">
-  <ul>
-    <li>{{ categoria.id }}</li>
-    <li>{{ categoria.nombre }}</li>
-  </ul>
-</div>
-<div>
-  <button
-    type="button"
-    name="update"
-    [routerLink]="['/categorias/form', categoria.id]"
-  >
-    Actualizar
-  </button>
-</div>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Detalle de Categoria</mat-card-title>
+  </mat-card-header>
+  <br />
+  <mat-card-content>
+    <h4>ID: {{ categoria.id }}</h4>
+    <h4>Nombre: {{ categoria.nombre }}</h4>
+  </mat-card-content>
+  <br />
+  <mat-card-actions>
+    <button
+      mat-raised-button
+      type="button"
+      [routerLink]="['/categorias']"
+      style="margin-left: 20px"
+    >
+      Volver
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      type="button"
+      [routerLink]="['/categorias/form', categoria.id]"
+      style="margin-left: 20px"
+    >
+      Actualizar
+    </button>
+  </mat-card-actions>
+  <br />
+</mat-card>

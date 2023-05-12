@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -20,8 +20,7 @@ import Swal from 'sweetalert2';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css'],
 })
-export class LibroFormComponent implements OnInit {
-  title = 'Formulario de Libro';
+export class LibroFormComponent {
   libro: Libro = new Libro();
   areas: Area[] = [];
   categorias: Categoria[] = [];
@@ -71,6 +70,20 @@ export class LibroFormComponent implements OnInit {
         this.libroService.getOne(id).subscribe((libro) => (this.libro = libro));
       }
     });
+  }
+
+  limpiar(): void {
+    this.errors = {
+      codigo: '',
+      titulo: '',
+      anio: '',
+      grado: '',
+      area: '',
+      categoria: '',
+      editorial: '',
+      autores: '',
+    };
+    this.libro.autores = [];
   }
 
   save(): void {

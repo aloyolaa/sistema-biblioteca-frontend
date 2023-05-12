@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EjemplarLibro } from 'src/app/core/model/ejemplar-libro.model';
 import { EjemplarLibroService } from 'src/app/service/ejemplar-libro.service';
@@ -9,12 +9,8 @@ import Swal from 'sweetalert2';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css'],
 })
-export class EjemplarLibroFormComponent implements OnInit {
-  title = 'Formulario de Ejemplar';
+export class EjemplarLibroFormComponent {
   ejemplarLibro: EjemplarLibro = new EjemplarLibro();
-  errors = {
-    nombre: '',
-  };
 
   constructor(
     private ejemplarLibroService: EjemplarLibroService,
@@ -52,8 +48,7 @@ export class EjemplarLibroFormComponent implements OnInit {
           });
       },
       error: (err) => {
-        this.errors = err.error.errors;
-        console.log(this.errors);
+        console.log(err);
       },
     });
   }

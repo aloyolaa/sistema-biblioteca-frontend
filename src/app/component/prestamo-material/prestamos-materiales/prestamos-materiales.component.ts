@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { PrestamoMaterial } from 'src/app/core/model/prestamo-material.model';
@@ -9,18 +9,27 @@ import { PrestamoMaterialService } from 'src/app/service/prestamo-material.servi
   templateUrl: './prestamos-materiales.component.html',
   styleUrls: ['./prestamos-materiales.component.css'],
 })
-export class PrestamosMaterialesComponent implements OnInit {
+export class PrestamosMaterialesComponent {
   isLoading = false;
   totalRows = 0;
   pageSize = 5;
   currentPage = 0;
   pageSizeOptions: number[] = [5, 10, 20];
 
-  columnas: string[] = ['id', 'descripcion', 'grado', 'seccion', 'fecha_prestamo', 'detalle'];
+  columnas: string[] = [
+    'id',
+    'descripcion',
+    'grado-seccion',
+    'estado',
+    'fecha_prestamo',
+    'detalle',
+  ];
   dataSource: MatTableDataSource<PrestamoMaterial> = new MatTableDataSource();
-  
-  fechaPrestamoStart = '';
-  fechaPrestamoEnd = '';
+
+  fechasPrestamos = {
+    start: '',
+    end: '',
+  };
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -61,21 +70,36 @@ export class PrestamosMaterialesComponent implements OnInit {
   }
 
   paginationByFechaPrestamo(): void {
-    /* this.prestamoMaterialService
+    console.log(this.fechasPrestamos.start);
+    console.log(this.fechasPrestamos.end);
+    this.currentPage = this.currentPage != 0 ? 0 : this.currentPage;
+    this.isLoading = true;
+    this.prestamoMaterialService
       .paginationByFechaPrestamo(
-        this.fechaPrestamoStart,
-        this.fechaPrestamoEnd,
-        this.page - 1
+        this.fechasPrestamos.start,
+        this.fechasPrestamos.end,
+        this.currentPage,
+        this.pageSize
       )
-      .subscribe(
-        (response) => (this.prestamos = response.content as PrestamoMaterial[])
-      ); */
+      .subscribe({
+        next: (response) => {
+          this.dataSource.data = response.content as PrestamoMaterial[];
+          setTimeout(() => {
+            this.paginator.pageIndex = this.currentPage;
+            this.paginator.length = response.totalElements;
+          });
+          this.isLoading = false;
+        },
+        error: (e) => {
+          console.log(e);
+        },
+      });
   }
 
   cargarTodo(): void {
-    this.currentPage = 1;
+    this.currentPage = 0;
     this.pagination();
-    this.fechaPrestamoStart = '';
-    this.fechaPrestamoEnd = '';
+    this.fechasPrestamos.start = '';
+    this.fechasPrestamos.end = '';
   }
 }

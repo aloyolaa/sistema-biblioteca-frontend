@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PrestamoMaterial } from 'src/app/core/model/prestamo-material.model';
 import { PrestamoMaterialService } from 'src/app/service/prestamo-material.service';
@@ -9,8 +9,7 @@ import Swal from 'sweetalert2';
   templateUrl: './cerrar.component.html',
   styleUrls: ['./cerrar.component.css'],
 })
-export class PrestamoMaterialCerrarComponent implements OnInit {
-  title = 'Detalle del Préstamo';
+export class PrestamoMaterialCerrarComponent {
   prestamo: PrestamoMaterial = new PrestamoMaterial();
 
   constructor(

@@ -1,77 +1,3 @@
-<!-- <div>
-  <button type="button" [routerLink]="['/prestamos-libros/form']">
-    Nuevo Préstamo
-  </button>
-</div>
-<form>
-  <label for="fechaPrestamoStart">Desde</label>
-  <input
-    type="datetime-local"
-    id="fechaPrestamoStart"
-    name="fechaPrestamoStart"
-    [(ngModel)]="fechaPrestamoStart"
-  />
-  <label for="fechaPrestamoEnd">Hasta</label>
-  <input
-    type="datetime-local"
-    id="fechaPrestamoEnd"
-    name="fechaPrestamoEnd"
-    [(ngModel)]="fechaPrestamoEnd"
-  />
-  <button
-    type="button"
-    (click)="paginationByFechaPrestamo()"
-    [disabled]="!fechaPrestamoStart || !fechaPrestamoEnd"
-  >
-    Buscar
-  </button>
-  <button type="button" (click)="cargarTodo()">Cagar Todo</button>
-  <input type="number" id="page" name="page" [(ngModel)]="page" />
-</form>
-<div *ngIf="prestamos.length == 0">No hay prestamos registrados</div>
-<div>
-  <table *ngIf="prestamos.length > 0">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Descripción</th>
-        <th>Grado</th>
-        <th>Sección</th>
-        <th>Activo</th>
-        <th>Docente</th>
-        <th>Fecha de Préstamo</th>
-        <th>Fecha de Devolución</th>
-        <th>Detalle</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let prestamo of prestamos">
-        <td>{{ prestamo.id }}</td>
-        <td>{{ prestamo.descripcion }}</td>
-        <td>{{ prestamo.grado }}</td>
-        <td>{{ prestamo.seccion }}</td>
-        <td>
-          <div [ngSwitch]="prestamo.activo">
-            <div *ngSwitchCase="true">ACTIVO</div>
-            <div *ngSwitchDefault>DEVUELTO</div>
-          </div>
-        </td>
-        <td>{{ prestamo.docente.apellido }} {{ prestamo.docente.nombre }}</td>
-        <td>{{ prestamo.fechaPrestamo | date : "dd-MM-yyyy HH:mm:ss" }}</td>
-        <td>{{ prestamo.fechaDevolucion | date : "dd-MM-yyyy HH:mm:ss" }}</td>
-        <td>
-          <button
-            type="button"
-            name="detail"
-            [routerLink]="['/prestamos-libros/detail', prestamo.id]"
-          >
-            Detalle
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div> -->
 <mat-card>
   <div class="demo-button-container">
     <button
@@ -80,6 +6,55 @@
       [routerLink]="['/prestamos-libros/form']"
     >
       Nuevo Prestamo
+    </button>
+  </div>
+  <div>
+    <mat-form-field appearance="fill">
+      <mat-label>Desde</mat-label>
+      <input
+        matInput
+        [matDatepicker]="fechaPrestamoStart"
+        name="fechaPrestamoStart"
+        id="fechaPrestamoStart"
+        [(ngModel)]="fechasPrestamos.start"
+      />
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="fechaPrestamoStart"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #fechaPrestamoStart></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Hasta</mat-label>
+      <input
+        matInput
+        [matDatepicker]="fechaPrestamoEnd"
+        name="fechaPrestamoEnd"
+        id="fechaPrestamoEnd"
+        [(ngModel)]="fechasPrestamos.end"
+      />
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="fechaPrestamoEnd"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #fechaPrestamoEnd></mat-datepicker>
+    </mat-form-field>
+    <button
+      mat-raised-button
+      class="demo-button"
+      type="button"
+      (click)="paginationByFechaPrestamo()"
+      [disabled]="!fechasPrestamos.start || !fechasPrestamos.end"
+    >
+      Buscar
+    </button>
+    <button
+      mat-raised-button
+      class="demo-button"
+      type="button"
+      (click)="cargarTodo()"
+    >
+      Cargar Todo
     </button>
   </div>
   <div *ngIf="dataSource.data.length == 0">
@@ -100,16 +75,25 @@
         <th mat-header-cell *matHeaderCellDef>Descripción</th>
         <td mat-cell *matCellDef="let prestamo">{{ prestamo.descripcion }}</td>
       </ng-container>
-      <ng-container matColumnDef="grado">
-        <th mat-header-cell *matHeaderCellDef>Grado</th>
-        <td mat-cell *matCellDef="let prestamo">{{ prestamo.grado }}</td>
+      <ng-container matColumnDef="grado-seccion">
+        <th mat-header-cell *matHeaderCellDef>Grado y Seccion</th>
+        <td mat-cell *matCellDef="let prestamo">
+          {{ prestamo.grado }} {{ prestamo.seccion }}
+        </td>
       </ng-container>
-      <ng-container matColumnDef="seccion">
-        <th mat-header-cell *matHeaderCellDef>Sección</th>
-        <td mat-cell *matCellDef="let prestamo">{{ prestamo.seccion }}</td>
+      <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef>Estado</th>
+        <td
+          mat-cell
+          *matCellDef="let prestamo"
+          class="devuelto"
+          [ngClass]="{ activo: prestamo.activo }"
+        >
+          <b>{{ prestamo.activo ? "ACTIVO" : "DEVUELTO" }}</b>
+        </td>
       </ng-container>
       <ng-container matColumnDef="fecha_prestamo">
-        <th mat-header-cell *matHeaderCellDef>Fecha Prestamo</th>
+        <th mat-header-cell *matHeaderCellDef>Fecha de Prestamo</th>
         <td mat-cell *matCellDef="let prestamo">
           {{ prestamo.fechaPrestamo | date : "dd-MM-yyyy HH:mm:ss" }}
         </td>

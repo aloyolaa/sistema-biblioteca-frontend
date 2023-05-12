@@ -8,8 +8,7 @@ import { DocenteService } from 'src/app/service/docente.service';
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css'],
 })
-export class DocenteDetailComponent implements OnInit {
-  title = 'Detalle de Docente';
+export class DocenteDetailComponent {
   docente: Docente = new Docente();
 
   constructor(

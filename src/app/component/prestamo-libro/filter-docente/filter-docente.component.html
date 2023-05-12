@@ -1,107 +1,140 @@
-<div></div>
-<form>
-  <label for="dni">DNI del Docente</label>
-  <div>
-    <input type="text" id="dni" name="dni" [(ngModel)]="dni" />
-  </div>
-  <div>
-    <button type="submit" (click)="getOneByDni()" [disabled]="!dni">
-      Buscar Docente
-    </button>
-  </div>
-  <div>
-    <table>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Apellido</th>
-          <th>Nombre</th>
-          <th>DNI</th>
-          <th>Teléfono</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>{{ docente.id }}</td>
-          <td>{{ docente.apellido }}</td>
-          <td>{{ docente.nombre }}</td>
-          <td>{{ docente.dni }}</td>
-          <td>{{ docente.telefono }}</td>
-        </tr>
-      </tbody>
-    </table>
+<mat-card>
+  <div class="demo-button-container">
     <button
-      type="button"
-      (click)="paginationByDocente()"
-      [disabled]="!docente.id"
+      mat-raised-button
+      class="demo-button"
+      [routerLink]="['/prestamos-libros/form']"
     >
-      Buscar por Docente
+      Nuevo Prestamo
     </button>
   </div>
-  <label for="fechaPrestamoStart">Desde</label>
-  <input
-    type="datetime-local"
-    id="fechaPrestamoStart"
-    name="fechaPrestamoStart"
-    [(ngModel)]="fechaPrestamoStart"
-  />
-  <label for="fechaPrestamoEnd">Hasta</label>
-  <input
-    type="datetime-local"
-    id="fechaPrestamoEnd"
-    name="fechaPrestamoEnd"
-    [(ngModel)]="fechaPrestamoEnd"
-  />
-  <button
-    type="button"
-    (click)="paginationByFechaPrestamoAndDocente()"
-    [disabled]="!fechaPrestamoStart || !fechaPrestamoEnd"
-  >
-    Añadir fechas
-  </button>
-  <input type="number" id="page" name="page" [(ngModel)]="page" />
-</form>
-<div *ngIf="prestamos.length == 0">No hay prestamos registrados</div>
-<div>
-  <table *ngIf="prestamos.length > 0">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Descripción</th>
-        <th>Grado</th>
-        <th>Sección</th>
-        <th>Activo</th>
-        <th>Docente</th>
-        <th>Fecha de Préstamo</th>
-        <th>Fecha de Devolución</th>
-        <th>Detalle</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let prestamo of prestamos">
-        <td>{{ prestamo.id }}</td>
-        <td>{{ prestamo.descripcion }}</td>
-        <td>{{ prestamo.grado }}</td>
-        <td>{{ prestamo.seccion }}</td>
-        <td>
-          <div [ngSwitch]="prestamo.activo">
-            <div *ngSwitchCase="true">ACTIVO</div>
-            <div *ngSwitchDefault>DEVUELTO</div>
-          </div>
+  <div>
+    <div>
+      <mat-form-field>
+        <mat-label>Buscar Docente</mat-label>
+        <input matInput [(ngModel)]="dni" placeholder="Ingrese el dni" #input />
+      </mat-form-field>
+      <button
+        mat-raised-button
+        class="demo-button"
+        type="button"
+        (click)="getOneByDni()"
+        [disabled]="!dni"
+      >
+        Buscar por Docente
+      </button>
+      <h4 class="text-center" *ngIf="docente.id">
+        Docente: {{ docente.nombre }} {{ docente.apellido }}
+      </h4>
+    </div>
+    <mat-form-field appearance="fill">
+      <mat-label>Desde</mat-label>
+      <input
+        matInput
+        [matDatepicker]="fechaPrestamoStart"
+        name="fechaPrestamoStart"
+        id="fechaPrestamoStart"
+        [(ngModel)]="fechasPrestamos.start"
+        [disabled]="!docente.id"
+      />
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="fechaPrestamoStart"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #fechaPrestamoStart></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Hasta</mat-label>
+      <input
+        matInput
+        [matDatepicker]="fechaPrestamoEnd"
+        name="fechaPrestamoEnd"
+        id="fechaPrestamoEnd"
+        [(ngModel)]="fechasPrestamos.end"
+        [disabled]="!docente.id"
+      />
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="fechaPrestamoEnd"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #fechaPrestamoEnd></mat-datepicker>
+    </mat-form-field>
+    <button
+      mat-raised-button
+      class="demo-button"
+      type="button"
+      (click)="buscarByFechaPrestamoAndDocente()"
+      [disabled]="!fechasPrestamos.start || !fechasPrestamos.end"
+    >
+      Buscar por Fecha
+    </button>
+  </div>
+  <div *ngIf="dataSource.data.length == 0">
+    <h3 class="text-center">No hay Prestamos registrados</h3>
+  </div>
+  <div *ngIf="dataSource.data.length > 0">
+    <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      class="mat-elevation-z8 demo-table"
+    >
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>No.</th>
+        <td mat-cell *matCellDef="let prestamo">{{ prestamo.id }}</td>
+      </ng-container>
+      <ng-container matColumnDef="descripcion">
+        <th mat-header-cell *matHeaderCellDef>Descripción</th>
+        <td mat-cell *matCellDef="let prestamo">{{ prestamo.descripcion }}</td>
+      </ng-container>
+      <ng-container matColumnDef="grado-seccion">
+        <th mat-header-cell *matHeaderCellDef>Grado y Seccion</th>
+        <td mat-cell *matCellDef="let prestamo">
+          {{ prestamo.grado }} {{ prestamo.seccion }}
         </td>
-        <td>{{ prestamo.docente.apellido }} {{ prestamo.docente.nombre }}</td>
-        <td>{{ prestamo.fechaPrestamo | date : "dd-MM-yyyy HH:mm:ss" }}</td>
-        <td>{{ prestamo.fechaDevolucion | date : "dd-MM-yyyy HH:mm:ss" }}</td>
-        <td>
+      </ng-container>
+      <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef>Estado</th>
+        <td
+          mat-cell
+          *matCellDef="let prestamo"
+          class="devuelto"
+          [ngClass]="{ activo: prestamo.activo }"
+        >
+          <b>{{ prestamo.activo ? "ACTIVO" : "DEVUELTO" }}</b>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="fecha_prestamo">
+        <th mat-header-cell *matHeaderCellDef>Fecha de Prestamo</th>
+        <td mat-cell *matCellDef="let prestamo">
+          {{ prestamo.fechaPrestamo | date : "dd-MM-yyyy HH:mm:ss" }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="detalle">
+        <th mat-header-cell *matHeaderCellDef>Detalle</th>
+        <td mat-cell *matCellDef="let prestamo">
           <button
+            mat-raised-button
+            color="primary"
             type="button"
-            name="detail"
             [routerLink]="['/prestamos-libros/detail', prestamo.id]"
           >
             Detalle
           </button>
         </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnas"></tr>
+    </table>
+    <mat-paginator
+      [length]="totalRows"
+      [pageIndex]="currentPage"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="pageSizeOptions"
+      (page)="pageChanged($event)"
+      showFirstLastButtons
+      aria-label="Select page of periodic elements"
+    >
+    </mat-paginator>
+  </div>
+</mat-card>

@@ -1,34 +1,62 @@
-<div>
-  <form>
-    <div>
-      {{ ejemplarMaterial.material.codigo }} {{ ejemplarMaterial.numero }}
+<mat-card>
+  <div class="bootstrap-wrapper">
+    <div class="container">
+      <div class="row" style="margin-top: 20px">
+        <div class="col-md-6 offset-md-3">
+          <h1 class="text-center">Formulario de Ejemplar</h1>
+          <form>
+            <mat-card-content>
+              <h4>
+                Codigo: {{ ejemplarMaterial.material.codigo }}-{{
+                  ejemplarMaterial.numero
+                }}
+              </h4>
+            </mat-card-content>
+            <br />
+            <mat-form-field appearance="fill" class="demo-select">
+              <mat-label>Estado</mat-label>
+              <mat-select [(ngModel)]="ejemplarMaterial.estado" name="estado">
+                <mat-option value="BUENO">BUENO</mat-option>
+                <mat-option value="REGULAR">REGULAR</mat-option>
+                <mat-option value="MALO">MALO</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Observaciones</mat-label>
+              <textarea
+                type="text"
+                [(ngModel)]="ejemplarMaterial.observaciones"
+                name="observaciones"
+                matInput
+                placeholder="Ingrese las observaciones del Ejemplar"
+              ></textarea>
+            </mat-form-field>
+            <div class="container text-center">
+              <button
+                mat-raised-button
+                color="primary"
+                type="submit"
+                (click)="update()"
+              >
+                Guardar
+              </button>
+              <button
+                mat-raised-button
+                color="warn"
+                type="button"
+                style="margin-left: 20px"
+                [routerLink]="[
+                  '/ejemplares-materiales/detail',
+                  ejemplarMaterial.id
+                ]"
+              >
+                Cancelar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
-    <label for="estado">Estado</label>
-    <div>
-      <select name="estado" id="estado" [(ngModel)]="ejemplarMaterial.estado">
-        <option value="BUENO">BUENO</option>
-        <option value="REGULAR">REGULAR</option>
-        <option value="MALO">MALO</option>
-      </select>
-    </div>
-    <div>
-      <textarea
-        id="observaciones"
-        name="observaciones"
-        [(ngModel)]="ejemplarMaterial.observaciones"
-      >
-      </textarea>
-    </div>
-    <div>
-      <button type="submit" (click)="update()">Actualizar</button>
-    </div>
-    <div>
-      <button
-        type="button"
-        [routerLink]="['/ejemplares-materiales/detail', ejemplarMaterial.id]"
-      >
-        Cancelar
-      </button>
-    </div>
-  </form>
-</div>
+  </div>
+  <br />
+</mat-card>

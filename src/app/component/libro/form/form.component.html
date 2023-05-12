@@ -1,165 +1,220 @@
-<div>
-  <form>
-    <label for="codigo">Código</label>
-    <div>
-      <input type="text" id="codigo" name="codigo" [(ngModel)]="libro.codigo" />
-    </div>
-    <div *ngIf="errors.codigo">
-      {{ errors.codigo }}
-    </div>
-    <label for="titulo">Titulo</label>
-    <div>
-      <input type="text" id="titulo" name="titulo" [(ngModel)]="libro.titulo" />
-    </div>
-    <div *ngIf="errors.titulo">
-      {{ errors.titulo }}
-    </div>
-    <label for="anio">Año de Publicación</label>
-    <div>
-      <input type="number" id="anio" name="anio" [(ngModel)]="libro.anio" />
-    </div>
-    <div *ngIf="errors.anio">
-      {{ errors.anio }}
-    </div>
-    <label for="grado">Grado</label>
-    <div>
-      <select name="grado" id="grado" [(ngModel)]="libro.grado">
-        <option [ngValue]="undefined">-- Seleccionar --</option>
-        <option [ngValue]="1">1°</option>
-        <option [ngValue]="2">2°</option>
-        <option [ngValue]="3">3°</option>
-        <option [ngValue]="4">4°</option>
-        <option [ngValue]="5">5°</option>
-        <option [ngValue]="6">6°</option>
-      </select>
-    </div>
-    <div *ngIf="errors.grado">
-      {{ errors.grado }}
-    </div>
-    <label for="area">Area</label>
-    <div>
-      <select name="area" [(ngModel)]="libro.area" [compareWith]="compareArea">
-        <option [ngValue]="undefined">-- Seleccionar --</option>
-        <option *ngFor="let area of areas" [ngValue]="area">
-          {{ area.nombre }}
-        </option>
-      </select>
-    </div>
-    <div *ngIf="errors.area">
-      {{ errors.area }}
-    </div>
-    <label for="categoria">Categoria</label>
-    <div>
-      <select
-        name="categoria"
-        [(ngModel)]="libro.categoria"
-        [compareWith]="compareCategoria"
-      >
-        <option [ngValue]="undefined">-- Seleccionar --</option>
-        <option *ngFor="let categoria of categorias" [ngValue]="categoria">
-          {{ categoria.nombre }}
-        </option>
-      </select>
-    </div>
-    <div *ngIf="errors.categoria">
-      {{ errors.categoria }}
-    </div>
-    <label for="editorial">Editorial</label>
-    <div>
-      <select
-        name="editorial"
-        [(ngModel)]="libro.editorial"
-        [compareWith]="compareEditorial"
-      >
-        <option [ngValue]="undefined">-- Seleccionar --</option>
-        <option *ngFor="let editorial of editoriales" [ngValue]="editorial">
-          {{ editorial.nombre }}
-        </option>
-      </select>
-    </div>
-    <div *ngIf="errors.editorial">
-      {{ errors.editorial }}
-    </div>
-    <label for="autor">Autores</label>
-    <div>
-      <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Autor</mat-label>
-        <input
-          type="text"
-          placeholder="Agregar Autor"
-          aria-label="Autor"
-          matInput
-          [formControl]="autocompleteControl"
-          [matAutocomplete]="auto"
-        />
-        <mat-autocomplete
-          #auto="matAutocomplete"
-          [displayWith]="byNombreOrApellido"
-          (optionSelected)="selectAutor($event)"
-        >
-          <mat-option
-            *ngFor="let autor of filteredAutores | async"
-            [value]="autor"
-          >
-            {{ autor.nombre }} {{ autor.apellido }}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-    </div>
-    <div *ngIf="libro.autores.length == 0">
-      El libro no tiene autores asignados
-    </div>
-    <div>
-      <table *ngIf="libro.autores.length > 0">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Eliminar</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let autor of libro.autores">
-            <td>{{ autor.id }}</td>
-            <td>{{ autor.nombre }}</td>
-            <td>{{ autor.apellido }}</td>
-            <td>
-              <button
-                class="btn btn-danger btn-sm"
-                (click)="deleteAutor(autor.id)"
+<mat-card>
+  <div class="bootstrap-wrapper">
+    <div class="container">
+      <div class="row" style="margin-top: 20px">
+        <div class="col-md-6 offset-md-3">
+          <h1 class="text-center">Formulario de Libro</h1>
+          <form>
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Codigo</mat-label>
+              <input
+                required
+                minlength="4"
+                [(ngModel)]="libro.codigo"
+                name="codigo"
+                matInput
+                placeholder="Ingrese el codigo del Libro"
+              />
+              <mat-hint *ngIf="errors.codigo" style="color: red">
+                {{ errors.codigo }}
+              </mat-hint>
+            </mat-form-field>
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Titulo</mat-label>
+              <input
+                required
+                minlength="4"
+                [(ngModel)]="libro.titulo"
+                name="titulo"
+                matInput
+                placeholder="Ingrese el titulo del Libro"
+              />
+              <mat-hint *ngIf="errors.titulo" style="color: red">
+                {{ errors.titulo }}
+              </mat-hint>
+            </mat-form-field>
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Año</mat-label>
+              <input
+                required
+                type="number"
+                minlength="4"
+                [(ngModel)]="libro.anio"
+                name="anio"
+                matInput
+                placeholder="Ingrese el año del Libro"
+              />
+              <mat-hint *ngIf="errors.anio" style="color: red">
+                {{ errors.anio }}
+              </mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="demo-select">
+              <mat-label>Grado</mat-label>
+              <mat-select [(ngModel)]="libro.grado" name="grado">
+                <mat-option [value]="undefined">-- Seleccionar --</mat-option>
+                <mat-option [value]="1">1°</mat-option>
+                <mat-option [value]="2">2°</mat-option>
+                <mat-option [value]="3">3°</mat-option>
+                <mat-option [value]="4">4°</mat-option>
+                <mat-option [value]="5">5°</mat-option>
+                <mat-option [value]="6">6°</mat-option>
+              </mat-select>
+              <mat-hint *ngIf="errors.grado" style="color: red">
+                {{ errors.grado }}
+              </mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="demo-select">
+              <mat-label>Area</mat-label>
+              <mat-select
+                [(ngModel)]="libro.area"
+                name="area"
+                [compareWith]="compareArea"
               >
-                X
+                <mat-option [value]="undefined">-- Seleccionar --</mat-option>
+                <mat-option *ngFor="let area of areas" [value]="area">
+                  {{ area.nombre }}
+                </mat-option>
+              </mat-select>
+              <mat-hint *ngIf="errors.area" style="color: red">
+                {{ errors.area }}
+              </mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="demo-select">
+              <mat-label>Categoria</mat-label>
+              <mat-select
+                [(ngModel)]="libro.categoria"
+                name="categoria"
+                [compareWith]="compareCategoria"
+              >
+                <mat-option [value]="undefined">-- Seleccionar --</mat-option>
+                <mat-option
+                  *ngFor="let categoria of categorias"
+                  [value]="categoria"
+                >
+                  {{ categoria.nombre }}
+                </mat-option>
+              </mat-select>
+              <mat-hint *ngIf="errors.categoria" style="color: red">
+                {{ errors.categoria }}
+              </mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="demo-select">
+              <mat-label>Editorial</mat-label>
+              <mat-select
+                [(ngModel)]="libro.editorial"
+                name="editorial"
+                [compareWith]="compareEditorial"
+              >
+                <mat-option [value]="undefined">-- Seleccionar --</mat-option>
+                <mat-option
+                  *ngFor="let editorial of editoriales"
+                  [value]="editorial"
+                >
+                  {{ editorial.nombre }}
+                </mat-option>
+              </mat-select>
+              <mat-hint *ngIf="errors.editorial" style="color: red">
+                {{ errors.editorial }}
+              </mat-hint>
+            </mat-form-field>
+            <mat-form-field
+              class="example-full-width demo-select"
+              appearance="fill"
+            >
+              <mat-label>Autor(es)</mat-label>
+              <input
+                type="text"
+                placeholder="Agregar Autor"
+                aria-label="Autor"
+                matInput
+                [formControl]="autocompleteControl"
+                [matAutocomplete]="auto"
+              />
+              <mat-autocomplete
+                #auto="matAutocomplete"
+                [displayWith]="byNombreOrApellido"
+                (optionSelected)="selectAutor($event)"
+              >
+                <mat-option
+                  *ngFor="let autor of filteredAutores | async"
+                  [value]="autor"
+                >
+                  {{ autor.nombre }} {{ autor.apellido }}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-hint *ngIf="errors.autores" style="color: red">
+                {{ errors.autores }}
+              </mat-hint>
+            </mat-form-field>
+            <ul>
+              <li *ngFor="let autor of libro.autores">
+                <h4>
+                  {{ autor.nombre }} {{ autor.apellido }}
+                  <button
+                    mat-raised-button
+                    color="warn"
+                    (click)="deleteAutor(autor.id)"
+                  >
+                    X
+                  </button>
+                </h4>
+              </li>
+            </ul>
+            <div class="container text-center">
+              <button
+                mat-raised-button
+                color="primary"
+                type="submit"
+                (click)="save()"
+                *ngIf="!libro.id; else elseSave"
+              >
+                Guardar
               </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+              <ng-template #elseSave>
+                <button
+                  mat-raised-button
+                  color="primary"
+                  type="submit"
+                  (click)="update()"
+                >
+                  Actualizar
+                </button>
+              </ng-template>
+              <button
+                mat-raised-button
+                color="warn"
+                type="button"
+                [routerLink]="['/libros']"
+                style="margin-left: 20px"
+                *ngIf="!libro.id; else elseBack"
+              >
+                Cancelar
+              </button>
+              <ng-template #elseBack>
+                <button
+                  mat-raised-button
+                  color="warn"
+                  type="button"
+                  style="margin-left: 20px"
+                  [routerLink]="['/libros/detail', libro.id]"
+                >
+                  Cancelar
+                </button>
+              </ng-template>
+              <button
+                mat-raised-button
+                color="accent"
+                type="reset"
+                (click)="limpiar()"
+                style="margin-left: 20px"
+              >
+                Limpiar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
-    <div *ngIf="errors.autores">
-      {{ errors.autores }}
-    </div>
-    <div>
-      <button type="submit" (click)="save()" *ngIf="!libro.id; else elseBlock">
-        Guardar
-      </button>
-      <ng-template #elseBlock>
-        <button type="submit" (click)="update()">Actualizar</button>
-      </ng-template>
-    </div>
-    <div>
-      <button
-        type="button"
-        [routerLink]="['/libros']"
-        *ngIf="!libro.id; else elseBack"
-      >
-        Cancelar
-      </button>
-      <ng-template #elseBack>
-        <button type="button" [routerLink]="['/libros/detail', libro.id]">
-          Cancelar
-        </button>
-      </ng-template>
-    </div>
-  </form>
-</div>
+  </div>
+  <br />
+</mat-card>

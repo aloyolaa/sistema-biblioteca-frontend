@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
   <button
     type="button"
     name="back"
@@ -44,9 +44,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let detalle of prestamo.detalle">
-          <td>{{ detalle.ejemplarMaterial.material.codigo }}</td>
-          <td>{{ detalle.ejemplarMaterial.material.nombre }}</td>
-          <td>{{ detalle.ejemplarMaterial.numero }}</td>
+          <td>{{ detalle.ejemplarLibro.libro.codigo }}</td>
+          <td>{{ detalle.ejemplarLibro.libro.titulo }}</td>
+          <td>{{ detalle.ejemplarLibro.numero }}</td>
         </tr>
       </tbody>
     </table>
@@ -61,4 +61,71 @@
 </div>
 <div>
   <button type="button" name="cerrar" (click)="close()">Cerrar</button>
-</div>
+</div> -->
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Detalle de Prestamo</mat-card-title>
+  </mat-card-header>
+  <br />
+  <mat-card-content>
+    <h4>ID: {{ prestamo.id }}</h4>
+    <h4 *ngIf="prestamo.docente">
+      Docente:
+      <ul>
+        <li>
+          Nombre: {{ prestamo.docente.nombre }} {{ prestamo.docente.apellido }}
+        </li>
+        <li>DNI: {{ prestamo.docente.dni }}</li>
+        <li>Telefono: {{ prestamo.docente.telefono }}</li>
+      </ul>
+    </h4>
+    <h4>
+      Fecha de Prestamo:
+      {{ prestamo.fechaPrestamo | date : "dd-MM-yyyy HH:mm:ss" }}
+    </h4>
+    <h4 *ngIf="prestamo.fechaDevolucion">
+      Fecha de Devoluvion:
+      {{ prestamo.fechaDevolucion | date : "dd-MM-yyyy HH:mm:ss" }}
+    </h4>
+    <h4>Descripcion: {{ prestamo.descripcion }}</h4>
+    <h4>Grado: {{ prestamo.grado }}</h4>
+    <h4>Seccion: {{ prestamo.seccion }}</h4>
+    <h4>
+      Estado:
+      <b class="devuelto" [ngClass]="{ activo: prestamo.activo }">{{
+        prestamo.activo ? "ACTIVO" : "DEVUELTO"
+      }}</b>
+    </h4>
+    <mat-form-field class="full-width" appearance="outline">
+      <mat-label>Observaciones</mat-label>
+      <textarea
+        type="text"
+        [(ngModel)]="prestamo.observaciones"
+        name="observaciones"
+        matInput
+        placeholder="Ingrese las observaciones del Prestamo"
+      ></textarea>
+    </mat-form-field>
+  </mat-card-content>
+  <mat-card-actions>
+    <button
+      mat-raised-button
+      type="button"
+      [routerLink]="['/prestamos-materiales/detail', prestamo.id]"
+      style="margin-left: 20px"
+    >
+      Volver
+    </button>
+    <button
+      mat-raised-button
+      color="warn"
+      type="button"
+      (click)="close()"
+      style="margin-left: 20px"
+    >
+      Cerrar
+    </button>
+  </mat-card-actions>
+  <br />
+</mat-card>

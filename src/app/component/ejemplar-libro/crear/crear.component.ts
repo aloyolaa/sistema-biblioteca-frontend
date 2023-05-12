@@ -11,7 +11,6 @@ import Swal from 'sweetalert2';
   styleUrls: ['./crear.component.css'],
 })
 export class EjemplarLibroCrearComponent {
-  title = 'Nuevos Ejemplares';
   libro: Libro = new Libro();
   codigo: string = '';
   cantidad: number = 0;
@@ -25,6 +24,12 @@ export class EjemplarLibroCrearComponent {
     private libroService: LibroService,
     private router: Router
   ) {}
+
+  limpiar(): void {
+    this.libro = new Libro();
+    this.codigo = '';
+    this.cantidad = 0;
+  }
 
   getOneByCodigo(): void {
     this.libroService.getOneByCodigo(this.codigo).subscribe((libro) => {

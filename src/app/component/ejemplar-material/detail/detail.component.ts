@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EjemplarMaterial } from 'src/app/core/model/ejemplar-material.model';
 import { EjemplarMaterialService } from 'src/app/service/ejemplar-material.service';
@@ -8,8 +8,7 @@ import { EjemplarMaterialService } from 'src/app/service/ejemplar-material.servi
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css'],
 })
-export class EjemplarMaterialDetailComponent implements OnInit {
-  title = 'Detalle de Ejemplar';
+export class EjemplarMaterialDetailComponent {
   ejemplarMaterial: EjemplarMaterial = new EjemplarMaterial();
 
   constructor(

@@ -138,7 +138,7 @@ export class PrestamoLibroService {
   }
 
   paginationByGradoAndSeccion(
-    grado: string,
+    grado: number,
     seccion: string,
     page: number,
     size: number

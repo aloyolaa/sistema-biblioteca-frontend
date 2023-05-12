@@ -9,8 +9,7 @@ import Swal from 'sweetalert2';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css'],
 })
-export class DocenteFormComponent implements OnInit {
-  title = 'Formulario de Docente';
+export class DocenteFormComponent {
   docente: Docente = new Docente();
   errors = {
     nombre: '',
@@ -38,6 +37,15 @@ export class DocenteFormComponent implements OnInit {
           .subscribe((docente) => (this.docente = docente));
       }
     });
+  }
+
+  limpiar(): void {
+    this.errors = {
+      nombre: '',
+      apellido: '',
+      dni: '',
+      telefono: '',
+    };
   }
 
   save(): void {

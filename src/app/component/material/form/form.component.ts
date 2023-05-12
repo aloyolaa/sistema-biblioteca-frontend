@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Area } from 'src/app/core/model/area.model';
 import { Material } from 'src/app/core/model/material.model';
@@ -11,14 +11,12 @@ import Swal from 'sweetalert2';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css'],
 })
-export class MaterialFormComponent implements OnInit {
-  title = 'Formulario de Material';
+export class MaterialFormComponent {
   material: Material = new Material();
   areas: Area[] = [];
   errors = {
     codigo: '',
     nombre: '',
-    medidas: '',
     area: '',
   };
 
@@ -43,6 +41,14 @@ export class MaterialFormComponent implements OnInit {
           .subscribe((material) => (this.material = material));
       }
     });
+  }
+
+  limpiar(): void {
+    this.errors = {
+      codigo: '',
+      nombre: '',
+      area: '',
+    };
   }
 
   save(): void {

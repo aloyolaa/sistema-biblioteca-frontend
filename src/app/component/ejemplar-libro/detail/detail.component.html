@@ -1,26 +1,55 @@
-<div>
-  <button type="button" name="back" [routerLink]="['/ejemplares-libros']">
-    Volver
-  </button>
-</div>
-<div *ngIf="ejemplarLibro">
-  <ul>
-    <li>{{ ejemplarLibro.id }}</li>
-    <li>{{ ejemplarLibro.libro.codigo }}</li>
-    <li>{{ ejemplarLibro.numero }}</li>
-    <li>{{ ejemplarLibro.estado }}</li>
-    <li>{{ ejemplarLibro.observaciones }}</li>
-  </ul>
-</div>
-<div *ngIf="ejemplarLibro.prestado">
-  No se puede actualizar un ejemplar prestado
-</div>
-<div *ngIf="!ejemplarLibro.prestado">
-  <button
-    type="button"
-    name="update"
-    [routerLink]="['/ejemplares-libros/form', ejemplarLibro.id]"
-  >
-    Actualizar
-  </button>
-</div>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Detalle de Ejemplar</mat-card-title>
+  </mat-card-header>
+  <br />
+  <mat-card-content>
+    <h4>ID: {{ ejemplarLibro.id }}</h4>
+    <h4>Codigo: {{ ejemplarLibro.libro.codigo }}-{{ ejemplarLibro.numero }}</h4>
+    <h4>
+      Estado:
+      <b class="bueno" [ngClass]="{ malo: ejemplarLibro.estado == 'MALO' }">{{
+        ejemplarLibro.estado
+      }}</b>
+    </h4>
+    <h4>
+      Prestado:
+      <b class="devuelto" [ngClass]="{ activo: ejemplarLibro.prestado }">{{
+        ejemplarLibro.prestado ? "SI" : "NO"
+      }}</b>
+    </h4>
+    <h4>
+      Observaciones:
+      {{
+        ejemplarLibro.observaciones
+          ? ejemplarLibro.observaciones
+          : "No hay observaciones"
+      }}
+    </h4>
+    <h4 *ngIf="ejemplarLibro.prestado">
+      * No se puede actualizar un ejemplar prestado
+    </h4>
+  </mat-card-content>
+  <br />
+  <mat-card-actions>
+    <button
+      mat-raised-button
+      type="button"
+      [routerLink]="['/ejemplares-libros']"
+      style="margin-left: 20px"
+    >
+      Volver
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      type="button"
+      [routerLink]="['/ejemplares-libros/form', ejemplarLibro.id]"
+      style="margin-left: 20px"
+      *ngIf="!ejemplarLibro.prestado"
+    >
+      Actualizar
+    </button>
+  </mat-card-actions>
+  <br />
+</mat-card>

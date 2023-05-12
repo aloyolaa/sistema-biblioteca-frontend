@@ -11,8 +11,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./crear.component.css'],
 })
 export class EjemplarMaterialCrearComponent {
-  title = 'Nuevos Ejemplares';
-  material: Material;
+  material: Material = new Material();
   codigo: string = '';
   cantidad: number = 0;
   errors = {
@@ -25,6 +24,12 @@ export class EjemplarMaterialCrearComponent {
     private materialService: MaterialService,
     private router: Router
   ) {}
+
+  limpiar(): void {
+    this.material = new Material();
+    this.codigo = '';
+    this.cantidad = 0;
+  }
 
   getOneByCodigo(): void {
     this.materialService.getOneByCodigo(this.codigo).subscribe((material) => {

@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { PrestamoMaterial } from 'src/app/core/model/prestamo-material.model';
 import { PrestamoMaterialService } from 'src/app/service/prestamo-material.service';
 
@@ -8,37 +10,107 @@ import { PrestamoMaterialService } from 'src/app/service/prestamo-material.servi
   styleUrls: ['./filter-grado-seccion.component.css'],
 })
 export class PrestamoMaterialFilterGradoSeccionComponent {
-  title = 'Préstamos de Materiales';
+  isLoading = false;
+  totalRows = 0;
+  pageSize = 5;
+  currentPage = 0;
+  pageSizeOptions: number[] = [5, 10, 20];
+
+  columnas: string[] = [
+    'id',
+    'descripcion',
+    'grado-seccion',
+    'estado',
+    'fecha_prestamo',
+    'detalle',
+  ];
+  dataSource: MatTableDataSource<PrestamoMaterial> = new MatTableDataSource();
+
   prestamos: PrestamoMaterial[] = [];
   grado = 0;
   seccion = '';
-  fechaPrestamoStart = '';
-  fechaPrestamoEnd = '';
-  page = 1;
+
+  fechasPrestamos = {
+    start: '',
+    end: '',
+  };
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private prestamoMaterialService: PrestamoMaterialService) {}
 
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
+
+  pageChanged(event: PageEvent) {
+    console.log({ event });
+    this.pageSize = event.pageSize;
+    this.currentPage = event.pageIndex;
+    if (this.fechasPrestamos.start == '' && this.fechasPrestamos.end == '') {
+      this.paginationByGradoAndSeccion();
+    } else {
+      this.paginationByFechaPrestamoAndGradoAndSeccion();
+    }
+  }
+
   paginationByGradoAndSeccion(): void {
-    /* this.prestamoMaterialService
-      .paginationByGradoAndSeccion(this.grado, this.seccion, this.page - 1)
-      .subscribe(
-        (response) => (this.prestamos = response.content as PrestamoMaterial[])
-      );
-      this.fechaPrestamoStart = '';
-      this.fechaPrestamoEnd = ''; */
+    this.isLoading = true;
+    this.prestamoMaterialService
+      .paginationByGradoAndSeccion(
+        this.grado,
+        this.seccion,
+        this.currentPage,
+        this.pageSize
+      )
+      .subscribe({
+        next: (response) => {
+          this.dataSource.data = response.content as PrestamoMaterial[];
+          setTimeout(() => {
+            this.paginator.pageIndex = this.currentPage;
+            this.paginator.length = response.totalElements;
+          });
+          this.isLoading = false;
+        },
+        error: (e) => {
+          console.log(e);
+        },
+      });
   }
 
   paginationByFechaPrestamoAndGradoAndSeccion(): void {
-    /* this.prestamoMaterialService
+    this.isLoading = true;
+    this.prestamoMaterialService
       .paginationByFechaPrestamoAndGradoAndSeccion(
-        this.fechaPrestamoStart,
-        this.fechaPrestamoEnd,
+        this.fechasPrestamos.start,
+        this.fechasPrestamos.end,
         this.grado,
         this.seccion,
-        this.page - 1
+        this.currentPage,
+        this.pageSize
       )
-      .subscribe(
-        (response) => (this.prestamos = response.content as PrestamoMaterial[])
-      ); */
+      .subscribe({
+        next: (response) => {
+          this.dataSource.data = response.content as PrestamoMaterial[];
+          setTimeout(() => {
+            this.paginator.pageIndex = this.currentPage;
+            this.paginator.length = response.totalElements;
+          });
+          this.isLoading = false;
+        },
+        error: (e) => {
+          console.log(e);
+        },
+      });
+  }
+
+  buscarByGradoAndSeccion(): void {
+    this.currentPage = this.currentPage != 0 ? 0 : this.currentPage;
+    this.paginationByGradoAndSeccion();
+  }
+
+  buscarByFechaPrestamoAndGradoAndSeccion(): void {
+    this.currentPage = this.currentPage != 0 ? 0 : this.currentPage;
+    this.paginationByFechaPrestamoAndGradoAndSeccion();
   }
 }

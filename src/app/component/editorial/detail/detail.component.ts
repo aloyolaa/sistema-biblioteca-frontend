@@ -8,8 +8,7 @@ import { EditorialService } from 'src/app/service/editorial.service';
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css'],
 })
-export class EditorialDetailComponent implements OnInit {
-  title = 'Detalle de Editorial';
+export class EditorialDetailComponent {
   editorial: Editorial = new Editorial();
 
   constructor(

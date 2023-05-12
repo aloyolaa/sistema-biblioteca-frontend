@@ -1,10 +1,22 @@
-<div class="bootstrap-wrapper">
-  <div class="container">
-    <div class="row mt20">
-      <div class="col-md-6 offset-md-3 text-center">
-        <h1>Bienvenido al Sistema de Biblioteca</h1>
-        <button mat-raised-button color="primary">Inicio</button>
+<mat-card>
+  <div class="bootstrap-wrapper">
+    <div class="container">
+      <div class="row mt20">
+        <div class="col-md-6 offset-md-3 text-center">
+          <h1>Bienvenido al Sistema de Biblioteca</h1>
+          <h4>Areas: {{ areas }}</h4>
+          <h4>Autores: {{ autores }}</h4>
+          <h4>Categorias: {{ categorias }}</h4>
+          <h4>Docentes: {{ docentes }}</h4>
+          <h4>Editoriales: {{ editoriales }}</h4>
+          <h4>Ejemplares de Libros: {{ ejemplaresLibros }}</h4>
+          <h4>Ejemplares de Materiales: {{ ejemplaresMateriales }}</h4>
+          <h4>Libros: {{ libros }}</h4>
+          <h4>Materiales: {{ materiales }}</h4>
+          <h4>Prestamos de Libros: {{ prestamosLibros }}</h4>
+          <h4>Prestamos de Materiales: {{ prestamosMateriales }}</h4>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</mat-card>

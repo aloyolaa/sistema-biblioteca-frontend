@@ -9,7 +9,7 @@
   </a>
   <span>Sistema Biblioteca</span>
   <span class="example-spacer"></span>
-  <a
+  <!-- <a
     *ngIf="!isLoggedIn"
     [routerLink]="'/login'"
     mat-icon-button
@@ -17,8 +17,8 @@
     aria-label="Example icon-button with heart icon"
   >
     Iniciar sesión
-  </a>
-  <a
+  </a> -->
+  <!-- <a
     *ngIf="!isLoggedIn"
     [routerLink]="'/signup'"
     mat-icon-button
@@ -26,7 +26,7 @@
     aria-label="Example icon-button with heart icon"
   >
     Registrar
-  </a>
+  </a> -->
   <a
     *ngIf="isLoggedIn"
     (click)="logout()"

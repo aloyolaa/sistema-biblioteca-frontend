@@ -8,8 +8,7 @@ import { CategoriaService } from 'src/app/service/categoria.service';
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css'],
 })
-export class CategoriaDetailComponent implements OnInit {
-  title = 'Detalle de Categoria';
+export class CategoriaDetailComponent {
   categoria: Categoria = new Categoria();
 
   constructor(

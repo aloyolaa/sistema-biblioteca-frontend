@@ -1,66 +1,104 @@
-<div>
-  <button type="button" name="back" [routerLink]="['/prestamos-materiales']">
-    Volver
-  </button>
-</div>
-<div *ngIf="prestamo">
-  <div>
-    <h3>Datos del Docente</h3>
-    <ul>
-      <li>{{ prestamo.id }}</li>
-      <li>{{ prestamo.docente.apellido }}</li>
-      <li>{{ prestamo.docente.nombre }}</li>
-      <li>{{ prestamo.docente.dni }}</li>
-      <li>{{ prestamo.docente.telefono }}</li>
-    </ul>
-  </div>
-  <div>
-    <h3>Detalle del Préstamo</h3>
-    <ul>
-      <li>{{ prestamo.id }}</li>
-      <li>{{ prestamo.descripcion }}</li>
-      <li>{{ prestamo.grado }}</li>
-      <li>{{ prestamo.seccion }}</li>
-      <li>
-        <div [ngSwitch]="prestamo.activo">
-          <div *ngSwitchCase="true">ACTIVO</div>
-          <div *ngSwitchDefault>DEVUELTO</div>
-        </div>
-      </li>
-      <li>{{ prestamo.fechaPrestamo | date : "dd-MM-yyyy HH:mm:ss" }}</li>
-      <li>{{ prestamo.fechaDevolucion | date : "dd-MM-yyyy HH:mm:ss" }}</li>
-      <li>{{ prestamo.observaciones }}</li>
-    </ul>
-    <table>
-      <thead>
-        <tr>
-          <th>Código</th>
-          <th>Título</th>
-          <th>N° de Ejemplar</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let detalle of prestamo.detalle">
-          <td>{{ detalle.ejemplarMaterial.material.codigo }}</td>
-          <td>{{ detalle.ejemplarMaterial.material.nombre }}</td>
-          <td>{{ detalle.ejemplarMaterial.numero }}</td>
-        </tr>
-      </tbody>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Detalle de Prestamo</mat-card-title>
+  </mat-card-header>
+  <br />
+  <mat-card-content>
+    <h4>ID: {{ prestamo.id }}</h4>
+    <h4 *ngIf="prestamo.docente">
+      Docente:
+      <ul>
+        <li>
+          Nombre: {{ prestamo.docente.nombre }} {{ prestamo.docente.apellido }}
+        </li>
+        <li>DNI: {{ prestamo.docente.dni }}</li>
+        <li>Telefono: {{ prestamo.docente.telefono }}</li>
+      </ul>
+    </h4>
+    <h4>
+      Fecha de Prestamo:
+      {{ prestamo.fechaPrestamo | date : "dd-MM-yyyy HH:mm:ss" }}
+    </h4>
+    <h4 *ngIf="prestamo.fechaDevolucion">
+      Fecha de Devoluvion:
+      {{ prestamo.fechaDevolucion | date : "dd-MM-yyyy HH:mm:ss" }}
+    </h4>
+    <h4>Descripcion: {{ prestamo.descripcion }}</h4>
+    <h4>Grado: {{ prestamo.grado }}</h4>
+    <h4>Seccion: {{ prestamo.seccion }}</h4>
+    <h4>
+      Estado:
+      <b class="devuelto" [ngClass]="{ activo: prestamo.activo }">{{
+        prestamo.activo ? "ACTIVO" : "DEVUELTO"
+      }}</b>
+    </h4>
+    <h4 *ngIf="prestamo.observaciones">
+      Observaciones: {{ prestamo.observaciones }}
+    </h4>
+    <h4>Detalle de Prestamo:</h4>
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      class="mat-elevation-z8 demo-table"
+    >
+      <ng-container matColumnDef="codigo">
+        <th mat-header-cell *matHeaderCellDef>Codigo de Ejemplar</th>
+        <td mat-cell *matCellDef="let detalle">
+          {{ detalle.ejemplarMaterial.material.codigo }}-{{
+            detalle.ejemplarMaterial.numero
+          }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef>Nombre</th>
+        <td mat-cell *matCellDef="let detalle">
+          {{ detalle.ejemplarMaterial.material.nombre }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef>Estado</th>
+        <td
+          mat-cell
+          *matCellDef="let detalle"
+          class="bueno"
+          [ngClass]="{ malo: detalle.ejemplarMaterial.estado == 'MALO' }"
+        >
+          <b>{{ detalle.ejemplarMaterial.estado }}</b>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnas"></tr>
     </table>
-  </div>
-</div>
-<div>
-  <button type="button" name="eliminar" (click)="delete(prestamo)">
-    Eliminar
-  </button>
-</div>
-<div>
-  <button
-    type="button"
-    name="cerrar"
-    *ngIf="prestamo.activo"
-    [routerLink]="['/prestamos-materiales/cerrar', prestamo.id]"
-  >
-    Cerrar
-  </button>
-</div>
+  </mat-card-content>
+  <br />
+  <mat-card-actions>
+    <button
+      mat-raised-button
+      type="button"
+      [routerLink]="['/prestamos-materiales']"
+      style="margin-left: 20px"
+    >
+      Volver
+    </button>
+    <button
+      mat-raised-button
+      color="accent"
+      type="button"
+      *ngIf="prestamo.activo"
+      [routerLink]="['/prestamos-materiales/cerrar', prestamo.id]"
+      style="margin-left: 20px"
+    >
+      Cerrar
+    </button>
+    <button
+      mat-raised-button
+      color="warn"
+      type="button"
+      (click)="delete(prestamo)"
+      style="margin-left: 20px"
+    >
+      Eliminar
+    </button>
+  </mat-card-actions>
+  <br />
+</mat-card>

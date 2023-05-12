@@ -1,15 +1,32 @@
-<div>
-  <button type="button" name="back" [routerLink]="['/autores']">Volver</button>
-</div>
-<div *ngIf="autor">
-  <ul>
-    <li>{{ autor.id }}</li>
-    <li>{{ autor.nombre }}</li>
-    <li>{{ autor.apellido }}</li>
-  </ul>
-</div>
-<div>
-  <button type="button" name="update" [routerLink]="['/autores/form', autor.id]">
-    Actualizar
-  </button>
-</div>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Detalle de Autor</mat-card-title>
+  </mat-card-header>
+  <br />
+  <mat-card-content>
+    <h4>ID: {{ autor.id }}</h4>
+    <h4>Nombre: {{ autor.nombre }}</h4>
+    <h4>Apellido: {{ autor.apellido }}</h4>
+  </mat-card-content>
+  <br />
+  <mat-card-actions>
+    <button
+      mat-raised-button
+      type="button"
+      [routerLink]="['/autores']"
+      style="margin-left: 20px"
+    >
+      Volver
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      type="button"
+      [routerLink]="['/autores/form', autor.id]"
+      style="margin-left: 20px"
+    >
+      Actualizar
+    </button>
+  </mat-card-actions>
+  <br />
+</mat-card>

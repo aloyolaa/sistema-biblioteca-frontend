@@ -1,38 +1,45 @@
-<div>
-  <button type="button" name="back" [routerLink]="['/libros']">Volver</button>
-</div>
-<div *ngIf="libro">
-  <ul>
-    <li>{{ libro.id }}</li>
-    <li>{{ libro.codigo }}</li>
-    <li>{{ libro.titulo }}</li>
-    <li>{{ libro.anio }}</li>
-    <li>{{ libro.grado }}</li>
-    <li>{{ libro.area.nombre }}</li>
-    <li>{{ libro.categoria.nombre }}</li>
-    <li>{{ libro.editorial.nombre }}</li>
-    <li>{{ ejemplares }}</li>
-    <li>{{ ejemplaresDisponibles }}</li>
-    <table>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Nombre</th>
-          <th>Apellido</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let autor of libro.autores">
-          <td>{{ autor.id }}</td>
-          <td>{{ autor.nombre }}</td>
-          <td>{{ autor.apellido }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </ul>
-</div>
-<div>
-  <button type="button" name="update" [routerLink]="['/libros/form', libro.id]">
-    Actualizar
-  </button>
-</div>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Detalle de Libro</mat-card-title>
+  </mat-card-header>
+  <br />
+  <mat-card-content>
+    <h4>ID: {{ libro.id }}</h4>
+    <h4>Codigo: {{ libro.codigo }}</h4>
+    <h4>Título: {{ libro.titulo }}</h4>
+    <h4>Año: {{ libro.anio }}</h4>
+    <h4>Grado: {{ libro.grado }}</h4>
+    <h4>Area: {{ libro.area.nombre }}</h4>
+    <h4>Categoria: {{ libro.categoria.nombre }}</h4>
+    <h4>Editorial: {{ libro.editorial.nombre }}</h4>
+    <h4>Autor(es):</h4>
+    <ul>
+      <li *ngFor="let autor of libro.autores">
+        <h4>{{ autor.nombre }} {{ autor.apellido }}</h4>
+      </li>
+    </ul>
+    <h4>N° de Ejemplares Totales: {{ ejemplares }}</h4>
+    <h4>N° de Ejemplares Disponibles: {{ ejemplaresDisponibles }}</h4>
+  </mat-card-content>
+  <br />
+  <mat-card-actions>
+    <button
+      mat-raised-button
+      type="button"
+      [routerLink]="['/libros']"
+      style="margin-left: 20px"
+    >
+      Volver
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      type="button"
+      [routerLink]="['/libros/form', libro.id]"
+      style="margin-left: 20px"
+    >
+      Actualizar
+    </button>
+  </mat-card-actions>
+  <br />
+</mat-card>

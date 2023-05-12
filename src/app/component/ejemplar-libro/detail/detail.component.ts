@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EjemplarLibro } from 'src/app/core/model/ejemplar-libro.model';
 import { EjemplarLibroService } from 'src/app/service/ejemplar-libro.service';
@@ -8,8 +8,7 @@ import { EjemplarLibroService } from 'src/app/service/ejemplar-libro.service';
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css'],
 })
-export class EjemplarLibroDetailComponent implements OnInit {
-  title = 'Detalle de Ejemplar';
+export class EjemplarLibroDetailComponent {
   ejemplarLibro: EjemplarLibro = new EjemplarLibro();
 
   constructor(

@@ -1,21 +1,34 @@
-<div>
-  <button type="button" name="back" [routerLink]="['/docentes']">Volver</button>
-</div>
-<div *ngIf="docente">
-  <ul>
-    <li>{{ docente.id }}</li>
-    <li>{{ docente.nombre }}</li>
-    <li>{{ docente.apellido }}</li>
-    <li>{{ docente.dni }}</li>
-    <li>{{ docente.telefono }}</li>
-  </ul>
-</div>
-<div>
-  <button
-    type="button"
-    name="update"
-    [routerLink]="['/docentes/form', docente.id]"
-  >
-    Actualizar
-  </button>
-</div>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Detalle de Docente</mat-card-title>
+  </mat-card-header>
+  <br />
+  <mat-card-content>
+    <h4>ID: {{ docente.id }}</h4>
+    <h4>Nombre: {{ docente.nombre }}</h4>
+    <h4>Apellido: {{ docente.apellido }}</h4>
+    <h4>DNI: {{ docente.dni }}</h4>
+    <h4>Teléfono: {{ docente.telefono }}</h4>
+  </mat-card-content>
+  <br />
+  <mat-card-actions>
+    <button
+      mat-raised-button
+      type="button"
+      [routerLink]="['/docentes']"
+      style="margin-left: 20px"
+    >
+      Volver
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      type="button"
+      [routerLink]="['/docentes/form', docente.id]"
+      style="margin-left: 20px"
+    >
+      Actualizar
+    </button>
+  </mat-card-actions>
+  <br />
+</mat-card>

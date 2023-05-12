@@ -9,8 +9,7 @@ import { MaterialService } from 'src/app/service/material.service';
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css'],
 })
-export class MaterialDetailComponent implements OnInit {
-  title = 'Detalle de Material';
+export class MaterialDetailComponent {
   material: Material = new Material();
   ejemplares = 0;
   ejemplaresDisponibles = 0;

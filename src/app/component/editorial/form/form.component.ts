@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Editorial } from 'src/app/core/model/editorial.model';
 import { EditorialService } from 'src/app/service/editorial.service';
@@ -9,8 +9,7 @@ import Swal from 'sweetalert2';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css'],
 })
-export class EditorialFormComponent implements OnInit {
-  title = 'Formulario de Editorial';
+export class EditorialFormComponent {
   editorial: Editorial = new Editorial();
   errors = {
     nombre: '',
@@ -35,6 +34,12 @@ export class EditorialFormComponent implements OnInit {
           .subscribe((editorial) => (this.editorial = editorial));
       }
     });
+  }
+
+  limpiar(): void {
+    this.errors = {
+      nombre: '',
+    };
   }
 
   save(): void {

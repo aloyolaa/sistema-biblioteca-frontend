@@ -1,85 +1,118 @@
-<div>
-  <form>
-    <label for="codigo">Código</label>
-    <div>
-      <input
-        type="text"
-        id="codigo"
-        name="codigo"
-        [(ngModel)]="material.codigo"
-      />
+<mat-card>
+  <div class="bootstrap-wrapper">
+    <div class="container">
+      <div class="row" style="margin-top: 20px">
+        <div class="col-md-6 offset-md-3">
+          <h1 class="text-center">Formulario de Material</h1>
+          <form>
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Codigo</mat-label>
+              <input
+                required
+                minlength="4"
+                [(ngModel)]="material.codigo"
+                name="codigo"
+                matInput
+                placeholder="Ingrese el codigo del Material"
+              />
+              <mat-hint *ngIf="errors.codigo" style="color: red">
+                {{ errors.codigo }}
+              </mat-hint>
+            </mat-form-field>
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Nombre</mat-label>
+              <input
+                required
+                minlength="4"
+                [(ngModel)]="material.nombre"
+                name="nombre"
+                matInput
+                placeholder="Ingrese el nombre del Material"
+              />
+              <mat-hint *ngIf="errors.nombre" style="color: red">
+                {{ errors.nombre }}
+              </mat-hint>
+            </mat-form-field>
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Medidas</mat-label>
+              <input
+                [(ngModel)]="material.medidas"
+                name="medidas"
+                matInput
+                placeholder="Ingrese las medidas del Material"
+              />
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="demo-select">
+              <mat-label>Area</mat-label>
+              <mat-select
+                [(ngModel)]="material.area"
+                name="area"
+                [compareWith]="compareArea"
+              >
+                <mat-option [value]="undefined">-- Seleccionar --</mat-option>
+                <mat-option *ngFor="let area of areas" [value]="area">
+                  {{ area.nombre }}
+                </mat-option>
+              </mat-select>
+              <mat-hint *ngIf="errors.area" style="color: red">
+                {{ errors.area }}
+              </mat-hint>
+            </mat-form-field>
+            <div class="container text-center">
+              <button
+                mat-raised-button
+                color="primary"
+                type="submit"
+                (click)="save()"
+                *ngIf="!material.id; else elseSave"
+              >
+                Guardar
+              </button>
+              <ng-template #elseSave>
+                <button
+                  mat-raised-button
+                  color="primary"
+                  type="submit"
+                  (click)="update()"
+                >
+                  Actualizar
+                </button>
+              </ng-template>
+              <button
+                mat-raised-button
+                color="warn"
+                type="button"
+                [routerLink]="['/materiales']"
+                style="margin-left: 20px"
+                *ngIf="!material.id; else elseBack"
+              >
+                Cancelar
+              </button>
+              <ng-template #elseBack>
+                <button
+                  mat-raised-button
+                  color="warn"
+                  type="button"
+                  style="margin-left: 20px"
+                  [routerLink]="['/materiales/detail', material.id]"
+                >
+                  Cancelar
+                </button>
+              </ng-template>
+              <button
+                mat-raised-button
+                color="accent"
+                type="reset"
+                (click)="limpiar()"
+                style="margin-left: 20px"
+              >
+                Limpiar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
-    <div *ngIf="errors.codigo">
-      {{ errors.codigo }}
-    </div>
-    <label for="nombre">Nombre</label>
-    <div>
-      <input
-        type="text"
-        id="nombre"
-        name="nombre"
-        [(ngModel)]="material.nombre"
-      />
-    </div>
-    <div *ngIf="errors.nombre">
-      {{ errors.nombre }}
-    </div>
-    <label for="medidas">Medidas</label>
-    <div>
-      <input
-        type="texto"
-        id="medidas"
-        name="medidas"
-        [(ngModel)]="material.medidas"
-      />
-    </div>
-    <div *ngIf="errors.medidas">
-      {{ errors.medidas }}
-    </div>
-    <label for="area">Area</label>
-    <div>
-      <select
-        name="area"
-        [(ngModel)]="material.area"
-        [compareWith]="compareArea"
-      >
-        <option [ngValue]="undefined">-- Seleccionar --</option>
-        <option *ngFor="let area of areas" [ngValue]="area">
-          {{ area.nombre }}
-        </option>
-      </select>
-    </div>
-    <div *ngIf="errors.area">
-      {{ errors.area }}
-    </div>
-    <div>
-      <button
-        type="submit"
-        (click)="save()"
-        *ngIf="!material.id; else elseBlock"
-      >
-        Guardar
-      </button>
-      <ng-template #elseBlock>
-        <button type="submit" (click)="update()">Actualizar</button>
-      </ng-template>
-    </div>
-    <div>
-      <button
-        type="button"
-        [routerLink]="['/materiales']"
-        *ngIf="!material.id; else elseBack"
-      >
-        Cancelar
-      </button>
-      <ng-template #elseBack>
-        <button
-          type="button"
-          [routerLink]="['/materiales/detail', material.id]"
-        >
-          Cancelar
-        </button>
-      </ng-template>
-    </div>
-  </form>
-</div>
+  </div>
+  <br />
+</mat-card>

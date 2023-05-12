@@ -142,7 +142,7 @@ export class PrestamoMaterialService {
   }
 
   paginationByGradoAndSeccion(
-    grado: string,
+    grado: number,
     seccion: string,
     page: number,
     size: number
