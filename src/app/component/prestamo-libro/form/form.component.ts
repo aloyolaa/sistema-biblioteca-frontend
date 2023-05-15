@@ -34,7 +34,7 @@ export class PrestamoLibroFormComponent {
     detalle: '',
   };
 
-  columnas: string[] = ['codigo', 'titulo', 'estado'];
+  columnas: string[] = ['codigo', 'titulo', 'estado', 'eliminar'];
   dataSource: MatTableDataSource<EjemplarLibro> = new MatTableDataSource();
 
   constructor(
@@ -100,8 +100,6 @@ export class PrestamoLibroFormComponent {
             }
           });
         });
-      /* this.prestamo.descripcion +=
-        this.cantidad + ' ' + this.libro.titulo + '\n'; */
     } else {
       Swal.fire({
         icon: 'error',
@@ -116,6 +114,7 @@ export class PrestamoLibroFormComponent {
     this.ejemplares = this.ejemplares.filter(
       (ejemplar: EjemplarLibro) => id !== ejemplar.id
     );
+    this.dataSource.data = this.ejemplares;
   }
 
   addDetalle(): void {

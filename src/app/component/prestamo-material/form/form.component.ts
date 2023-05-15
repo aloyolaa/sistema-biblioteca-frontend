@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { DetallePrestamoMaterial } from 'src/app/core/model/detalle-prestamo-material.model';
 import { Docente } from 'src/app/core/model/docente.model';
@@ -17,7 +18,6 @@ import Swal from 'sweetalert2';
   styleUrls: ['./form.component.css'],
 })
 export class PrestamoMaterialFormComponent {
-  title = 'Nuevo Préstamo';
   prestamo: PrestamoMaterial = new PrestamoMaterial();
   docente: Docente = new Docente();
   material: Material = new Material();
@@ -27,13 +27,15 @@ export class PrestamoMaterialFormComponent {
   dni: string = '';
   cantidad: number = 0;
   errors = {
-    fechaPrestamo: '',
     descripcion: '',
     grado: '',
     seccion: '',
     docente: '',
     detalle: '',
   };
+
+  columnas: string[] = ['codigo', 'titulo', 'estado', 'eliminar'];
+  dataSource: MatTableDataSource<EjemplarMaterial> = new MatTableDataSource();
 
   constructor(
     private prestamoMaterialService: PrestamoMaterialService,
