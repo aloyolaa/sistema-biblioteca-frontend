@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Area } from 'src/app/core/model/area.model';
 import { AreaService } from 'src/app/service/area.service';
@@ -8,7 +8,7 @@ import { AreaService } from 'src/app/service/area.service';
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css'],
 })
-export class AreaDetailComponent {
+export class AreaDetailComponent implements OnInit {
   area: Area = new Area();
 
   constructor(
@@ -18,7 +18,7 @@ export class AreaDetailComponent {
 
   ngOnInit(): void {
     this.activedRoute.paramMap.subscribe((params) => {
-      let id: number = Number(params.get('id'));
+      const id = Number(params.get('id'));
       if (id) {
         this.areaService.getOne(id).subscribe((area) => {
           this.area = area;

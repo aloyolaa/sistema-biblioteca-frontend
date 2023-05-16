@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -20,7 +20,7 @@ import Swal from 'sweetalert2';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css'],
 })
-export class LibroFormComponent {
+export class LibroFormComponent implements OnInit {
   libro: Libro = new Libro();
   areas: Area[] = [];
   categorias: Categoria[] = [];
@@ -65,7 +65,7 @@ export class LibroFormComponent {
 
   chargeLibro(): void {
     this.activedRoute.params.subscribe((params) => {
-      let id = params['id'];
+      const id = params['id'];
       if (id) {
         this.libroService.getOne(id).subscribe((libro) => (this.libro = libro));
       }
@@ -170,7 +170,7 @@ export class LibroFormComponent {
   }
 
   selectAutor(event: MatAutocompleteSelectedEvent): void {
-    let autor = event.option.value as Autor;
+    const autor = event.option.value as Autor;
     console.log(autor);
     if (!this.existItem(autor.id)) {
       this.libro.autores.push(autor);

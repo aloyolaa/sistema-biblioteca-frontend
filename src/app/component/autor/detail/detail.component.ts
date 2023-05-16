@@ -8,7 +8,7 @@ import { AutorService } from 'src/app/service/autor.service';
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css'],
 })
-export class AutorDetailComponent {
+export class AutorDetailComponent implements OnInit {
   autor: Autor = new Autor();
 
   constructor(
@@ -18,7 +18,7 @@ export class AutorDetailComponent {
 
   ngOnInit(): void {
     this.activedRoute.paramMap.subscribe((params) => {
-      let id: number = Number(params.get('id'));
+      const id = Number(params.get('id'));
       this.autorService.getOne(id).subscribe((autor) => {
         this.autor = autor;
       });

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { PrestamoLibro } from 'src/app/core/model/prestamo-libro.model';
@@ -9,7 +9,7 @@ import { PrestamoLibroService } from 'src/app/service/prestamo-libro.service';
   templateUrl: './filter-grado-seccion.component.html',
   styleUrls: ['./filter-grado-seccion.component.css'],
 })
-export class PrestamoLibroFilterGradoSeccionComponent {
+export class PrestamoLibroFilterGradoSeccionComponent implements AfterViewInit {
   isLoading = false;
   totalRows = 0;
   pageSize = 5;

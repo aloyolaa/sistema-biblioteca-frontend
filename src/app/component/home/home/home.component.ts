@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AreaService } from 'src/app/service/area.service';
 import { AutorService } from 'src/app/service/autor.service';
 import { CategoriaService } from 'src/app/service/categoria.service';
@@ -16,18 +16,18 @@ import { PrestamoMaterialService } from 'src/app/service/prestamo-material.servi
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent {
-  areas: number = 0;
-  autores: number = 0;
-  categorias: number = 0;
-  docentes: number = 0;
-  editoriales: number = 0;
-  ejemplaresLibros: number = 0;
-  ejemplaresMateriales: number = 0;
-  libros: number = 0;
-  materiales: number = 0;
-  prestamosLibros: number = 0;
-  prestamosMateriales: number = 0;
+export class HomeComponent implements OnInit {
+  areas = 0;
+  autores = 0;
+  categorias = 0;
+  docentes = 0;
+  editoriales = 0;
+  ejemplaresLibros = 0;
+  ejemplaresMateriales = 0;
+  libros = 0;
+  materiales = 0;
+  prestamosLibros = 0;
+  prestamosMateriales = 0;
 
   constructor(
     private areaService: AreaService,

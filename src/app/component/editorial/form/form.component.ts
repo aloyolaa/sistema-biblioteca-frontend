@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Editorial } from 'src/app/core/model/editorial.model';
 import { EditorialService } from 'src/app/service/editorial.service';
@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css'],
 })
-export class EditorialFormComponent {
+export class EditorialFormComponent implements OnInit {
   editorial: Editorial = new Editorial();
   errors = {
     nombre: '',
@@ -27,7 +27,7 @@ export class EditorialFormComponent {
 
   chargeEditorial(): void {
     this.activedRoute.params.subscribe((params) => {
-      let id = params['id'];
+      const id = params['id'];
       if (id) {
         this.editorialService
           .getOne(id)

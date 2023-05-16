@@ -9,7 +9,7 @@ export class PrestamoLibro extends Base {
   grado: number;
   seccion: string;
   activo: boolean;
-  observaciones: string = '';
+  observaciones = '';
   docente: Docente;
   detalle: DetallePrestamoLibro[] = [];
 }

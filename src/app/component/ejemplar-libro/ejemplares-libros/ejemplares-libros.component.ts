@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { EjemplarLibro } from 'src/app/core/model/ejemplar-libro.model';
@@ -9,7 +9,7 @@ import { EjemplarLibroService } from 'src/app/service/ejemplar-libro.service';
   templateUrl: './ejemplares-libros.component.html',
   styleUrls: ['./ejemplares-libros.component.css'],
 })
-export class EjemplaresLibrosComponent {
+export class EjemplaresLibrosComponent implements AfterViewInit, OnInit {
   isLoading = false;
   totalRows = 0;
   pageSize = 5;

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PrestamoLibro } from 'src/app/core/model/prestamo-libro.model';
 import { PrestamoLibroService } from 'src/app/service/prestamo-libro.service';
@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
   templateUrl: './cerrar.component.html',
   styleUrls: ['./cerrar.component.css'],
 })
-export class PrestamoLibroCerrarComponent {
+export class PrestamoLibroCerrarComponent implements OnInit {
   prestamo: PrestamoLibro = new PrestamoLibro();
 
   constructor(
@@ -20,7 +20,7 @@ export class PrestamoLibroCerrarComponent {
 
   ngOnInit(): void {
     this.activedRoute.paramMap.subscribe((params) => {
-      let id: number = Number(params.get('id'));
+      const id = Number(params.get('id'));
       if (id) {
         this.prestamoLibroService.getOne(id).subscribe((prestamo) => {
           this.prestamo = prestamo;

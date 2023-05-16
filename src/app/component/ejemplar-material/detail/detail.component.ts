@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EjemplarMaterial } from 'src/app/core/model/ejemplar-material.model';
 import { EjemplarMaterialService } from 'src/app/service/ejemplar-material.service';
@@ -8,7 +8,7 @@ import { EjemplarMaterialService } from 'src/app/service/ejemplar-material.servi
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css'],
 })
-export class EjemplarMaterialDetailComponent {
+export class EjemplarMaterialDetailComponent implements OnInit {
   ejemplarMaterial: EjemplarMaterial = new EjemplarMaterial();
 
   constructor(
@@ -18,7 +18,7 @@ export class EjemplarMaterialDetailComponent {
 
   ngOnInit(): void {
     this.activedRoute.paramMap.subscribe((params) => {
-      let id: number = Number(params.get('id'));
+      const id = Number(params.get('id'));
       if (id) {
         this.ejemplarMaterialService
           .getOne(id)

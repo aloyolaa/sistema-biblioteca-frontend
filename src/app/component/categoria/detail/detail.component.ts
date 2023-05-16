@@ -8,7 +8,7 @@ import { CategoriaService } from 'src/app/service/categoria.service';
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css'],
 })
-export class CategoriaDetailComponent {
+export class CategoriaDetailComponent implements OnInit {
   categoria: Categoria = new Categoria();
 
   constructor(
@@ -18,7 +18,7 @@ export class CategoriaDetailComponent {
 
   ngOnInit(): void {
     this.activedRoute.paramMap.subscribe((params) => {
-      let id: number = Number(params.get('id'));
+      const id = Number(params.get('id'));
       this.categoriaService.getOne(id).subscribe((categoria) => {
         this.categoria = categoria;
       });

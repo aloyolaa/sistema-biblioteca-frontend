@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DetallePrestamoLibro } from 'src/app/core/model/detalle-prestamo-libro.model';
@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css'],
 })
-export class PrestamoLibroDetailComponent {
+export class PrestamoLibroDetailComponent implements OnInit {
   prestamo: PrestamoLibro = new PrestamoLibro();
 
   columnas: string[] = ['codigo', 'titulo', 'estado'];
@@ -25,7 +25,7 @@ export class PrestamoLibroDetailComponent {
 
   ngOnInit(): void {
     this.activedRoute.paramMap.subscribe((params) => {
-      let id: number = Number(params.get('id'));
+      const id = Number(params.get('id'));
       if (id) {
         this.prestamoLibroService.getOne(id).subscribe((prestamo) => {
           this.prestamo = prestamo;

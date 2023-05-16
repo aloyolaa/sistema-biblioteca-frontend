@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Area } from 'src/app/core/model/area.model';
 import { Material } from 'src/app/core/model/material.model';
@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css'],
 })
-export class MaterialFormComponent {
+export class MaterialFormComponent implements OnInit {
   material: Material = new Material();
   areas: Area[] = [];
   errors = {
@@ -34,7 +34,7 @@ export class MaterialFormComponent {
 
   chargeMaterial(): void {
     this.activedRoute.params.subscribe((params) => {
-      let id = params['id'];
+      const id = params['id'];
       if (id) {
         this.materialService
           .getOne(id)

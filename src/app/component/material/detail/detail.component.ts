@@ -9,7 +9,7 @@ import { MaterialService } from 'src/app/service/material.service';
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css'],
 })
-export class MaterialDetailComponent {
+export class MaterialDetailComponent implements OnInit {
   material: Material = new Material();
   ejemplares = 0;
   ejemplaresDisponibles = 0;
@@ -22,7 +22,7 @@ export class MaterialDetailComponent {
 
   ngOnInit(): void {
     this.activedRoute.paramMap.subscribe((params) => {
-      let id: number = Number(params.get('id'));
+      const id = Number(params.get('id'));
       if (id) {
         this.materialService.getOne(id).subscribe((material) => {
           this.material = material;

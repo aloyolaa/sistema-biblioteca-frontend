@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Categoria } from 'src/app/core/model/categoria.model';
@@ -9,7 +9,7 @@ import { CategoriaService } from 'src/app/service/categoria.service';
   templateUrl: './categorias.component.html',
   styleUrls: ['./categorias.component.css'],
 })
-export class CategoriasComponent {
+export class CategoriasComponent implements AfterViewInit, OnInit {
   isLoading = false;
   totalRows = 0;
   pageSize = 5;

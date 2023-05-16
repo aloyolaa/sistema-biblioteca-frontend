@@ -23,9 +23,9 @@ export class PrestamoLibroFormComponent {
   libro: Libro = new Libro();
   ejemplares: EjemplarLibro[] = [];
   ejemplaresDisponibles = 0;
-  codigo: string = '';
-  dni: string = '';
-  cantidad: number = 0;
+  codigo = '';
+  dni = '';
+  cantidad = 0;
   errors = {
     descripcion: '',
     grado: '',
@@ -119,7 +119,7 @@ export class PrestamoLibroFormComponent {
 
   addDetalle(): void {
     this.ejemplares.forEach((e) => {
-      let detallePrestamo = new DetallePrestamoLibro();
+      const detallePrestamo = new DetallePrestamoLibro();
       detallePrestamo.ejemplarLibro = e;
       this.prestamo.detalle.push(detallePrestamo);
     });

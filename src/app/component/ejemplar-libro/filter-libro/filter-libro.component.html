@@ -32,7 +32,7 @@
   <div *ngIf="!codigo">
     <h3 class="text-center">Ingrese un código de Libro</h3>
   </div>
-  <div *ngIf="codigo && dataSource.data.length == 0">
+  <div *ngIf="codigo && dataSource.data.length === 0">
     <h3 class="text-center">No hay Ejemplares registrados</h3>
   </div>
   <div *ngIf="dataSource.data.length > 0">

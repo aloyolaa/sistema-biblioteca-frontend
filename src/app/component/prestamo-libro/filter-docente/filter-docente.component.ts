@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Docente } from 'src/app/core/model/docente.model';
@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
   templateUrl: './filter-docente.component.html',
   styleUrls: ['./filter-docente.component.css'],
 })
-export class PrestamoLibroFilterDocenteComponent {
+export class PrestamoLibroFilterDocenteComponent implements AfterViewInit {
   isLoading = false;
   totalRows = 0;
   pageSize = 5;
@@ -31,7 +31,7 @@ export class PrestamoLibroFilterDocenteComponent {
 
   prestamos: PrestamoLibro[] = [];
   docente: Docente = new Docente();
-  dni: string = '';
+  dni = '';
 
   fechasPrestamos = {
     start: '',

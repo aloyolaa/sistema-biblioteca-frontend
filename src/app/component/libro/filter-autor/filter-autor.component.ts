@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Autor } from 'src/app/core/model/autor.model';
@@ -11,7 +11,7 @@ import { LibroService } from 'src/app/service/libro.service';
   templateUrl: './filter-autor.component.html',
   styleUrls: ['./filter-autor.component.css'],
 })
-export class LibroFilterAutorComponent {
+export class LibroFilterAutorComponent implements AfterViewInit, OnInit {
   isLoading = false;
   totalRows = 0;
   pageSize = 5;

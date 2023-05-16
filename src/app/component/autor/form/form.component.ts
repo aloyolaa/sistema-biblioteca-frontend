@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Autor } from 'src/app/core/model/autor.model';
 import { AutorService } from 'src/app/service/autor.service';
@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css'],
 })
-export class AutorFormComponent {
+export class AutorFormComponent implements OnInit {
   autor: Autor = new Autor();
   errors = {
     nombre: '',
@@ -28,7 +28,7 @@ export class AutorFormComponent {
 
   chargeAutor(): void {
     this.activedRoute.params.subscribe((params) => {
-      let id = params['id'];
+      const id = params['id'];
       if (id) {
         this.autorService.getOne(id).subscribe((autor) => (this.autor = autor));
       }

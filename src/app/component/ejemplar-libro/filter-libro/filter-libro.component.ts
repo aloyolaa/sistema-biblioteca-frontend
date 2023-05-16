@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { EjemplarLibro } from 'src/app/core/model/ejemplar-libro.model';
@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
   templateUrl: './filter-libro.component.html',
   styleUrls: ['./filter-libro.component.css'],
 })
-export class EjemplarLibroFilterLibroComponent {
+export class EjemplarLibroFilterLibroComponent implements AfterViewInit {
   isLoading = false;
   totalRows = 0;
   pageSize = 5;
@@ -23,7 +23,7 @@ export class EjemplarLibroFilterLibroComponent {
   dataSource: MatTableDataSource<EjemplarLibro> = new MatTableDataSource();
 
   libro: Libro = new Libro();
-  codigo: string = '';
+  codigo = '';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 

@@ -8,7 +8,7 @@ import { EditorialService } from 'src/app/service/editorial.service';
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css'],
 })
-export class EditorialDetailComponent {
+export class EditorialDetailComponent implements OnInit {
   editorial: Editorial = new Editorial();
 
   constructor(
@@ -18,7 +18,7 @@ export class EditorialDetailComponent {
 
   ngOnInit(): void {
     this.activedRoute.paramMap.subscribe((params) => {
-      let id: number = Number(params.get('id'));
+      const id = Number(params.get('id'));
       this.editorialService.getOne(id).subscribe((editorial) => {
         this.editorial = editorial;
       });

@@ -23,15 +23,15 @@
       class="demo-button"
       type="button"
       (click)="paginationByAutor()"
-      [disabled]="id == 0"
+      [disabled]="id === 0"
     >
       Buscar
     </button>
   </div>
-  <div *ngIf="id == 0">
+  <div *ngIf="id === 0">
     <h3 class="text-center">Seleccione un filtro</h3>
   </div>
-  <div *ngIf="id > 0 && dataSource.data.length == 0">
+  <div *ngIf="id > 0 && dataSource.data.length === 0">
     <h3 class="text-center">No hay Libros que conincidan</h3>
   </div>
   <div *ngIf="dataSource.data.length > 0">

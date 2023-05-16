@@ -8,7 +8,7 @@ import { DocenteService } from 'src/app/service/docente.service';
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css'],
 })
-export class DocenteDetailComponent {
+export class DocenteDetailComponent implements OnInit {
   docente: Docente = new Docente();
 
   constructor(
@@ -18,7 +18,7 @@ export class DocenteDetailComponent {
 
   ngOnInit(): void {
     this.activedRoute.paramMap.subscribe((params) => {
-      let id: number = Number(params.get('id'));
+      const id = Number(params.get('id'));
       if (id) {
         this.docenteService.getOne(id).subscribe((docente) => {
           this.docente = docente;

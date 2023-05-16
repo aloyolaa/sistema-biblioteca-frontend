@@ -12,8 +12,8 @@ import Swal from 'sweetalert2';
 })
 export class EjemplarMaterialCrearComponent {
   material: Material = new Material();
-  codigo: string = '';
-  cantidad: number = 0;
+  codigo = '';
+  cantidad = 0;
   errors = {
     numero: '',
     material: '',

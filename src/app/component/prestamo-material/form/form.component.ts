@@ -23,9 +23,9 @@ export class PrestamoMaterialFormComponent {
   material: Material = new Material();
   ejemplares: EjemplarMaterial[] = [];
   ejemplaresDisponibles = 0;
-  codigo: string = '';
-  dni: string = '';
-  cantidad: number = 0;
+  codigo = '';
+  dni = '';
+  cantidad = 0;
   errors = {
     descripcion: '',
     grado: '',
@@ -119,7 +119,7 @@ export class PrestamoMaterialFormComponent {
 
   addDetalle(): void {
     this.ejemplares.forEach((e) => {
-      let detallePrestamo = new DetallePrestamoMaterial();
+      const detallePrestamo = new DetallePrestamoMaterial();
       detallePrestamo.ejemplarMaterial = e;
       this.prestamo.detalle.push(detallePrestamo);
     });

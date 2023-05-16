@@ -256,7 +256,7 @@
                 [(ngModel)]="codigo"
                 placeholder="Ingrese el codigo"
                 [disabled]="
-                  !docente.id || prestamo.grado == 0 || !prestamo.seccion
+                  !docente.id || prestamo.grado === 0 || !prestamo.seccion
                 "
                 #input
               />
@@ -323,7 +323,7 @@
                 mat-cell
                 *matCellDef="let ejemplar"
                 class="bueno"
-                [ngClass]="{ malo: ejemplar.estado == 'MALO' }"
+                [ngClass]="{ malo: ejemplar.estado === 'MALO' }"
               >
                 <b>{{ ejemplar.estado }}</b>
               </td>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Libro } from 'src/app/core/model/libro.model';
 import { EjemplarLibroService } from 'src/app/service/ejemplar-libro.service';
@@ -9,7 +9,7 @@ import { LibroService } from 'src/app/service/libro.service';
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css'],
 })
-export class LibroDetailComponent {
+export class LibroDetailComponent implements OnInit {
   libro: Libro = new Libro();
   ejemplares = 0;
   ejemplaresDisponibles = 0;
@@ -22,7 +22,7 @@ export class LibroDetailComponent {
 
   ngOnInit(): void {
     this.activedRoute.paramMap.subscribe((params) => {
-      let id: number = Number(params.get('id'));
+      const id = Number(params.get('id'));
       if (id) {
         this.libroService.getOne(id).subscribe((libro) => {
           this.libro = libro;

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Categoria } from 'src/app/core/model/categoria.model';
 import { CategoriaService } from 'src/app/service/categoria.service';
@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css'],
 })
-export class CategoriaFormComponent {
+export class CategoriaFormComponent implements OnInit {
   categoria: Categoria = new Categoria();
   errors = {
     nombre: '',
@@ -27,7 +27,7 @@ export class CategoriaFormComponent {
 
   chargeCategoria(): void {
     this.activedRoute.params.subscribe((params) => {
-      let id = params['id'];
+      const id = params['id'];
       if (id) {
         this.categoriaService
           .getOne(id)

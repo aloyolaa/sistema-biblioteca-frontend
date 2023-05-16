@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EjemplarLibro } from 'src/app/core/model/ejemplar-libro.model';
 import { EjemplarLibroService } from 'src/app/service/ejemplar-libro.service';
@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css'],
 })
-export class EjemplarLibroFormComponent {
+export class EjemplarLibroFormComponent implements OnInit {
   ejemplarLibro: EjemplarLibro = new EjemplarLibro();
 
   constructor(
@@ -24,7 +24,7 @@ export class EjemplarLibroFormComponent {
 
   chargeEjemplarLibro(): void {
     this.activedRoute.params.subscribe((params) => {
-      let id = params['id'];
+      const id = params['id'];
       if (id) {
         this.ejemplarLibroService
           .getOne(id)

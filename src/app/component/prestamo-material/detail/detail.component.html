@@ -61,7 +61,7 @@
           mat-cell
           *matCellDef="let detalle"
           class="bueno"
-          [ngClass]="{ malo: detalle.ejemplarMaterial.estado == 'MALO' }"
+          [ngClass]="{ malo: detalle.ejemplarMaterial.estado === 'MALO' }"
         >
           <b>{{ detalle.ejemplarMaterial.estado }}</b>
         </td>

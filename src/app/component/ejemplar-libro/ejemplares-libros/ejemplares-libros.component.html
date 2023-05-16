@@ -8,7 +8,7 @@
       Nuevo Ejemplar
     </button>
   </div>
-  <div *ngIf="dataSource.data.length == 0">
+  <div *ngIf="dataSource.data.length === 0">
     <h3 class="text-center">No hay Ejemplares registrados</h3>
   </div>
   <div *ngIf="dataSource.data.length > 0">
@@ -34,7 +34,7 @@
           mat-cell
           *matCellDef="let ejemplar"
           class="bueno"
-          [ngClass]="{ malo: ejemplar.estado == 'MALO' }"
+          [ngClass]="{ malo: ejemplar.estado === 'MALO' }"
         >
           <b>{{ ejemplar.estado }}</b>
         </td>

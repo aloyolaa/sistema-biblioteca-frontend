@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { PrestamoLibro } from 'src/app/core/model/prestamo-libro.model';
@@ -9,7 +9,7 @@ import { PrestamoLibroService } from 'src/app/service/prestamo-libro.service';
   templateUrl: './prestamos-libros.component.html',
   styleUrls: ['./prestamos-libros.component.css'],
 })
-export class PrestamosLibrosComponent {
+export class PrestamosLibrosComponent implements AfterViewInit, OnInit {
   isLoading = false;
   totalRows = 0;
   pageSize = 5;

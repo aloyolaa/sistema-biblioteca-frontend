@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Categoria } from 'src/app/core/model/categoria.model';
@@ -11,7 +11,7 @@ import { LibroService } from 'src/app/service/libro.service';
   templateUrl: './filter-categoria.component.html',
   styleUrls: ['./filter-categoria.component.css'],
 })
-export class LibroFilterCategoriaComponent {
+export class LibroFilterCategoriaComponent implements AfterViewInit, OnInit {
   isLoading = false;
   totalRows = 0;
   pageSize = 5;
@@ -30,6 +30,10 @@ export class LibroFilterCategoriaComponent {
     private libroService: LibroService,
     private categoriaService: CategoriaService
   ) {}
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
 
   ngOnInit(): void {
     this.categoriaService

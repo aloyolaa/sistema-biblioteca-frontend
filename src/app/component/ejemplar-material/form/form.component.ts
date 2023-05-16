@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EjemplarMaterial } from 'src/app/core/model/ejemplar-material.model';
 import { EjemplarMaterialService } from 'src/app/service/ejemplar-material.service';
@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css'],
 })
-export class EjemplarMaterialFormComponent {
+export class EjemplarMaterialFormComponent implements OnInit {
   ejemplarMaterial: EjemplarMaterial = new EjemplarMaterial();
 
   constructor(
@@ -24,7 +24,7 @@ export class EjemplarMaterialFormComponent {
 
   chargeEjemplarMaterial(): void {
     this.activedRoute.params.subscribe((params) => {
-      let id = params['id'];
+      const id = params['id'];
       if (id) {
         this.ejemplarMaterialService
           .getOne(id)

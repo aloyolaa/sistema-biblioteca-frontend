@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Autor } from 'src/app/core/model/autor.model';
@@ -9,7 +9,7 @@ import { AutorService } from 'src/app/service/autor.service';
   templateUrl: './autores.component.html',
   styleUrls: ['./autores.component.css'],
 })
-export class AutoresComponent {
+export class AutoresComponent implements AfterViewInit, OnInit {
   isLoading = false;
   totalRows = 0;
   pageSize = 5;

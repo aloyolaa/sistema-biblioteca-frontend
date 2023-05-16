@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Editorial } from 'src/app/core/model/editorial.model';
@@ -9,7 +9,7 @@ import { EditorialService } from 'src/app/service/editorial.service';
   templateUrl: './editoriales.component.html',
   styleUrls: ['./editoriales.component.css'],
 })
-export class EditorialesComponent {
+export class EditorialesComponent implements AfterViewInit, OnInit {
   isLoading = false;
   totalRows = 0;
   pageSize = 5;

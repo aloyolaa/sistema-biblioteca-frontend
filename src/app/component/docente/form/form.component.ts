@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css'],
 })
-export class DocenteFormComponent {
+export class DocenteFormComponent implements OnInit {
   docente: Docente = new Docente();
   errors = {
     nombre: '',
@@ -30,7 +30,7 @@ export class DocenteFormComponent {
 
   chargeDocente(): void {
     this.activedRoute.params.subscribe((params) => {
-      let id = params['id'];
+      const id = params['id'];
       if (id) {
         this.docenteService
           .getOne(id)

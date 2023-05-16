@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Area } from 'src/app/core/model/area.model';
@@ -9,7 +9,7 @@ import { AreaService } from 'src/app/service/area.service';
   templateUrl: './areas.component.html',
   styleUrls: ['./areas.component.css'],
 })
-export class AreasComponent {
+export class AreasComponent implements AfterViewInit, OnInit {
   isLoading = false;
   totalRows = 0;
   pageSize = 5;
