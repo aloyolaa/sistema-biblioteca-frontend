@@ -9,3 +9,11 @@
 .demo-table {
   width: 100%;
 }
+
+.bueno {
+  color: green;
+}
+
+.malo {
+  color: red;
+}

@@ -10,8 +10,20 @@
         ejemplarMaterial.numero
       }}
     </h4>
-    <h4>Estado: {{ ejemplarMaterial.estado }}</h4>
-    <h4>Prestado: {{ ejemplarMaterial.prestado ? "SI" : "NO" }}</h4>
+    <h4>
+      Estado:
+      <b
+        class="bueno"
+        [ngClass]="{ malo: ejemplarMaterial.estado === 'MALO' }"
+        >{{ ejemplarMaterial.estado }}</b
+      >
+    </h4>
+    <h4>
+      Prestado:
+      <b class="devuelto" [ngClass]="{ activo: ejemplarMaterial.prestado }">{{
+        ejemplarMaterial.prestado ? "SI" : "NO"
+      }}</b>
+    </h4>
     <h4>
       Observaciones:
       {{
