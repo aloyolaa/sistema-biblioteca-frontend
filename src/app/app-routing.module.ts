@@ -52,6 +52,7 @@ import { PrestamoLibroDetailComponent } from './component/prestamo-libro/detail/
 import { PrestamoLibroCerrarComponent } from './component/prestamo-libro/cerrar/cerrar.component';
 import { PrestamoLibroFilterDocenteComponent } from './component/prestamo-libro/filter-docente/filter-docente.component';
 import { PrestamoLibroFilterGradoSeccionComponent } from './component/prestamo-libro/filter-grado-seccion/filter-grado-seccion.component';
+import { PrestamoLibroFilterDescripcionComponent } from './component/prestamo-libro/filter-descripcion/filter-descripcion.component';
 
 import { PrestamosMaterialesComponent } from './component/prestamo-material/prestamos-materiales/prestamos-materiales.component';
 import { PrestamoMaterialFormComponent } from './component/prestamo-material/form/form.component';
@@ -59,6 +60,8 @@ import { PrestamoMaterialDetailComponent } from './component/prestamo-material/d
 import { PrestamoMaterialCerrarComponent } from './component/prestamo-material/cerrar/cerrar.component';
 import { PrestamoMaterialFilterDocenteComponent } from './component/prestamo-material/filter-docente/filter-docente.component';
 import { PrestamoMaterialFilterGradoSeccionComponent } from './component/prestamo-material/filter-grado-seccion/filter-grado-seccion.component';
+import { PrestamoMaterialFilterDescripcionComponent } from './component/prestamo-material/filter-descripcion/filter-descripcion.component';
+
 import { HomeComponent } from './component/home/home/home.component';
 import { SignupComponent } from './component/signup/signup/signup.component';
 import { LoginComponent } from './component/login/login/login.component';
@@ -127,6 +130,7 @@ const routes: Routes = [
   { path: 'prestamos-libros/cerrar/:id', component: PrestamoLibroCerrarComponent },
   { path: 'prestamos-libros/filter/docente', component: PrestamoLibroFilterDocenteComponent },
   { path: 'prestamos-libros/filter/grado-seccion', component: PrestamoLibroFilterGradoSeccionComponent },
+  { path: 'prestamos-libros/filter/descripcion', component: PrestamoLibroFilterDescripcionComponent },
 
   { path: 'prestamos-materiales', component: PrestamosMaterialesComponent },
   { path: 'prestamos-materiales/form', component: PrestamoMaterialFormComponent },
@@ -134,6 +138,7 @@ const routes: Routes = [
   { path: 'prestamos-materiales/cerrar/:id', component: PrestamoMaterialCerrarComponent },
   { path: 'prestamos-materiales/filter/docente', component: PrestamoMaterialFilterDocenteComponent },
   { path: 'prestamos-materiales/filter/grado-seccion', component: PrestamoMaterialFilterGradoSeccionComponent },
+  { path: 'prestamos-materiales/filter/descripcion', component: PrestamoMaterialFilterDescripcionComponent },
 ];
 
 @NgModule({

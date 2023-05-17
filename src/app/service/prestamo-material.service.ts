@@ -175,6 +175,37 @@ export class PrestamoMaterialService {
       );
   }
 
+  paginationByDescripcion(
+    descripcion: string,
+    page: number,
+    size: number
+  ): Observable<any> {
+    const params = {
+      page: page,
+      size: size,
+    };
+    return this.httpClient
+      .get(`${this.url}/paginationByDescripcion/${descripcion}`, { params })
+      .pipe(
+        map((response: any) => {
+          (response.content as PrestamoMaterial[]).forEach(
+            (prestamoMaterial) => {
+              return prestamoMaterial;
+            }
+          );
+          return response;
+        }),
+        catchError((e) => {
+          Swal.fire({
+            icon: 'error',
+            title: `${e.error.title}`,
+            text: `${e.error.detail}`,
+          });
+          return throwError(() => e);
+        })
+      );
+  }
+
   paginationByFechaPrestamo(
     fechaPrestamoStartStr: string,
     fechaPrestamoEndStr: string,
@@ -283,6 +314,44 @@ export class PrestamoMaterialService {
     return this.httpClient
       .get(
         `${this.url}/paginationByFechaPrestamoAndGradoAndSeccion/${fechaPrestamoStartStr}/${fechaPrestamoEndStr}/${grado}/${seccion}`,
+        { params }
+      )
+      .pipe(
+        map((response: any) => {
+          (response.content as PrestamoMaterial[]).forEach(
+            (prestamoMaterial) => {
+              return prestamoMaterial;
+            }
+          );
+          return response;
+        })
+      );
+  }
+
+  paginationByFechaPrestamoAndDescripcion(
+    fechaPrestamoStartStr: string,
+    fechaPrestamoEndStr: string,
+    descripcion: string,
+    page: number,
+    size: number
+  ): Observable<any> {
+    const params = {
+      page: page,
+      size: size,
+    };
+    fechaPrestamoStartStr = formatDate(
+      fechaPrestamoStartStr,
+      'yyyy-MM-dd HH:mm:ss',
+      'en-US'
+    );
+    fechaPrestamoEndStr = formatDate(
+      fechaPrestamoEndStr,
+      'yyyy-MM-dd HH:mm:ss',
+      'en-US'
+    );
+    return this.httpClient
+      .get(
+        `${this.url}/paginationByFechaPrestamoAndDescripcion/${fechaPrestamoStartStr}/${fechaPrestamoEndStr}/${descripcion}`,
         { params }
       )
       .pipe(

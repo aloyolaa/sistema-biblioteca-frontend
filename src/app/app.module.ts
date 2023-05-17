@@ -73,6 +73,7 @@ import { PrestamoLibroDetailComponent } from './component/prestamo-libro/detail/
 import { PrestamoLibroCerrarComponent } from './component/prestamo-libro/cerrar/cerrar.component';
 import { PrestamoLibroFilterDocenteComponent } from './component/prestamo-libro/filter-docente/filter-docente.component';
 import { PrestamoLibroFilterGradoSeccionComponent } from './component/prestamo-libro/filter-grado-seccion/filter-grado-seccion.component';
+import { PrestamoLibroFilterDescripcionComponent } from './component/prestamo-libro/filter-descripcion/filter-descripcion.component';
 
 import { PrestamosMaterialesComponent } from './component/prestamo-material/prestamos-materiales/prestamos-materiales.component';
 import { PrestamoMaterialFormComponent } from './component/prestamo-material/form/form.component';
@@ -80,6 +81,8 @@ import { PrestamoMaterialDetailComponent } from './component/prestamo-material/d
 import { PrestamoMaterialCerrarComponent } from './component/prestamo-material/cerrar/cerrar.component';
 import { PrestamoMaterialFilterDocenteComponent } from './component/prestamo-material/filter-docente/filter-docente.component';
 import { PrestamoMaterialFilterGradoSeccionComponent } from './component/prestamo-material/filter-grado-seccion/filter-grado-seccion.component';
+import { PrestamoMaterialFilterDescripcionComponent } from './component/prestamo-material/filter-descripcion/filter-descripcion.component';
+
 import { NavbarComponent } from './component/navbar/navbar/navbar.component';
 import { SignupComponent } from './component/signup/signup/signup.component';
 import { LoginComponent } from './component/login/login/login.component';
@@ -141,6 +144,7 @@ import { SidebarComponent } from './component/sidebar/sidebar/sidebar.component'
     PrestamoLibroCerrarComponent,
     PrestamoLibroFilterDocenteComponent,
     PrestamoLibroFilterGradoSeccionComponent,
+    PrestamoLibroFilterDescripcionComponent,
 
     PrestamosMaterialesComponent,
     PrestamoMaterialFormComponent,
@@ -148,6 +152,8 @@ import { SidebarComponent } from './component/sidebar/sidebar/sidebar.component'
     PrestamoMaterialCerrarComponent,
     PrestamoMaterialFilterDocenteComponent,
     PrestamoMaterialFilterGradoSeccionComponent,
+    PrestamoMaterialFilterDescripcionComponent,
+
     NavbarComponent,
     SignupComponent,
     LoginComponent,
