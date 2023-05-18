@@ -105,6 +105,10 @@ export class PrestamoMaterialFilterDescripcionComponent
 
   buscarByDescripcion(): void {
     this.currentPage = this.currentPage != 0 ? 0 : this.currentPage;
+    this.fechasPrestamos = {
+      start: '',
+      end: '',
+    };
     this.paginationByDescripcion();
   }
 
