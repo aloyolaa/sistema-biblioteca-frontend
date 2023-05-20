@@ -4,12 +4,13 @@ import { Router } from '@angular/router';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { Docente } from '../core/model/docente.model';
 import Swal from 'sweetalert2';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DocenteService {
-  private url = 'http://localhost:8080/api/v1/docentes';
+  private url = `${environment.api_url}/docentes`;
 
   constructor(private httpClient: HttpClient, private router: Router) {}
 

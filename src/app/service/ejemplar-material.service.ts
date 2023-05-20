@@ -4,12 +4,13 @@ import { Router } from '@angular/router';
 import { EjemplarMaterial } from '../core/model/ejemplar-material.model';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import Swal from 'sweetalert2';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EjemplarMaterialService {
-  private url = 'http://localhost:8080/api/v1/ejemplares-materiales';
+  private url = `${environment.api_url}/ejemplares-materiales`;
 
   constructor(private httpClient: HttpClient, private router: Router) {}
 
@@ -144,5 +145,21 @@ export class EjemplarMaterialService {
           return throwError(() => e);
         })
       );
+  }
+
+  exportAllToPdf(): string {
+    return `${this.url}/export-all-pdf`;
+  }
+
+  exportAllToXls(): string {
+    return `${this.url}/export-all-xls`;
+  }
+
+  exportByMaterialToPdf(id: number): string {
+    return `${this.url}/export-by-material-pdf/${id}`;
+  }
+
+  exportByMaterialToXls(id: number): string {
+    return `${this.url}/export-by-material-xls/${id}`;
   }
 }

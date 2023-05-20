@@ -7,6 +7,22 @@
     >
       Nuevo Libro
     </button>
+    <a
+      mat-raised-button
+      *ngIf="id !== 0"
+      class="demo-button"
+      [href]="exportByEditorialToPdf()"
+      style="background-color: red; color: white"
+      >PDF</a
+    >
+    <a
+      mat-raised-button
+      *ngIf="id !== 0"
+      class="demo-button"
+      [href]="exportByEditorialToXls()"
+      style="background-color: green; color: white"
+      >EXCEL</a
+    >
   </div>
   <div>
     <mat-form-field appearance="fill">

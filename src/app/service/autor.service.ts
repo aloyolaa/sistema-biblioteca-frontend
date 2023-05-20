@@ -4,12 +4,13 @@ import { Autor } from '../core/model/autor.model';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AutorService {
-  private url = 'http://localhost:8080/api/v1/autores';
+  private url = `${environment.api_url}/autores`;
 
   constructor(private httpClient: HttpClient, private router: Router) {}
 

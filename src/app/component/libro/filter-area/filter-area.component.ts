@@ -62,4 +62,12 @@ export class LibroFilterAreaComponent implements AfterViewInit, OnInit {
       },
     });
   }
+
+  exportByAreaToPdf(): string {
+    return this.libroService.exportByAreaToPdf(this.id);
+  }
+
+  exportByAreaToXls(): string {
+    return this.libroService.exportByAreaToXls(this.id);
+  }
 }

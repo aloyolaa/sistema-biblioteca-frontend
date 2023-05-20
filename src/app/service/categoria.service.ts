@@ -4,12 +4,13 @@ import { Router } from '@angular/router';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { Categoria } from '../core/model/categoria.model';
 import Swal from 'sweetalert2';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CategoriaService {
-  private url = 'http://localhost:8080/api/v1/categorias';
+  private url = `${environment.api_url}/categorias`;
 
   constructor(private httpClient: HttpClient, private router: Router) {}
 

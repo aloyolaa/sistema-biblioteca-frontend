@@ -15,7 +15,8 @@ export class PrestamoMaterialDetailComponent implements OnInit {
   prestamo: PrestamoMaterial = new PrestamoMaterial();
 
   columnas: string[] = ['codigo', 'nombre', 'estado'];
-  dataSource: MatTableDataSource<DetallePrestamoMaterial> = new MatTableDataSource();
+  dataSource: MatTableDataSource<DetallePrestamoMaterial> =
+    new MatTableDataSource();
 
   constructor(
     private prestamoMaterialService: PrestamoMaterialService,
@@ -29,7 +30,7 @@ export class PrestamoMaterialDetailComponent implements OnInit {
       if (id) {
         this.prestamoMaterialService.getOne(id).subscribe((prestamo) => {
           this.prestamo = prestamo;
-          this.dataSource.data = this.prestamo.detalle
+          this.dataSource.data = this.prestamo.detalle;
         });
       }
     });
@@ -71,5 +72,17 @@ export class PrestamoMaterialDetailComponent implements OnInit {
             });
         }
       });
+  }
+
+  exportByPrestamoMaterialToPdf(): string {
+    return this.prestamoMaterialService.exportByPrestamoMaterialToPdf(
+      this.prestamo.id
+    );
+  }
+
+  exportByPrestamoMaterialToXls(): string {
+    return this.prestamoMaterialService.exportByPrestamoMaterialToXls(
+      this.prestamo.id
+    );
   }
 }

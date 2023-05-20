@@ -119,4 +119,12 @@ export class LibrosComponent implements AfterViewInit, OnInit {
     this.buscar = '';
     this.tipo = '';
   }
+
+  exportAllToPdf(): string {
+    return this.libroService.exportAllToPdf();
+  }
+
+  exportAllToXls(): string {
+    return this.libroService.exportAllToXls();
+  }
 }

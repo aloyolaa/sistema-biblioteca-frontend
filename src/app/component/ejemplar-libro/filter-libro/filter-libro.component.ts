@@ -82,4 +82,12 @@ export class EjemplarLibroFilterLibroComponent implements AfterViewInit {
       },
     });
   }
+
+  exportByLibroToPdf(): string {
+    return this.ejemplarLibroService.exportByLibroToPdf(this.libro.id);
+  }
+
+  exportByLibroToXls(): string {
+    return this.ejemplarLibroService.exportByLibroToXls(this.libro.id);
+  }
 }

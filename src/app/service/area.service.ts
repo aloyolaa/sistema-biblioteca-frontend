@@ -4,12 +4,13 @@ import { Observable, catchError, map, throwError } from 'rxjs';
 import { Area } from '../core/model/area.model';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AreaService {
-  private url = 'http://localhost:8080/api/v1/areas';
+  private url = `${environment.api_url}/areas`;
 
   constructor(private httpClient: HttpClient, private router: Router) {}
 

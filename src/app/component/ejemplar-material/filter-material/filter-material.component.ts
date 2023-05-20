@@ -82,4 +82,12 @@ export class EjemplarMaterialFilterMaterialComponent implements AfterViewInit {
       },
     });
   }
+
+  exportByMaterialToPdf(): string {
+    return this.ejemplarMaterialService.exportByMaterialToPdf(this.material.id);
+  }
+
+  exportByMaterialToXls(): string {
+    return this.ejemplarMaterialService.exportByMaterialToXls(this.material.id);
+  }
 }

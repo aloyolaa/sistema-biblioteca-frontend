@@ -7,6 +7,22 @@
     >
       Nuevo Prestamo
     </button>
+    <a
+      mat-raised-button
+      *ngIf="docente.id"
+      class="demo-button"
+      [href]="exportByDocenteToPdf()"
+      style="background-color: red; color: white"
+      >PDF</a
+    >
+    <a
+      mat-raised-button
+      *ngIf="docente.id"
+      class="demo-button"
+      [href]="exportByDocenteToXls()"
+      style="background-color: green; color: white"
+      >EXCEL</a
+    >
   </div>
   <div>
     <div>

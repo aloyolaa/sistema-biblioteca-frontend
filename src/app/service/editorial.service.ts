@@ -4,12 +4,13 @@ import { Router } from '@angular/router';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import Swal from 'sweetalert2';
 import { Editorial } from '../core/model/editorial.model';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EditorialService {
-  private url = 'http://localhost:8080/api/v1/editoriales';
+  private url = `${environment.api_url}/editoriales`;
 
   constructor(private httpClient: HttpClient, private router: Router) {}
 

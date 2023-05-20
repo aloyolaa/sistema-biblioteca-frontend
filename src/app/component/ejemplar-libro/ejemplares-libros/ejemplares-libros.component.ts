@@ -56,4 +56,12 @@ export class EjemplaresLibrosComponent implements AfterViewInit, OnInit {
         },
       });
   }
+
+  exportAllToPdf(): string {
+    return this.ejemplarLibroService.exportAllToPdf();
+  }
+
+  exportAllToXls(): string {
+    return this.ejemplarLibroService.exportAllToXls();
+  }
 }

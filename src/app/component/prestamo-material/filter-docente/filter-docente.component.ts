@@ -131,6 +131,14 @@ export class PrestamoMaterialFilterDocenteComponent implements AfterViewInit {
 
   buscarByFechaPrestamoAndDocente(): void {
     this.currentPage = this.currentPage != 0 ? 0 : this.currentPage;
-    this.paginationByFechaPrestamoAndDocente()
+    this.paginationByFechaPrestamoAndDocente();
+  }
+
+  exportByDocenteToPdf(): string {
+    return this.prestamoMaterialService.exportByDocenteToPdf(this.docente.id);
+  }
+
+  exportByDocenteToXls(): string {
+    return this.prestamoMaterialService.exportByDocenteToXls(this.docente.id);
   }
 }

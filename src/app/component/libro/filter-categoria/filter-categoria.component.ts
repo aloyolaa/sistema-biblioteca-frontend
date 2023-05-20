@@ -66,4 +66,12 @@ export class LibroFilterCategoriaComponent implements AfterViewInit, OnInit {
         },
       });
   }
+
+  exportByCategoriaToPdf(): string {
+    return this.libroService.exportByCategoriaToPdf(this.id);
+  }
+
+  exportByCategoriaToXls(): string {
+    return this.libroService.exportByCategoriaToXls(this.id);
+  }
 }

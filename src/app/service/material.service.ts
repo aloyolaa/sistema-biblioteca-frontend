@@ -4,12 +4,13 @@ import { Router } from '@angular/router';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { Material } from '../core/model/material.model';
 import Swal from 'sweetalert2';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MaterialService {
-  private url = 'http://localhost:8080/api/v1/materiales';
+  private url = `${environment.api_url}/materiales`;
 
   constructor(private httpClient: HttpClient, private router: Router) {}
 
@@ -199,5 +200,45 @@ export class MaterialService {
           return throwError(() => e);
         })
       );
+  }
+
+  exportAllToPdf(): string {
+    return `${this.url}/export-all-pdf`;
+  }
+
+  exportAllToXls(): string {
+    return `${this.url}/export-all-xls`;
+  }
+
+  exportByAreaToPdf(id: number): string {
+    return `${this.url}/export-by-area-pdf/${id}`;
+  }
+
+  exportByAreaToXls(id: number): string {
+    return `${this.url}/export-by-area-xls/${id}`;
+  }
+
+  exportByCategoriaToPdf(id: number): string {
+    return `${this.url}/export-by-categoria-pdf/${id}`;
+  }
+
+  exportByCategoriaToXls(id: number): string {
+    return `${this.url}/export-by-categoria-xls/${id}`;
+  }
+
+  exportByEditorialToPdf(id: number): string {
+    return `${this.url}/export-by-editorial-pdf/${id}`;
+  }
+
+  exportByEditorialToXls(id: number): string {
+    return `${this.url}/export-by-editorial-xls/${id}`;
+  }
+
+  exportByAutorToPdf(id: number): string {
+    return `${this.url}/export-by-autor-pdf/${id}`;
+  }
+
+  exportByAutorToXls(id: number): string {
+    return `${this.url}/export-by-autor-xls/${id}`;
   }
 }

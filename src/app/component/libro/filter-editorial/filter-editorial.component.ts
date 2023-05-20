@@ -66,4 +66,12 @@ export class LibroFilterEditorialComponent implements AfterViewInit, OnInit {
         },
       });
   }
+
+  exportByEditorialToPdf(): string {
+    return this.libroService.exportByEditorialToPdf(this.id);
+  }
+
+  exportByEditorialToXls(): string {
+    return this.libroService.exportByEditorialToXls(this.id);
+  }
 }

@@ -119,4 +119,12 @@ export class MaterialesComponent implements AfterViewInit, OnInit {
     this.buscar = '';
     this.tipo = '';
   }
+
+  exportAllToPdf(): string {
+    return this.materialService.exportAllToPdf();
+  }
+
+  exportAllToXls(): string {
+    return this.materialService.exportAllToXls();
+  }
 }

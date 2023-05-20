@@ -102,4 +102,12 @@ export class PrestamosLibrosComponent implements AfterViewInit, OnInit {
     this.fechasPrestamos.start = '';
     this.fechasPrestamos.end = '';
   }
+
+  exportAllToPdf(): string {
+    return this.prestamoLibroService.exportAllToPdf();
+  }
+
+  exportAllToXls(): string {
+    return this.prestamoLibroService.exportAllToXls();
+  }
 }

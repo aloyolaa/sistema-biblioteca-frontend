@@ -7,6 +7,22 @@
     >
       Nuevo Material
     </button>
+    <a
+      mat-raised-button
+      *ngIf="id !== 0"
+      class="demo-button"
+      [href]="exportByAreaToPdf()"
+      style="background-color: red; color: white"
+      >PDF</a
+    >
+    <a
+      mat-raised-button
+      *ngIf="id !== 0"
+      class="demo-button"
+      [href]="exportByAreaToXls()"
+      style="background-color: green; color: white"
+      >EXCEL</a
+    >
   </div>
   <div>
     <mat-form-field appearance="fill">

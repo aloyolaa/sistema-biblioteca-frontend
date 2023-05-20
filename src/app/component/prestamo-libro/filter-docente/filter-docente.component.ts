@@ -133,4 +133,12 @@ export class PrestamoLibroFilterDocenteComponent implements AfterViewInit {
     this.currentPage = this.currentPage != 0 ? 0 : this.currentPage;
     this.paginationByFechaPrestamoAndDocente()
   }
+
+  exportByDocenteToPdf(): string {
+    return this.prestamoLibroService.exportByDocenteToPdf(this.docente.id);
+  }
+
+  exportByDocenteToXls(): string {
+    return this.prestamoLibroService.exportByDocenteToXls(this.docente.id);
+  }
 }

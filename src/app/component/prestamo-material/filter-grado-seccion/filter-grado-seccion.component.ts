@@ -117,4 +117,18 @@ export class PrestamoMaterialFilterGradoSeccionComponent implements AfterViewIni
     this.currentPage = this.currentPage != 0 ? 0 : this.currentPage;
     this.paginationByFechaPrestamoAndGradoAndSeccion();
   }
+
+  exportByGradoAndSeccionToPdf(): string {
+    return this.prestamoMaterialService.exportByGradoAndSeccionToPdf(
+      this.grado,
+      this.seccion
+    );
+  }
+
+  exportByGradoAndSeccionToXls(): string {
+    return this.prestamoMaterialService.exportByGradoAndSeccionToXls(
+      this.grado,
+      this.seccion
+    );
+  }
 }

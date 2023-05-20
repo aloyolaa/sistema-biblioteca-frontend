@@ -1,16 +1,125 @@
 <mat-card>
   <mat-action-list>
-    <button routerLink="" mat-list-item><b>Inicio</b></button>
-    <button routerLink="/areas" mat-list-item>Areas</button>
-    <button routerLink="/autores" mat-list-item>Autores</button>
-    <button routerLink="/categorias" mat-list-item>Categorias</button>
-    <button routerLink="/docentes" mat-list-item>Docentes</button>
-    <button routerLink="/editoriales" mat-list-item>Editoriales</button>
-    <button routerLink="/libros" mat-list-item>Libros</button>
-    <button routerLink="/materiales" mat-list-item>Materiales</button>
-    <button routerLink="/ejemplares-libros" mat-list-item>Ejemplares de Libros</button>
-    <button routerLink="/ejemplares-materiales" mat-list-item>Ejemplares de Materiales</button>
-    <button routerLink="/prestamos-libros" mat-list-item>Préstamos de Libros</button>
-    <button routerLink="/prestamos-materiales" mat-list-item>Préstamos de Materiales</button>
+    <div>
+      <button mat-list-item routerLink="" mat-list-item><b>Inicio</b></button>
+    </div>
+    <div>
+      <button mat-list-item routerLink="/areas">Areas</button>
+    </div>
+    <div>
+      <button mat-list-item routerLink="/autores">Autores</button>
+    </div>
+    <div>
+      <button mat-list-item routerLink="/categorias">Categorias</button>
+    </div>
+    <div>
+      <button mat-list-item routerLink="/docentes">Docentes</button>
+    </div>
+    <div>
+      <button mat-list-item routerLink="/editoriales">Editoriales</button>
+    </div>
+    <div>
+      <button mat-list-item [matMenuTriggerFor]="libros">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <button mat-list-item routerLink="/libros">Libros</button>
+      <mat-menu #libros="matMenu">
+        <button mat-menu-item routerLink="/libros/filter/area">Por Area</button>
+        <button mat-menu-item routerLink="/libros/filter/categoria">
+          Por Categoria
+        </button>
+        <button mat-menu-item routerLink="/libros/filter/editorial">
+          Por Editorial
+        </button>
+        <button mat-menu-item routerLink="/libros/filter/autor">
+          Por Autor
+        </button>
+      </mat-menu>
+    </div>
+    <div>
+      <button mat-list-item [matMenuTriggerFor]="materiales">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <button mat-list-item routerLink="/materiales">Materiales</button>
+      <mat-menu #materiales="matMenu">
+        <button mat-menu-item routerLink="/libros/filter/area">Por Area</button>
+      </mat-menu>
+    </div>
+    <div>
+      <button mat-list-item [matMenuTriggerFor]="ejemplaresLibros">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <button mat-list-item routerLink="/ejemplares-libros">
+        Ejemplares de Libros
+      </button>
+      <mat-menu #ejemplaresLibros="matMenu">
+        <button mat-menu-item routerLink="/ejemplares-libros/filter/libro">
+          Por Libro
+        </button>
+      </mat-menu>
+    </div>
+    <div>
+      <button mat-list-item [matMenuTriggerFor]="ejemplaresMateriales">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <button mat-list-item routerLink="/ejemplares-materiales">
+        Ejemplares de Materiales
+      </button>
+      <mat-menu #ejemplaresMateriales="matMenu">
+        <button
+          mat-menu-item
+          routerLink="/ejemplares-materiales/filter/material"
+        >
+          Por Material
+        </button>
+      </mat-menu>
+    </div>
+    <div>
+      <button mat-list-item [matMenuTriggerFor]="prestamosLibros">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <button mat-list-item routerLink="/prestamos-libros">
+        Prestamos de Libros
+      </button>
+      <mat-menu #prestamosLibros="matMenu">
+        <button mat-menu-item routerLink="/prestamos-libros/filter/docente">
+          Por Docente
+        </button>
+        <button
+          mat-menu-item
+          routerLink="/prestamos-libros/filter/grado-seccion"
+        >
+          Por Grado y Seccion
+        </button>
+        <button mat-menu-item routerLink="/prestamos-libros/filter/descripcion">
+          Por Descripcion
+        </button>
+      </mat-menu>
+    </div>
+    <div>
+      <button mat-list-item [matMenuTriggerFor]="prestamosMateriales">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <button mat-list-item routerLink="/prestamos-materiales">
+        Prestamos de Materiales
+      </button>
+      <mat-menu #prestamosMateriales="matMenu">
+        <button mat-menu-item routerLink="/prestamos-materiales/filter/docente">
+          Por Docente
+        </button>
+        <button
+          mat-menu-item
+          routerLink="/prestamos-materiales/filter/grado-seccion"
+        >
+          Por Grado y Seccion
+        </button>
+        <button
+          mat-menu-item
+          routerLink="/prestamos-materiales/filter/descripcion"
+        >
+          Por Descripcion
+        </button>
+      </mat-menu>
+    </div>
   </mat-action-list>
 </mat-card>

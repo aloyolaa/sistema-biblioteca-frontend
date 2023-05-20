@@ -64,4 +64,12 @@ export class LibroFilterAutorComponent implements AfterViewInit, OnInit {
         },
       });
   }
+
+  exportByAutorToPdf(): string {
+    return this.libroService.exportByAutorToXls(this.id);
+  }
+
+  exportByAutorToXls(): string {
+    return this.libroService.exportByAutorToXls(this.id);
+  }
 }

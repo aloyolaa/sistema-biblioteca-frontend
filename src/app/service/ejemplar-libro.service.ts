@@ -4,12 +4,13 @@ import { Router } from '@angular/router';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { EjemplarLibro } from '../core/model/ejemplar-libro.model';
 import Swal from 'sweetalert2';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EjemplarLibroService {
-  private url = 'http://localhost:8080/api/v1/ejemplares-libros';
+  private url = `${environment.api_url}/ejemplares-libros`;
 
   constructor(private httpClient: HttpClient, private router: Router) {}
 
@@ -140,5 +141,21 @@ export class EjemplarLibroService {
           return throwError(() => e);
         })
       );
+  }
+
+  exportAllToPdf(): string {
+    return `${this.url}/export-all-pdf`;
+  }
+
+  exportAllToXls(): string {
+    return `${this.url}/export-all-xls`;
+  }
+
+  exportByLibroToPdf(id: number): string {
+    return `${this.url}/export-by-libro-pdf/${id}`;
+  }
+
+  exportByLibroToXls(id: number): string {
+    return `${this.url}/export-by-libro-xls/${id}`;
   }
 }

@@ -64,4 +64,12 @@ export class MaterialFilterAreaComponent implements AfterViewInit, OnInit {
         },
       });
   }
+
+  exportByAreaToPdf(): string {
+    return this.materialService.exportByAreaToPdf(this.id);
+  }
+
+  exportByAreaToXls(): string {
+    return this.materialService.exportByAreaToXls(this.id);
+  }
 }

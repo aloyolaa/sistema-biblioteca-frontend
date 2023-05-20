@@ -56,4 +56,12 @@ export class EjemplaresMaterialesComponent implements AfterViewInit, OnInit {
         },
       });
   }
+
+  exportAllToPdf(): string {
+    return this.ejemplarMaterialService.exportAllToPdf();
+  }
+
+  exportAllToXls(): string {
+    return this.ejemplarMaterialService.exportAllToXls();
+  }
 }

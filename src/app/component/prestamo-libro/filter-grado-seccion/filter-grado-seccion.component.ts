@@ -117,4 +117,18 @@ export class PrestamoLibroFilterGradoSeccionComponent implements AfterViewInit {
     this.currentPage = this.currentPage != 0 ? 0 : this.currentPage;
     this.paginationByFechaPrestamoAndGradoAndSeccion();
   }
+
+  exportByGradoAndSeccionToPdf(): string {
+    return this.prestamoLibroService.exportByGradoAndSeccionToPdf(
+      this.grado,
+      this.seccion
+    );
+  }
+
+  exportByGradoAndSeccionToXls(): string {
+    return this.prestamoLibroService.exportByGradoAndSeccionToXls(
+      this.grado,
+      this.seccion
+    );
+  }
 }

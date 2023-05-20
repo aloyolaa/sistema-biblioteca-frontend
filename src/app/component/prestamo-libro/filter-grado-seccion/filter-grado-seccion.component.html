@@ -7,6 +7,22 @@
     >
       Nuevo Prestamo
     </button>
+    <a
+      mat-raised-button
+      *ngIf="grado !== 0 && seccion"
+      class="demo-button"
+      [href]="exportByGradoAndSeccionToPdf()"
+      style="background-color: red; color: white"
+      >PDF</a
+    >
+    <a
+      mat-raised-button
+      *ngIf="grado !== 0 && seccion"
+      class="demo-button"
+      [href]="exportByGradoAndSeccionToXls()"
+      style="background-color: green; color: white"
+      >EXCEL</a
+    >
   </div>
   <div>
     <div>

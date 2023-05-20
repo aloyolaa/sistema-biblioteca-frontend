@@ -102,4 +102,12 @@ export class PrestamosMaterialesComponent implements AfterViewInit, OnInit {
     this.fechasPrestamos.start = '';
     this.fechasPrestamos.end = '';
   }
+
+  exportAllToPdf(): string {
+    return this.prestamoMaterialService.exportAllToPdf();
+  }
+
+  exportAllToXls(): string {
+    return this.prestamoMaterialService.exportAllToXls();
+  }
 }

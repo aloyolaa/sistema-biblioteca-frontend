@@ -5,12 +5,13 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { PrestamoLibro } from '../core/model/prestamo-libro.model';
 import { formatDate } from '@angular/common';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PrestamoLibroService {
-  private url = 'http://localhost:8080/api/v1/prestamos-libros';
+  private url = `${environment.api_url}/prestamos-libros`;
 
   constructor(private httpClient: HttpClient, private router: Router) {}
 
@@ -348,5 +349,37 @@ export class PrestamoLibroService {
           return response;
         })
       );
+  }
+
+  exportAllToPdf(): string {
+    return `${this.url}/export-all-pdf`;
+  }
+
+  exportAllToXls(): string {
+    return `${this.url}/export-all-xls`;
+  }
+
+  exportByPrestamoLibroToPdf(id: number): string {
+    return `${this.url}/export-by-prestamo-pdf/${id}`;
+  }
+
+  exportByPrestamoLibroToXls(id: number): string {
+    return `${this.url}/export-by-prestamo-xls/${id}`;
+  }
+
+  exportByDocenteToPdf(id: number): string {
+    return `${this.url}/export-by-docente-pdf/${id}`;
+  }
+
+  exportByDocenteToXls(id: number): string {
+    return `${this.url}/export-by-docente-xls/${id}`;
+  }
+
+  exportByGradoAndSeccionToPdf(grado: number, seccion: string): string {
+    return `${this.url}/export-by-grado-seccion-pdf/${grado}/${seccion}`;
+  }
+
+  exportByGradoAndSeccionToXls(grado: number, seccion: string): string {
+    return `${this.url}/export-by-grado-seccion-xls/${grado}/${seccion}`;
   }
 }

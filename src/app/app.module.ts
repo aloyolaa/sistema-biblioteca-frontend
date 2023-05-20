@@ -21,6 +21,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { AreasComponent } from './component/area/areas/areas.component';
 import { AreaFormComponent } from './component/area/form/form.component';
@@ -181,7 +182,8 @@ import { SidebarComponent } from './component/sidebar/sidebar/sidebar.component'
     MatProgressBarModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatMomentDateModule
+    MatMomentDateModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent],

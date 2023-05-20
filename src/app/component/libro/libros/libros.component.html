@@ -7,6 +7,20 @@
     >
       Nuevo Libro
     </button>
+    <a
+      mat-raised-button
+      class="demo-button"
+      [href]="exportAllToPdf()"
+      style="background-color: red; color: white"
+      >PDF</a
+    >
+    <a
+      mat-raised-button
+      class="demo-button"
+      [href]="exportAllToXls()"
+      style="background-color: green; color: white"
+      >EXCEL</a
+    >
   </div>
   <div>
     <mat-form-field>

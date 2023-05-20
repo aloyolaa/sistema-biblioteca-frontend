@@ -7,6 +7,22 @@
     >
       Nuevo Ejemplar
     </button>
+    <a
+      mat-raised-button
+      *ngIf="material.id"
+      class="demo-button"
+      [href]="exportByMaterialToPdf()"
+      style="background-color: red; color: white"
+      >PDF</a
+    >
+    <a
+      mat-raised-button
+      *ngIf="material.id"
+      class="demo-button"
+      [href]="exportByMaterialToXls()"
+      style="background-color: green; color: white"
+      >EXCEL</a
+    >
   </div>
   <div>
     <mat-form-field>
