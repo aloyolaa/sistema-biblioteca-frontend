@@ -1,4 +1,4 @@
-import { Base } from './base.mode';
+import { Base } from './base.model';
 import { Material } from './material.model';
 
 export class EjemplarMaterial extends Base {

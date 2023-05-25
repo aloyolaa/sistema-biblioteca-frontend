@@ -1,6 +1,6 @@
 import { Area } from './area.model';
 import { Autor } from './autor.model';
-import { Base } from './base.mode';
+import { Base } from './base.model';
 import { Categoria } from './categoria.model';
 import { Editorial } from './editorial.model';
 

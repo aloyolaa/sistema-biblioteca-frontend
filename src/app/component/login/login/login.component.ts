@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { LoginService } from 'src/app/service/login.service';
+import { Usuario } from 'src/app/core/model/usuario.model';
+import { AuthService } from 'src/app/service/auth.service';
+import { UsuarioService } from 'src/app/service/usuario.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -9,73 +11,59 @@ import { LoginService } from 'src/app/service/login.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
+  usuario: Usuario = new Usuario();
   loginData = {
     username: '',
     password: '',
   };
 
   constructor(
-    private snack: MatSnackBar,
-    private loginService: LoginService,
+    private authService: AuthService,
+    private usuarioService: UsuarioService,
     private router: Router
   ) {}
 
-  ngOnInit(): void {}
-
-  formSubmit() {
-    if (
-      this.loginData.username.trim() == '' ||
-      this.loginData.username.trim() == null
-    ) {
-      this.snack.open('El nombre de usuario es requerido !!', 'Aceptar', {
-        duration: 3000,
+  ngOnInit(): void {
+    console.log(this.authService.isAuthenticated());
+    if (this.authService.isAuthenticated()) {
+      Swal.fire({
+        icon: 'info',
+        title: 'Login',
+        text: `Hola ${
+          this.authService.getUsuario().username
+        } ya estás autenticado!`,
       });
-      return;
+      this.router.navigate(['/libros']);
     }
+  }
 
-    if (
-      this.loginData.password.trim() == '' ||
-      this.loginData.password.trim() == null
-    ) {
-      this.snack.open('La contraseña es requerida !!', 'Aceptar', {
-        duration: 3000,
+  login(): void {
+    this.authService
+      .login(this.loginData.username, this.loginData.password)
+      .subscribe({
+        next: (response) => {
+          console.log(response);
+          this.usuarioService
+            .getOneByUsername(response.sub)
+            .subscribe((usuario) => (this.usuario = usuario));
+          this.authService.setUsuario(this.usuario);
+          this.authService.setToken(response.token);
+          this.router.navigate(['/']);
+          Swal.fire({
+            icon: 'success',
+            title: 'Login',
+            text: `Hola ${this.usuario.username}, has iniciado sesión con éxito!`,
+          });
+        },
+        error: (err) => {
+          if (err.status == 400) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error Login',
+              text: `Usuario o password incorrectos!`,
+            });
+          }
+        },
       });
-      return;
-    }
-
-    this.loginService.generateToken(this.loginData).subscribe(
-      (data: any) => {
-        console.log(data);
-        this.loginService.loginUser(data.token);
-        this.loginService.getCurrentUser().subscribe((user: any) => {
-          this.loginService.setUser(user);
-          console.log(user);
-
-          if (this.loginService.getUserRole() == 'ADMIN') {
-            //dashboard admin
-            //window.location.href = '/admin';
-            this.router.navigate(['admin']);
-            this.loginService.loginStatusSubjec.next(true);
-          } else if (this.loginService.getUserRole() == 'NORMAL') {
-            //user dashboard
-            //window.location.href = '/user-dashboard';
-            this.router.navigate(['user-dashboard']);
-            this.loginService.loginStatusSubjec.next(true);
-          } else {
-            this.loginService.logout();
-          }
-        });
-      },
-      (error) => {
-        console.log(error);
-        this.snack.open(
-          'Detalles inválidos , vuelva a intentar !!',
-          'Aceptar',
-          {
-            duration: 3000,
-          }
-        );
-      }
-    );
   }
 }

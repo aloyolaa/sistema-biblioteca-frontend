@@ -1,4 +1,4 @@
-import { Base } from './base.mode';
+import { Base } from './base.model';
 import { DetallePrestamoMaterial } from './detalle-prestamo-material.model';
 import { Docente } from './docente.model';
 

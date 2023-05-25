@@ -62,83 +62,398 @@ import { PrestamoMaterialFilterDocenteComponent } from './component/prestamo-mat
 import { PrestamoMaterialFilterGradoSeccionComponent } from './component/prestamo-material/filter-grado-seccion/filter-grado-seccion.component';
 import { PrestamoMaterialFilterDescripcionComponent } from './component/prestamo-material/filter-descripcion/filter-descripcion.component';
 
+import { UsuariosComponent } from './component/usuario/usuarios/usuarios.component';
+import { UsuarioFormComponent } from './component/usuario/form/form.component';
+import { UsuarioDetailComponent } from './component/usuario/detail/detail.component';
+
 import { HomeComponent } from './component/home/home/home.component';
-import { SignupComponent } from './component/signup/signup/signup.component';
 import { LoginComponent } from './component/login/login/login.component';
+import { AuthGuard } from './guard/auth.guard';
+import { RoleGuard } from './guard/role.guard';
 
 const routes: Routes = [
-  { path : '', component: HomeComponent, pathMatch : 'full'},
-  { path : 'signup', component : SignupComponent, pathMatch : 'full'},
-  { path : 'login', component : LoginComponent, pathMatch : 'full'
+  {
+    path: '',
+    component: HomeComponent,
+    pathMatch: 'full',
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  { path: 'login', component: LoginComponent, pathMatch: 'full' },
+
+  {
+    path: 'areas',
+    component: AreasComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'areas/form',
+    component: AreaFormComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'areas/form/:id',
+    component: AreaFormComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'areas/detail/:id',
+    component: AreaDetailComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
   },
 
-  { path: 'areas', component: AreasComponent },
-  { path: 'areas/form', component: AreaFormComponent },
-  { path: 'areas/form/:id', component: AreaFormComponent },
-  { path: 'areas/detail/:id', component: AreaDetailComponent },
+  {
+    path: 'autores',
+    component: AutoresComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'autores/form',
+    component: AutorFormComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'autores/form/:id',
+    component: AutorFormComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'autores/detail/:id',
+    component: AutorDetailComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
 
-  { path: 'autores', component: AutoresComponent },
-  { path: 'autores/form', component: AutorFormComponent },
-  { path: 'autores/form/:id', component: AutorFormComponent },
-  { path: 'autores/detail/:id', component: AutorDetailComponent },
+  {
+    path: 'categorias',
+    component: CategoriasComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'categorias/form',
+    component: CategoriaFormComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'categorias/form/:id',
+    component: CategoriaFormComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'categorias/detail/:id',
+    component: CategoriaDetailComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
 
-  { path: 'categorias', component: CategoriasComponent },
-  { path: 'categorias/form', component: CategoriaFormComponent },
-  { path: 'categorias/form/:id', component: CategoriaFormComponent },
-  { path: 'categorias/detail/:id', component: CategoriaDetailComponent },
+  {
+    path: 'docentes',
+    component: DocentesComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'docentes/form',
+    component: DocenteFormComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'docentes/form/:id',
+    component: DocenteFormComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'docentes/detail/:id',
+    component: DocenteDetailComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
 
-  { path: 'docentes', component: DocentesComponent },
-  { path: 'docentes/form', component: DocenteFormComponent },
-  { path: 'docentes/form/:id', component: DocenteFormComponent },
-  { path: 'docentes/detail/:id', component: DocenteDetailComponent },
+  {
+    path: 'editoriales',
+    component: EditorialesComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'editoriales/form',
+    component: EditorialFormComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'editoriales/form/:id',
+    component: EditorialFormComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'editoriales/detail/:id',
+    component: EditorialDetailComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
 
-  { path: 'editoriales', component: EditorialesComponent },
-  { path: 'editoriales/form', component: EditorialFormComponent },
-  { path: 'editoriales/form/:id', component: EditorialFormComponent },
-  { path: 'editoriales/detail/:id', component: EditorialDetailComponent },
+  {
+    path: 'ejemplares-libros',
+    component: EjemplaresLibrosComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'ejemplares-libros/form/:id',
+    component: EjemplarLibroFormComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'ejemplares-libros/detail/:id',
+    component: EjemplarLibroDetailComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'ejemplares-libros/save',
+    component: EjemplarLibroCrearComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'ejemplares-libros/filter/libro',
+    component: EjemplarLibroFilterLibroComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
 
-  { path: 'ejemplares-libros', component: EjemplaresLibrosComponent },
-  { path: 'ejemplares-libros/form/:id', component: EjemplarLibroFormComponent },
-  { path: 'ejemplares-libros/detail/:id', component: EjemplarLibroDetailComponent },
-  { path: 'ejemplares-libros/save', component: EjemplarLibroCrearComponent },
-  { path: 'ejemplares-libros/filter/libro', component: EjemplarLibroFilterLibroComponent },
+  {
+    path: 'ejemplares-materiales',
+    component: EjemplaresMaterialesComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'ejemplares-materiales/form/:id',
+    component: EjemplarMaterialFormComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'ejemplares-materiales/detail/:id',
+    component: EjemplarMaterialDetailComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'ejemplares-materiales/save',
+    component: EjemplarMaterialCrearComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'ejemplares-materiales/filter/material',
+    component: EjemplarMaterialFilterMaterialComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
 
-  { path: 'ejemplares-materiales', component: EjemplaresMaterialesComponent },
-  { path: 'ejemplares-materiales/form/:id', component: EjemplarMaterialFormComponent },
-  { path: 'ejemplares-materiales/detail/:id', component: EjemplarMaterialDetailComponent },
-  { path: 'ejemplares-materiales/save', component: EjemplarMaterialCrearComponent },
-  { path: 'ejemplares-materiales/filter/material', component: EjemplarMaterialFilterMaterialComponent },
+  {
+    path: 'libros',
+    component: LibrosComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'libros/form',
+    component: LibroFormComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'libros/form/:id',
+    component: LibroFormComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'libros/detail/:id',
+    component: LibroDetailComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'libros/filter/area',
+    component: LibroFilterAreaComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'libros/filter/categoria',
+    component: LibroFilterCategoriaComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'libros/filter/editorial',
+    component: LibroFilterEditorialComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'libros/filter/autor',
+    component: LibroFilterAutorComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
 
-  { path: 'libros', component: LibrosComponent },
-  { path: 'libros/form', component: LibroFormComponent },
-  { path: 'libros/form/:id', component: LibroFormComponent },
-  { path: 'libros/detail/:id', component: LibroDetailComponent },
-  { path: 'libros/filter/area', component: LibroFilterAreaComponent },
-  { path: 'libros/filter/categoria', component: LibroFilterCategoriaComponent },
-  { path: 'libros/filter/editorial', component: LibroFilterEditorialComponent },
-  { path: 'libros/filter/autor', component: LibroFilterAutorComponent },
+  {
+    path: 'materiales',
+    component: MaterialesComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'materiales/form',
+    component: MaterialFormComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'materiales/form/:id',
+    component: MaterialFormComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'materiales/detail/:id',
+    component: MaterialDetailComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'materiales/filter/area',
+    component: MaterialFilterAreaComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
 
-  { path: 'materiales', component: MaterialesComponent },
-  { path: 'materiales/form', component: MaterialFormComponent },
-  { path: 'materiales/form/:id', component: MaterialFormComponent },
-  { path: 'materiales/detail/:id', component: MaterialDetailComponent },
-  { path: 'materiales/filter/area', component: MaterialFilterAreaComponent },
+  {
+    path: 'prestamos-libros',
+    component: PrestamosLibrosComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'prestamos-libros/form',
+    component: PrestamoLibroFormComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'prestamos-libros/detail/:id',
+    component: PrestamoLibroDetailComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'prestamos-libros/cerrar/:id',
+    component: PrestamoLibroCerrarComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'prestamos-libros/filter/docente',
+    component: PrestamoLibroFilterDocenteComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'prestamos-libros/filter/grado-seccion',
+    component: PrestamoLibroFilterGradoSeccionComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'prestamos-libros/filter/descripcion',
+    component: PrestamoLibroFilterDescripcionComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
 
-  { path: 'prestamos-libros', component: PrestamosLibrosComponent },
-  { path: 'prestamos-libros/form', component: PrestamoLibroFormComponent },
-  { path: 'prestamos-libros/detail/:id', component: PrestamoLibroDetailComponent },
-  { path: 'prestamos-libros/cerrar/:id', component: PrestamoLibroCerrarComponent },
-  { path: 'prestamos-libros/filter/docente', component: PrestamoLibroFilterDocenteComponent },
-  { path: 'prestamos-libros/filter/grado-seccion', component: PrestamoLibroFilterGradoSeccionComponent },
-  { path: 'prestamos-libros/filter/descripcion', component: PrestamoLibroFilterDescripcionComponent },
+  {
+    path: 'prestamos-materiales',
+    component: PrestamosMaterialesComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'prestamos-materiales/form',
+    component: PrestamoMaterialFormComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'prestamos-materiales/detail/:id',
+    component: PrestamoMaterialDetailComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'prestamos-materiales/cerrar/:id',
+    component: PrestamoMaterialCerrarComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'prestamos-materiales/filter/docente',
+    component: PrestamoMaterialFilterDocenteComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'prestamos-materiales/filter/grado-seccion',
+    component: PrestamoMaterialFilterGradoSeccionComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
+  {
+    path: 'prestamos-materiales/filter/descripcion',
+    component: PrestamoMaterialFilterDescripcionComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+  },
 
-  { path: 'prestamos-materiales', component: PrestamosMaterialesComponent },
-  { path: 'prestamos-materiales/form', component: PrestamoMaterialFormComponent },
-  { path: 'prestamos-materiales/detail/:id', component: PrestamoMaterialDetailComponent },
-  { path: 'prestamos-materiales/cerrar/:id', component: PrestamoMaterialCerrarComponent },
-  { path: 'prestamos-materiales/filter/docente', component: PrestamoMaterialFilterDocenteComponent },
-  { path: 'prestamos-materiales/filter/grado-seccion', component: PrestamoMaterialFilterGradoSeccionComponent },
-  { path: 'prestamos-materiales/filter/descripcion', component: PrestamoMaterialFilterDescripcionComponent },
+  {
+    path: 'usuarios',
+    component: UsuariosComponent,
+    
+  },
+  {
+    path: 'usuarios/form',
+    component: UsuarioFormComponent,
+    
+  },
+  {
+    path: 'usuarios/form/:id',
+    component: UsuarioFormComponent,
+    
+  },
+  {
+    path: 'usuarios/detail/:id',
+    component: UsuarioDetailComponent,
+  
+  },
 ];
 
 @NgModule({

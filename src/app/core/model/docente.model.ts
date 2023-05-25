@@ -1,4 +1,4 @@
-import { Base } from './base.mode';
+import { Base } from './base.model';
 
 export class Docente extends Base {
   nombre: string;

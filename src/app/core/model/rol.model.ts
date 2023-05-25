@@ -1,5 +1,5 @@
 import { Base } from './base.model';
 
-export class Editorial extends Base {
+export class Rol extends Base {
   nombre: string;
 }

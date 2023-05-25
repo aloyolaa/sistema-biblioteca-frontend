@@ -1,0 +1,41 @@
+<mat-card class="center-content">
+  <mat-card-header>
+    <mat-card-title>Detalle de Usuario</mat-card-title>
+  </mat-card-header>
+  <br />
+  <mat-card-content>
+    <h4>ID: {{ usuario.id }}</h4>
+    <h4>Username: {{ usuario.username }}</h4>
+    <h4>Email: {{ usuario.email }}</h4>
+    <h4>Nombres: {{ usuario.nombres }}</h4>
+    <h4>Apellidos: {{ usuario.apellidos }}</h4>
+    <h4>Habilitado: {{ usuario.habilitado }}</h4>
+    <h4>Rol(es):</h4>
+    <ul>
+      <li *ngFor="let rol of usuario.roles">
+        <h4>{{ rol.nombre }}</h4>
+      </li>
+    </ul>
+  </mat-card-content>
+  <br />
+  <mat-card-actions>
+    <button
+      mat-raised-button
+      type="button"
+      [routerLink]="['/usuarios']"
+      style="margin-left: 20px"
+    >
+      Volver
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      type="button"
+      [routerLink]="['/usuarios/form', usuario.id]"
+      style="margin-left: 20px"
+    >
+      Actualizar
+    </button>
+  </mat-card-actions>
+  <br />
+</mat-card>

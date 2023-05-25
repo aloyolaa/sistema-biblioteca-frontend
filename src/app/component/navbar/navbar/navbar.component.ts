@@ -1,28 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import { LoginService } from 'src/app/service/login.service';
+import { Component } from '@angular/core';
+//import { LoginService } from 'src/app/service/login.service';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent {
   isLoggedIn = false;
-  user: any = null;
+  //user: any = null;
 
-  constructor(public loginService: LoginService) {}
+  //constructor() {}
 
-  ngOnInit(): void {
+  /* ngOnInit(): void {
     this.isLoggedIn = this.loginService.isLoggedIn();
     this.user = this.loginService.getUser();
     this.loginService.loginStatusSubjec.asObservable().subscribe((data) => {
       this.isLoggedIn = this.loginService.isLoggedIn();
       this.user = this.loginService.getUser();
     });
-  }
+  } */
 
-  public logout() {
+  /* public logout() {
     this.loginService.logout();
     window.location.reload();
-  }
+  } */
 }

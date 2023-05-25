@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -23,6 +23,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { AreasComponent } from './component/area/areas/areas.component';
 import { AreaFormComponent } from './component/area/form/form.component';
@@ -85,16 +86,21 @@ import { PrestamoMaterialFilterDocenteComponent } from './component/prestamo-mat
 import { PrestamoMaterialFilterGradoSeccionComponent } from './component/prestamo-material/filter-grado-seccion/filter-grado-seccion.component';
 import { PrestamoMaterialFilterDescripcionComponent } from './component/prestamo-material/filter-descripcion/filter-descripcion.component';
 
+import { UsuariosComponent } from './component/usuario/usuarios/usuarios.component';
+import { UsuarioFormComponent } from './component/usuario/form/form.component';
+import { UsuarioDetailComponent } from './component/usuario/detail/detail.component';
+
 import { NavbarComponent } from './component/navbar/navbar/navbar.component';
-import { SignupComponent } from './component/signup/signup/signup.component';
 import { LoginComponent } from './component/login/login/login.component';
 import { HomeComponent } from './component/home/home/home.component';
 import { SidebarComponent } from './component/sidebar/sidebar/sidebar.component';
+import { TokenInterceptor } from './interceptor/token.interceptor';
+import { AuthInterceptor } from './interceptor/auth.interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
-    
+
     AreasComponent,
     AreaFormComponent,
     AreaDetailComponent,
@@ -102,15 +108,15 @@ import { SidebarComponent } from './component/sidebar/sidebar/sidebar.component'
     AutoresComponent,
     AutorFormComponent,
     AutorDetailComponent,
-    
+
     CategoriasComponent,
     CategoriaFormComponent,
     CategoriaDetailComponent,
-    
+
     DocentesComponent,
     DocenteFormComponent,
     DocenteDetailComponent,
-    
+
     EditorialesComponent,
     EditorialFormComponent,
     EditorialDetailComponent,
@@ -156,8 +162,11 @@ import { SidebarComponent } from './component/sidebar/sidebar/sidebar.component'
     PrestamoMaterialFilterGradoSeccionComponent,
     PrestamoMaterialFilterDescripcionComponent,
 
+    UsuariosComponent,
+    UsuarioFormComponent,
+    UsuarioDetailComponent,
+
     NavbarComponent,
-    SignupComponent,
     LoginComponent,
     HomeComponent,
     SidebarComponent,
@@ -185,9 +194,12 @@ import { SidebarComponent } from './component/sidebar/sidebar/sidebar.component'
     MatDatepickerModule,
     MatMomentDateModule,
     MatMenuModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatRadioModule,
   ],
-  providers: [],
+  providers: [
+    
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

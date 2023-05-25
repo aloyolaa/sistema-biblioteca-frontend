@@ -18,8 +18,8 @@ export class MaterialService {
     return this.httpClient.get<Material[]>(`${this.url}/`);
   }
 
-  getOne(codigo: number): Observable<Material> {
-    return this.httpClient.get<Material>(`${this.url}/getOne/${codigo}`).pipe(
+  getOne(id: number): Observable<Material> {
+    return this.httpClient.get<Material>(`${this.url}/getOne/${id}`).pipe(
       catchError((e) => {
         this.router.navigate(['/materiales']);
         Swal.fire({
@@ -64,8 +64,8 @@ export class MaterialService {
     );
   }
 
-  delete(codigo: number): Observable<boolean> {
-    return this.httpClient.delete<boolean>(`${this.url}/delete/${codigo}`).pipe(
+  delete(id: number): Observable<boolean> {
+    return this.httpClient.delete<boolean>(`${this.url}/delete/${id}`).pipe(
       catchError((e) => {
         Swal.fire({
           icon: 'error',

@@ -18,8 +18,8 @@ export class LibroService {
     return this.httpClient.get<Libro[]>(`${this.url}/`);
   }
 
-  getOne(codigo: number): Observable<Libro> {
-    return this.httpClient.get<Libro>(`${this.url}/getOne/${codigo}`).pipe(
+  getOne(id: number): Observable<Libro> {
+    return this.httpClient.get<Libro>(`${this.url}/getOne/${id}`).pipe(
       catchError((e) => {
         this.router.navigate(['/libros']);
         Swal.fire({
@@ -64,8 +64,8 @@ export class LibroService {
     );
   }
 
-  delete(codigo: number): Observable<boolean> {
-    return this.httpClient.delete<boolean>(`${this.url}/delete/${codigo}`).pipe(
+  delete(id: number): Observable<boolean> {
+    return this.httpClient.delete<boolean>(`${this.url}/delete/${id}`).pipe(
       catchError((e) => {
         Swal.fire({
           icon: 'error',
