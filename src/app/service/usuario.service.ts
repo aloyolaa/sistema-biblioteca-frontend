@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment.development';
 import { Usuario } from '../core/model/usuario.model';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import Swal from 'sweetalert2';
+import { UsuarioDto } from '../core/dto/usuario.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -32,8 +33,8 @@ export class UsuarioService {
     );
   }
 
-  getOneByUsername(username: string): Observable<Usuario> {
-    return this.httpClient.get<Usuario>(`${this.url}/getOneByUsername/${username}`).pipe(
+  getOneByUsername(username: string): Observable<UsuarioDto> {
+    return this.httpClient.get<UsuarioDto>(`${this.url}/getOneByUsername/${username}`).pipe(
       catchError((e) => {
         Swal.fire({
           icon: 'error',

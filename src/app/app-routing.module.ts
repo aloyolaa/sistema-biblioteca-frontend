@@ -79,7 +79,7 @@ const routes: Routes = [
     canActivate: [AuthGuard, RoleGuard],
     data: { role: 'ROLE_USER' },
   },
-  { path: 'login', component: LoginComponent, pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
 
   {
     path: 'areas',
@@ -437,22 +437,26 @@ const routes: Routes = [
   {
     path: 'usuarios',
     component: UsuariosComponent,
-    
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_ADMIN' },
   },
   {
     path: 'usuarios/form',
     component: UsuarioFormComponent,
-    
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_ADMIN' },
   },
   {
     path: 'usuarios/form/:id',
     component: UsuarioFormComponent,
-    
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_ADMIN' },
   },
   {
     path: 'usuarios/detail/:id',
     component: UsuarioDetailComponent,
-  
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_ADMIN' },
   },
 ];
 

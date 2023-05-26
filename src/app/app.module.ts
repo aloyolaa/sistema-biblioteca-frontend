@@ -198,7 +198,8 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
     MatRadioModule,
   ],
   providers: [
-    
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

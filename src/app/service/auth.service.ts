@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Usuario } from '../core/model/usuario.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { UsuarioDto } from '../core/dto/usuario.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -17,59 +17,25 @@ export class AuthService {
   }
 
   getUsuario(): any {
-    const usuario = localStorage.getItem('usuario');
+    const usuario: any = localStorage.getItem('usuario');
     if (usuario != null) {
-      return JSON.parse(usuario);
-    } else {
-      this.logout();
-      return null;
+      return JSON.parse(usuario) as UsuarioDto;
     }
-    /*if (this._usuario != null) {
-      return this._usuario;
-    } else if (
-      this._usuario == null &&
-      localStorage.getItem('usuario') != null
-    ) {
-      this._usuario = JSON.parse(
-        String(localStorage.getItem('usuario'))
-      ) as Usuario;
-      console.log(String(localStorage.getItem('usuario')));
-      return this._usuario;
-    }
-    return new Usuario();*/
+    this.logout();
+    return null;
   }
 
   getToken(): any {
-    return String(localStorage.getItem('token'));
-    /*if (this._token != null) {
-      return this._token;
-    } else if (this._token == null && localStorage.getItem('token') != null) {
-      return String(localStorage.getItem('token'));
-    }
-    return '';*/
+    return localStorage.getItem('token');
   }
 
-  setUsuario(usuario: Usuario): void {
+  setUsuario(usuario: UsuarioDto): void {
     localStorage.setItem('usuario', JSON.stringify(usuario));
   }
 
   setToken(token: string): void {
     localStorage.setItem('token', token);
   }
-
-  /*obtenerDatosToken(accessToken: any): any {
-    if (accessToken != null) {
-      return accessToken.username;
-    }
-    return null;
-  }
-
-  /* obtenerDatosToken(accessToken: string): any {
-    if (accessToken != null) {
-      return JSON.parse(window.atob(accessToken.split('.')[1]).toString());
-    }
-    return null;
-  } */
 
   isAuthenticated(): boolean {
     const token = localStorage.getItem('token');
@@ -82,14 +48,14 @@ export class AuthService {
 
   obtenerDatos(token: string): any {
     if (token != null) {
-      return JSON.parse(atob(token.split('.')[1]))
+      return JSON.parse(atob(token.split('.')[1]));
     }
     return null;
   }
 
   hasRol(rol: string): boolean {
     for (let index = 0; index < this.getUsuario().roles.length; index++) {
-      if (this.getUsuario().roles[index].nombre == rol) {
+      if (this.getUsuario().roles[index].nombre === rol) {
         return true;
       }
     }

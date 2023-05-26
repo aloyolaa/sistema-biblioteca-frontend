@@ -139,7 +139,19 @@
           </button>
         </mat-menu>
       </mat-menu>
-      <button mat-list-item routerLink="/usuarios">Usuarios</button>
+      <!-- <button
+        mat-list-item
+        routerLink="/usuarios"
+        *ngIf="hasRole('ROLE_ADMIN')"
+      >
+        Usuarios
+      </button> -->
+      <button
+        mat-list-item
+        routerLink="/usuarios"
+      >
+        Usuarios
+      </button>
     </mat-action-list>
   </mat-sidenav>
   <mat-sidenav-content>

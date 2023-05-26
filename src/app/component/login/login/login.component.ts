@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Usuario } from 'src/app/core/model/usuario.model';
+import { UsuarioDto } from 'src/app/core/dto/usuario.dto';
 import { AuthService } from 'src/app/service/auth.service';
 import { UsuarioService } from 'src/app/service/usuario.service';
 import Swal from 'sweetalert2';
@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  usuario: Usuario = new Usuario();
+  usuario: UsuarioDto = new UsuarioDto();
   loginData = {
     username: '',
     password: '',
@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
           this.authService.getUsuario().username
         } ya estás autenticado!`,
       });
-      this.router.navigate(['/libros']);
+      this.router.navigate(['/']);
     }
   }
 
@@ -42,17 +42,22 @@ export class LoginComponent implements OnInit {
       .login(this.loginData.username, this.loginData.password)
       .subscribe({
         next: (response) => {
-          console.log(response);
-          this.usuarioService
-            .getOneByUsername(response.sub)
-            .subscribe((usuario) => (this.usuario = usuario));
-          this.authService.setUsuario(this.usuario);
           this.authService.setToken(response.token);
-          this.router.navigate(['/']);
-          Swal.fire({
-            icon: 'success',
-            title: 'Login',
-            text: `Hola ${this.usuario.username}, has iniciado sesión con éxito!`,
+          this.usuarioService.getOneByUsername(response.username).subscribe({
+            next: (usuario) => {
+              this.usuario = usuario;
+              this.authService.setUsuario(this.usuario);
+              console.log(this.authService.getUsuario().nombres);
+              this.router.navigate(['/']);
+              Swal.fire({
+                icon: 'success',
+                title: 'Login',
+                text: `Hola ${this.usuario.username}, has iniciado sesión con éxito!`,
+              });
+            },
+            error: (err) => {
+              console.log(err);
+            },
           });
         },
         error: (err) => {
