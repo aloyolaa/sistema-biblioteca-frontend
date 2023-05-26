@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Editorial } from 'src/app/core/model/editorial.model';
+import { AuthService } from 'src/app/service/auth.service';
 import { EditorialService } from 'src/app/service/editorial.service';
 
 @Component({
@@ -21,7 +22,10 @@ export class EditorialesComponent implements AfterViewInit, OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private editorialService: EditorialService) {}
+  constructor(
+    private editorialService: EditorialService,
+    private authService: AuthService
+  ) {}
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -55,5 +59,9 @@ export class EditorialesComponent implements AfterViewInit, OnInit {
           console.log(e);
         },
       });
+  }
+
+  routerLink(): string {
+    return this.authService.hasRol('ROLE_ADMIN') ? '/admin' : '/user';
   }
 }

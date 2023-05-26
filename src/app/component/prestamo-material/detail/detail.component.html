@@ -75,7 +75,7 @@
     <button
       mat-raised-button
       type="button"
-      [routerLink]="['/prestamos-materiales']"
+      [routerLink]="[routerLink() + '/prestamos-materiales']"
       style="margin-left: 20px"
     >
       Volver
@@ -85,7 +85,10 @@
       color="accent"
       type="button"
       *ngIf="prestamo.activo"
-      [routerLink]="['/prestamos-materiales/cerrar', prestamo.id]"
+      [routerLink]="[
+        routerLink() + '/prestamos-materiales/cerrar',
+        prestamo.id
+      ]"
       style="margin-left: 20px"
     >
       Cerrar

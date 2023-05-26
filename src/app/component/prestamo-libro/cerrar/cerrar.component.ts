@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PrestamoLibro } from 'src/app/core/model/prestamo-libro.model';
+import { AuthService } from 'src/app/service/auth.service';
 import { PrestamoLibroService } from 'src/app/service/prestamo-libro.service';
 import Swal from 'sweetalert2';
 
@@ -14,6 +15,7 @@ export class PrestamoLibroCerrarComponent implements OnInit {
 
   constructor(
     private prestamoLibroService: PrestamoLibroService,
+    private authService: AuthService,
     private activedRoute: ActivatedRoute,
     private router: Router
   ) {}
@@ -33,7 +35,10 @@ export class PrestamoLibroCerrarComponent implements OnInit {
     this.prestamoLibroService.close(this.prestamo).subscribe({
       next: (prestamo) => {
         this.router
-          .navigate(['/prestamos-libros/detail', prestamo.id])
+          .navigate([
+            this.routerLink() + '/prestamos-libros/detail',
+            prestamo.id,
+          ])
           .then(() => {
             console.log(prestamo);
             Swal.fire({
@@ -47,5 +52,9 @@ export class PrestamoLibroCerrarComponent implements OnInit {
         console.log(err);
       },
     });
+  }
+
+  routerLink(): string {
+    return this.authService.hasRol('ROLE_ADMIN') ? '/admin' : '/user';
   }
 }

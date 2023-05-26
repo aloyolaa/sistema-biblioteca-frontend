@@ -13,7 +13,7 @@
     <button
       mat-raised-button
       type="button"
-      [routerLink]="['/autores']"
+      [routerLink]="[routerLink() + '/autores']"
       style="margin-left: 20px"
     >
       Volver
@@ -22,7 +22,7 @@
       mat-raised-button
       color="primary"
       type="button"
-      [routerLink]="['/autores/form', autor.id]"
+      [routerLink]="[routerLink() + '/autores/form', autor.id]"
       style="margin-left: 20px"
     >
       Actualizar

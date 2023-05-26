@@ -82,7 +82,7 @@
                 mat-raised-button
                 color="warn"
                 type="button"
-                [routerLink]="['/materiales']"
+                [routerLink]="[routerLink() + '/materiales']"
                 style="margin-left: 20px"
                 *ngIf="!material.id; else elseBack"
               >
@@ -94,7 +94,10 @@
                   color="warn"
                   type="button"
                   style="margin-left: 20px"
-                  [routerLink]="['/materiales/detail', material.id]"
+                  [routerLink]="[
+                    routerLink() + '/materiales/detail',
+                    material.id
+                  ]"
                 >
                   Cancelar
                 </button>

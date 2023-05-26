@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Autor } from 'src/app/core/model/autor.model';
+import { AuthService } from 'src/app/service/auth.service';
 import { AutorService } from 'src/app/service/autor.service';
 import Swal from 'sweetalert2';
 
@@ -18,6 +19,7 @@ export class AutorFormComponent implements OnInit {
 
   constructor(
     private autorService: AutorService,
+    private authService: AuthService,
     private router: Router,
     private activedRoute: ActivatedRoute
   ) {}
@@ -45,14 +47,16 @@ export class AutorFormComponent implements OnInit {
   save(): void {
     this.autorService.save(this.autor).subscribe({
       next: (autor) => {
-        this.router.navigate(['/autores/detail', autor.id]).then(() => {
-          console.log(autor);
-          Swal.fire({
-            icon: 'success',
-            title: 'Autor guardado correctamente.',
-            text: `Autor ${autor.nombre} ${autor.apellido} ha sido guardado.`,
+        this.router
+          .navigate([this.routerLink() + '/autores/detail', autor.id])
+          .then(() => {
+            console.log(autor);
+            Swal.fire({
+              icon: 'success',
+              title: 'Autor guardado correctamente.',
+              text: `Autor ${autor.nombre} ${autor.apellido} ha sido guardado.`,
+            });
           });
-        });
       },
       error: (e) => {
         this.errors = e.error.errors;
@@ -64,19 +68,25 @@ export class AutorFormComponent implements OnInit {
   update(): void {
     this.autorService.update(this.autor).subscribe({
       next: (autor) => {
-        this.router.navigate(['/autores/detail', autor.id]).then(() => {
-          console.log(autor);
-          Swal.fire({
-            icon: 'success',
-            title: 'Autor actualizado correctamente.',
-            text: `Autor ${autor.nombre} ${autor.apellido} ha sido guardado.`,
+        this.router
+          .navigate([this.routerLink() + '/autores/detail', autor.id])
+          .then(() => {
+            console.log(autor);
+            Swal.fire({
+              icon: 'success',
+              title: 'Autor actualizado correctamente.',
+              text: `Autor ${autor.nombre} ${autor.apellido} ha sido guardado.`,
+            });
           });
-        });
       },
       error: (err) => {
         this.errors = err.error.errors;
         console.log(this.errors);
       },
     });
+  }
+
+  routerLink(): string {
+    return this.authService.hasRol('ROLE_ADMIN') ? '/admin' : '/user';
   }
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Material } from 'src/app/core/model/material.model';
+import { AuthService } from 'src/app/service/auth.service';
 import { EjemplarMaterialService } from 'src/app/service/ejemplar-material.service';
 import { MaterialService } from 'src/app/service/material.service';
 import Swal from 'sweetalert2';
@@ -22,6 +23,7 @@ export class EjemplarMaterialCrearComponent {
   constructor(
     private ejemplarMaterialService: EjemplarMaterialService,
     private materialService: MaterialService,
+    private authService: AuthService,
     private router: Router
   ) {}
 
@@ -45,19 +47,25 @@ export class EjemplarMaterialCrearComponent {
       .save(this.material.id, this.cantidad)
       .subscribe({
         next: (material) => {
-          this.router.navigate(['/ejemplares-materiales']).then(() => {
-            console.log(material);
-            Swal.fire({
-              icon: 'success',
-              title: 'Ejemplares guardados correctamente.',
-              text: `${this.cantidad} ejemplares han sido guardados.`,
+          this.router
+            .navigate([this.routerLink() + '/ejemplares-materiales'])
+            .then(() => {
+              console.log(material);
+              Swal.fire({
+                icon: 'success',
+                title: 'Ejemplares guardados correctamente.',
+                text: `${this.cantidad} ejemplares han sido guardados.`,
+              });
             });
-          });
         },
         error: (e) => {
           this.errors = e.error.errors;
           console.log(this.errors);
         },
       });
+  }
+
+  routerLink(): string {
+    return this.authService.hasRol('ROLE_ADMIN') ? '/admin' : '/user';
   }
 }

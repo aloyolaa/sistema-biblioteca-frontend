@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Docente } from 'src/app/core/model/docente.model';
+import { AuthService } from 'src/app/service/auth.service';
 import { DocenteService } from 'src/app/service/docente.service';
 import Swal from 'sweetalert2';
 
@@ -20,6 +21,7 @@ export class DocenteFormComponent implements OnInit {
 
   constructor(
     private docenteService: DocenteService,
+    private authService: AuthService,
     private router: Router,
     private activedRoute: ActivatedRoute
   ) {}
@@ -51,14 +53,16 @@ export class DocenteFormComponent implements OnInit {
   save(): void {
     this.docenteService.save(this.docente).subscribe({
       next: (docente) => {
-        this.router.navigate(['/docentes/detail', docente.id]).then(() => {
-          console.log(docente);
-          Swal.fire({
-            icon: 'success',
-            title: 'Docente guardado correctamente.',
-            text: `Docente ${docente.nombre} ${docente.apellido} ha sido guardado.`,
+        this.router
+          .navigate([this.routerLink() + '/docentes/detail', docente.id])
+          .then(() => {
+            console.log(docente);
+            Swal.fire({
+              icon: 'success',
+              title: 'Docente guardado correctamente.',
+              text: `Docente ${docente.nombre} ${docente.apellido} ha sido guardado.`,
+            });
           });
-        });
       },
       error: (e) => {
         this.errors = e.error.errors;
@@ -70,19 +74,25 @@ export class DocenteFormComponent implements OnInit {
   update(): void {
     this.docenteService.update(this.docente).subscribe({
       next: (docente) => {
-        this.router.navigate(['/docentes/detail', docente.id]).then(() => {
-          console.log(docente);
-          Swal.fire({
-            icon: 'success',
-            title: 'Docente actualizado correctamente.',
-            text: `Docente ${docente.nombre} ${docente.apellido} ha sido guardado.`,
+        this.router
+          .navigate([this.routerLink() + '/docentes/detail', docente.id])
+          .then(() => {
+            console.log(docente);
+            Swal.fire({
+              icon: 'success',
+              title: 'Docente actualizado correctamente.',
+              text: `Docente ${docente.nombre} ${docente.apellido} ha sido guardado.`,
+            });
           });
-        });
       },
       error: (err) => {
         this.errors = err.error.errors;
         console.log(this.errors);
       },
     });
+  }
+
+  routerLink(): string {
+    return this.authService.hasRol('ROLE_ADMIN') ? '/admin' : '/user';
   }
 }

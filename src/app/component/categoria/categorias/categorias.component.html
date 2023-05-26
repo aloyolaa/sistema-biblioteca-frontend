@@ -3,7 +3,7 @@
     <button
       mat-raised-button
       class="demo-button"
-      [routerLink]="['/categorias/form']"
+      [routerLink]="[routerLink() + '/categorias/form']"
     >
       Nueva Categoria
     </button>
@@ -33,7 +33,7 @@
             mat-raised-button
             color="primary"
             type="button"
-            [routerLink]="['/categorias/detail', categoria.id]"
+            [routerLink]="[routerLink() + '/categorias/detail', categoria.id]"
           >
             Detalle
           </button>

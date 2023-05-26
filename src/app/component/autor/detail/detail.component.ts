@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Autor } from 'src/app/core/model/autor.model';
+import { AuthService } from 'src/app/service/auth.service';
 import { AutorService } from 'src/app/service/autor.service';
 
 @Component({
@@ -13,6 +14,7 @@ export class AutorDetailComponent implements OnInit {
 
   constructor(
     private autorService: AutorService,
+    private authService: AuthService,
     private activedRoute: ActivatedRoute
   ) {}
 
@@ -23,5 +25,9 @@ export class AutorDetailComponent implements OnInit {
         this.autor = autor;
       });
     });
+  }
+
+  routerLink(): string {
+    return this.authService.hasRol('ROLE_ADMIN') ? '/admin' : '/user';
   }
 }

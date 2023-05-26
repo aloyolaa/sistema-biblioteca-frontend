@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Categoria } from 'src/app/core/model/categoria.model';
+import { AuthService } from 'src/app/service/auth.service';
 import { CategoriaService } from 'src/app/service/categoria.service';
 
 @Component({
@@ -21,7 +22,10 @@ export class CategoriasComponent implements AfterViewInit, OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private categoriaService: CategoriaService) {}
+  constructor(
+    private categoriaService: CategoriaService,
+    private authService: AuthService
+  ) {}
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -55,5 +59,9 @@ export class CategoriasComponent implements AfterViewInit, OnInit {
           console.log(e);
         },
       });
+  }
+
+  routerLink(): string {
+    return this.authService.hasRol('ROLE_ADMIN') ? '/admin' : '/user';
   }
 }

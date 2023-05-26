@@ -3,7 +3,7 @@
     <button
       mat-raised-button
       class="demo-button"
-      [routerLink]="['/ejemplares-libros/save']"
+      [routerLink]="[routerLink() + '/ejemplares-libros/save']"
     >
       Nuevo Ejemplar
     </button>
@@ -60,7 +60,10 @@
             mat-raised-button
             color="primary"
             type="button"
-            [routerLink]="['/ejemplares-libros/detail', ejemplar.id]"
+            [routerLink]="[
+              routerLink() + '/ejemplares-libros/detail',
+              ejemplar.id
+            ]"
           >
             Detalle
           </button>

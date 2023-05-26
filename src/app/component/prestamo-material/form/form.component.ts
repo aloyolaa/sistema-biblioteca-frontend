@@ -6,6 +6,7 @@ import { Docente } from 'src/app/core/model/docente.model';
 import { EjemplarMaterial } from 'src/app/core/model/ejemplar-material.model';
 import { Material } from 'src/app/core/model/material.model';
 import { PrestamoMaterial } from 'src/app/core/model/prestamo-material.model';
+import { AuthService } from 'src/app/service/auth.service';
 import { DocenteService } from 'src/app/service/docente.service';
 import { EjemplarMaterialService } from 'src/app/service/ejemplar-material.service';
 import { MaterialService } from 'src/app/service/material.service';
@@ -42,6 +43,7 @@ export class PrestamoMaterialFormComponent {
     private docenteService: DocenteService,
     private ejemplarMaterialService: EjemplarMaterialService,
     private materialService: MaterialService,
+    private authService: AuthService,
     private router: Router
   ) {}
 
@@ -131,7 +133,10 @@ export class PrestamoMaterialFormComponent {
     this.prestamoMaterialService.save(this.prestamo).subscribe({
       next: (prestamo) => {
         this.router
-          .navigate(['/prestamos-materiales/detail', prestamo.id])
+          .navigate([
+            this.routerLink() + '/prestamos-materiales/detail',
+            prestamo.id,
+          ])
           .then(() => {
             console.log(prestamo);
             Swal.fire({
@@ -146,5 +151,9 @@ export class PrestamoMaterialFormComponent {
         console.log(this.errors);
       },
     });
+  }
+
+  routerLink(): string {
+    return this.authService.hasRol('ROLE_ADMIN') ? '/admin' : '/user';
   }
 }

@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Area } from 'src/app/core/model/area.model';
 import { Material } from 'src/app/core/model/material.model';
 import { AreaService } from 'src/app/service/area.service';
+import { AuthService } from 'src/app/service/auth.service';
 import { MaterialService } from 'src/app/service/material.service';
 
 @Component({
@@ -28,7 +29,8 @@ export class MaterialFilterAreaComponent implements AfterViewInit, OnInit {
 
   constructor(
     private materialService: MaterialService,
-    private areaService: AreaService
+    private areaService: AreaService,
+    private authService: AuthService
   ) {}
 
   ngAfterViewInit() {
@@ -71,5 +73,9 @@ export class MaterialFilterAreaComponent implements AfterViewInit, OnInit {
 
   exportByAreaToXls(): string {
     return this.materialService.exportByAreaToXls(this.id);
+  }
+
+  routerLink(): string {
+    return this.authService.hasRol('ROLE_ADMIN') ? '/admin' : '/user';
   }
 }

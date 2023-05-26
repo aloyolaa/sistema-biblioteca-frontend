@@ -70,6 +70,8 @@ import { HomeComponent } from './component/home/home/home.component';
 import { LoginComponent } from './component/login/login/login.component';
 import { AuthGuard } from './guard/auth.guard';
 import { RoleGuard } from './guard/role.guard';
+import { AdminDashboardComponent } from './page/admin/dashboard/dashboard.component';
+import { UserDashboardComponent } from './page/user/dashboard/dashboard.component';
 
 const routes: Routes = [
   {
@@ -79,9 +81,521 @@ const routes: Routes = [
     canActivate: [AuthGuard, RoleGuard],
     data: { role: 'ROLE_USER' },
   },
+
   { path: 'login', component: LoginComponent },
 
   {
+    path: 'admin',
+    component: AdminDashboardComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_ADMIN' },
+    children: [
+      {
+        path: 'areas',
+        component: AreasComponent,
+      },
+      {
+        path: 'areas/form',
+        component: AreaFormComponent,
+      },
+      {
+        path: 'areas/form/:id',
+        component: AreaFormComponent,
+      },
+      {
+        path: 'areas/detail/:id',
+        component: AreaDetailComponent,
+      },
+
+      {
+        path: 'autores',
+        component: AutoresComponent,
+      },
+      {
+        path: 'autores/form',
+        component: AutorFormComponent,
+      },
+      {
+        path: 'autores/form/:id',
+        component: AutorFormComponent,
+      },
+      {
+        path: 'autores/detail/:id',
+        component: AutorDetailComponent,
+      },
+
+      {
+        path: 'categorias',
+        component: CategoriasComponent,
+      },
+      {
+        path: 'categorias/form',
+        component: CategoriaFormComponent,
+      },
+      {
+        path: 'categorias/form/:id',
+        component: CategoriaFormComponent,
+      },
+      {
+        path: 'categorias/detail/:id',
+        component: CategoriaDetailComponent,
+      },
+
+      {
+        path: 'docentes',
+        component: DocentesComponent,
+      },
+      {
+        path: 'docentes/form',
+        component: DocenteFormComponent,
+      },
+      {
+        path: 'docentes/form/:id',
+        component: DocenteFormComponent,
+      },
+      {
+        path: 'docentes/detail/:id',
+        component: DocenteDetailComponent,
+      },
+
+      {
+        path: 'editoriales',
+        component: EditorialesComponent,
+      },
+      {
+        path: 'editoriales/form',
+        component: EditorialFormComponent,
+      },
+      {
+        path: 'editoriales/form/:id',
+        component: EditorialFormComponent,
+      },
+      {
+        path: 'editoriales/detail/:id',
+        component: EditorialDetailComponent,
+      },
+
+      {
+        path: 'ejemplares-libros',
+        component: EjemplaresLibrosComponent,
+      },
+      {
+        path: 'ejemplares-libros/form/:id',
+        component: EjemplarLibroFormComponent,
+      },
+      {
+        path: 'ejemplares-libros/detail/:id',
+        component: EjemplarLibroDetailComponent,
+      },
+      {
+        path: 'ejemplares-libros/save',
+        component: EjemplarLibroCrearComponent,
+      },
+      {
+        path: 'ejemplares-libros/filter/libro',
+        component: EjemplarLibroFilterLibroComponent,
+      },
+
+      {
+        path: 'ejemplares-materiales',
+        component: EjemplaresMaterialesComponent,
+      },
+      {
+        path: 'ejemplares-materiales/form/:id',
+        component: EjemplarMaterialFormComponent,
+      },
+      {
+        path: 'ejemplares-materiales/detail/:id',
+        component: EjemplarMaterialDetailComponent,
+      },
+      {
+        path: 'ejemplares-materiales/save',
+        component: EjemplarMaterialCrearComponent,
+      },
+      {
+        path: 'ejemplares-materiales/filter/material',
+        component: EjemplarMaterialFilterMaterialComponent,
+      },
+
+      {
+        path: 'libros',
+        component: LibrosComponent,
+      },
+      {
+        path: 'libros/form',
+        component: LibroFormComponent,
+      },
+      {
+        path: 'libros/form/:id',
+        component: LibroFormComponent,
+      },
+      {
+        path: 'libros/detail/:id',
+        component: LibroDetailComponent,
+      },
+      {
+        path: 'libros/filter/area',
+        component: LibroFilterAreaComponent,
+      },
+      {
+        path: 'libros/filter/categoria',
+        component: LibroFilterCategoriaComponent,
+      },
+      {
+        path: 'libros/filter/editorial',
+        component: LibroFilterEditorialComponent,
+      },
+      {
+        path: 'libros/filter/autor',
+        component: LibroFilterAutorComponent,
+      },
+
+      {
+        path: 'materiales',
+        component: MaterialesComponent,
+      },
+      {
+        path: 'materiales/form',
+        component: MaterialFormComponent,
+      },
+      {
+        path: 'materiales/form/:id',
+        component: MaterialFormComponent,
+      },
+      {
+        path: 'materiales/detail/:id',
+        component: MaterialDetailComponent,
+      },
+      {
+        path: 'materiales/filter/area',
+        component: MaterialFilterAreaComponent,
+      },
+
+      {
+        path: 'prestamos-libros',
+        component: PrestamosLibrosComponent,
+      },
+      {
+        path: 'prestamos-libros/form',
+        component: PrestamoLibroFormComponent,
+      },
+      {
+        path: 'prestamos-libros/detail/:id',
+        component: PrestamoLibroDetailComponent,
+      },
+      {
+        path: 'prestamos-libros/cerrar/:id',
+        component: PrestamoLibroCerrarComponent,
+      },
+      {
+        path: 'prestamos-libros/filter/docente',
+        component: PrestamoLibroFilterDocenteComponent,
+      },
+      {
+        path: 'prestamos-libros/filter/grado-seccion',
+        component: PrestamoLibroFilterGradoSeccionComponent,
+      },
+      {
+        path: 'prestamos-libros/filter/descripcion',
+        component: PrestamoLibroFilterDescripcionComponent,
+      },
+
+      {
+        path: 'prestamos-materiales',
+        component: PrestamosMaterialesComponent,
+      },
+      {
+        path: 'prestamos-materiales/form',
+        component: PrestamoMaterialFormComponent,
+      },
+      {
+        path: 'prestamos-materiales/detail/:id',
+        component: PrestamoMaterialDetailComponent,
+      },
+      {
+        path: 'prestamos-materiales/cerrar/:id',
+        component: PrestamoMaterialCerrarComponent,
+      },
+      {
+        path: 'prestamos-materiales/filter/docente',
+        component: PrestamoMaterialFilterDocenteComponent,
+      },
+      {
+        path: 'prestamos-materiales/filter/grado-seccion',
+        component: PrestamoMaterialFilterGradoSeccionComponent,
+      },
+      {
+        path: 'prestamos-materiales/filter/descripcion',
+        component: PrestamoMaterialFilterDescripcionComponent,
+      },
+
+      {
+        path: 'usuarios',
+        component: UsuariosComponent,
+      },
+      {
+        path: 'usuarios/form',
+        component: UsuarioFormComponent,
+      },
+      {
+        path: 'usuarios/form/:id',
+        component: UsuarioFormComponent,
+      },
+      {
+        path: 'usuarios/detail/:id',
+        component: UsuarioDetailComponent,
+      },
+    ],
+  },
+
+  {
+    path: 'user',
+    component: UserDashboardComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_USER' },
+    children: [
+      {
+        path: 'areas',
+        component: AreasComponent,
+      },
+      {
+        path: 'areas/form',
+        component: AreaFormComponent,
+      },
+      {
+        path: 'areas/form/:id',
+        component: AreaFormComponent,
+      },
+      {
+        path: 'areas/detail/:id',
+        component: AreaDetailComponent,
+      },
+
+      {
+        path: 'autores',
+        component: AutoresComponent,
+      },
+      {
+        path: 'autores/form',
+        component: AutorFormComponent,
+      },
+      {
+        path: 'autores/form/:id',
+        component: AutorFormComponent,
+      },
+      {
+        path: 'autores/detail/:id',
+        component: AutorDetailComponent,
+      },
+
+      {
+        path: 'categorias',
+        component: CategoriasComponent,
+      },
+      {
+        path: 'categorias/form',
+        component: CategoriaFormComponent,
+      },
+      {
+        path: 'categorias/form/:id',
+        component: CategoriaFormComponent,
+      },
+      {
+        path: 'categorias/detail/:id',
+        component: CategoriaDetailComponent,
+      },
+
+      {
+        path: 'docentes',
+        component: DocentesComponent,
+      },
+      {
+        path: 'docentes/form',
+        component: DocenteFormComponent,
+      },
+      {
+        path: 'docentes/form/:id',
+        component: DocenteFormComponent,
+      },
+      {
+        path: 'docentes/detail/:id',
+        component: DocenteDetailComponent,
+      },
+
+      {
+        path: 'editoriales',
+        component: EditorialesComponent,
+      },
+      {
+        path: 'editoriales/form',
+        component: EditorialFormComponent,
+      },
+      {
+        path: 'editoriales/form/:id',
+        component: EditorialFormComponent,
+      },
+      {
+        path: 'editoriales/detail/:id',
+        component: EditorialDetailComponent,
+      },
+
+      {
+        path: 'ejemplares-libros',
+        component: EjemplaresLibrosComponent,
+      },
+      {
+        path: 'ejemplares-libros/form/:id',
+        component: EjemplarLibroFormComponent,
+      },
+      {
+        path: 'ejemplares-libros/detail/:id',
+        component: EjemplarLibroDetailComponent,
+      },
+      {
+        path: 'ejemplares-libros/save',
+        component: EjemplarLibroCrearComponent,
+      },
+      {
+        path: 'ejemplares-libros/filter/libro',
+        component: EjemplarLibroFilterLibroComponent,
+      },
+
+      {
+        path: 'ejemplares-materiales',
+        component: EjemplaresMaterialesComponent,
+      },
+      {
+        path: 'ejemplares-materiales/form/:id',
+        component: EjemplarMaterialFormComponent,
+      },
+      {
+        path: 'ejemplares-materiales/detail/:id',
+        component: EjemplarMaterialDetailComponent,
+      },
+      {
+        path: 'ejemplares-materiales/save',
+        component: EjemplarMaterialCrearComponent,
+      },
+      {
+        path: 'ejemplares-materiales/filter/material',
+        component: EjemplarMaterialFilterMaterialComponent,
+      },
+
+      {
+        path: 'libros',
+        component: LibrosComponent,
+      },
+      {
+        path: 'libros/form',
+        component: LibroFormComponent,
+      },
+      {
+        path: 'libros/form/:id',
+        component: LibroFormComponent,
+      },
+      {
+        path: 'libros/detail/:id',
+        component: LibroDetailComponent,
+      },
+      {
+        path: 'libros/filter/area',
+        component: LibroFilterAreaComponent,
+      },
+      {
+        path: 'libros/filter/categoria',
+        component: LibroFilterCategoriaComponent,
+      },
+      {
+        path: 'libros/filter/editorial',
+        component: LibroFilterEditorialComponent,
+      },
+      {
+        path: 'libros/filter/autor',
+        component: LibroFilterAutorComponent,
+      },
+
+      {
+        path: 'materiales',
+        component: MaterialesComponent,
+      },
+      {
+        path: 'materiales/form',
+        component: MaterialFormComponent,
+      },
+      {
+        path: 'materiales/form/:id',
+        component: MaterialFormComponent,
+      },
+      {
+        path: 'materiales/detail/:id',
+        component: MaterialDetailComponent,
+      },
+      {
+        path: 'materiales/filter/area',
+        component: MaterialFilterAreaComponent,
+      },
+
+      {
+        path: 'prestamos-libros',
+        component: PrestamosLibrosComponent,
+      },
+      {
+        path: 'prestamos-libros/form',
+        component: PrestamoLibroFormComponent,
+      },
+      {
+        path: 'prestamos-libros/detail/:id',
+        component: PrestamoLibroDetailComponent,
+      },
+      {
+        path: 'prestamos-libros/cerrar/:id',
+        component: PrestamoLibroCerrarComponent,
+      },
+      {
+        path: 'prestamos-libros/filter/docente',
+        component: PrestamoLibroFilterDocenteComponent,
+      },
+      {
+        path: 'prestamos-libros/filter/grado-seccion',
+        component: PrestamoLibroFilterGradoSeccionComponent,
+      },
+      {
+        path: 'prestamos-libros/filter/descripcion',
+        component: PrestamoLibroFilterDescripcionComponent,
+      },
+
+      {
+        path: 'prestamos-materiales',
+        component: PrestamosMaterialesComponent,
+      },
+      {
+        path: 'prestamos-materiales/form',
+        component: PrestamoMaterialFormComponent,
+      },
+      {
+        path: 'prestamos-materiales/detail/:id',
+        component: PrestamoMaterialDetailComponent,
+      },
+      {
+        path: 'prestamos-materiales/cerrar/:id',
+        component: PrestamoMaterialCerrarComponent,
+      },
+      {
+        path: 'prestamos-materiales/filter/docente',
+        component: PrestamoMaterialFilterDocenteComponent,
+      },
+      {
+        path: 'prestamos-materiales/filter/grado-seccion',
+        component: PrestamoMaterialFilterGradoSeccionComponent,
+      },
+      {
+        path: 'prestamos-materiales/filter/descripcion',
+        component: PrestamoMaterialFilterDescripcionComponent,
+      },
+    ],
+  },
+
+  /* {
     path: 'areas',
     component: AreasComponent,
     canActivate: [AuthGuard, RoleGuard],
@@ -457,7 +971,7 @@ const routes: Routes = [
     component: UsuarioDetailComponent,
     canActivate: [AuthGuard, RoleGuard],
     data: { role: 'ROLE_ADMIN' },
-  },
+  }, */
 ];
 
 @NgModule({

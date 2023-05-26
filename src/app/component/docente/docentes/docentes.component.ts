@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Docente } from 'src/app/core/model/docente.model';
+import { AuthService } from 'src/app/service/auth.service';
 import { DocenteService } from 'src/app/service/docente.service';
 
 @Component({
@@ -21,7 +22,10 @@ export class DocentesComponent implements AfterViewInit, OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private docenteService: DocenteService) {}
+  constructor(
+    private docenteService: DocenteService,
+    private authService: AuthService
+  ) {}
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -53,5 +57,9 @@ export class DocentesComponent implements AfterViewInit, OnInit {
         console.log(e);
       },
     });
+  }
+
+  routerLink(): string {
+    return this.authService.hasRol('ROLE_ADMIN') ? '/admin' : '/user';
   }
 }

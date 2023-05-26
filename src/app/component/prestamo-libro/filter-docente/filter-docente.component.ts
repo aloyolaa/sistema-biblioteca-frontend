@@ -3,6 +3,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Docente } from 'src/app/core/model/docente.model';
 import { PrestamoLibro } from 'src/app/core/model/prestamo-libro.model';
+import { AuthService } from 'src/app/service/auth.service';
 import { DocenteService } from 'src/app/service/docente.service';
 import { PrestamoLibroService } from 'src/app/service/prestamo-libro.service';
 import Swal from 'sweetalert2';
@@ -42,7 +43,8 @@ export class PrestamoLibroFilterDocenteComponent implements AfterViewInit {
 
   constructor(
     private prestamoLibroService: PrestamoLibroService,
-    private docenteService: DocenteService
+    private docenteService: DocenteService,
+    private authService: AuthService
   ) {}
 
   ngAfterViewInit() {
@@ -140,5 +142,9 @@ export class PrestamoLibroFilterDocenteComponent implements AfterViewInit {
 
   exportByDocenteToXls(): string {
     return this.prestamoLibroService.exportByDocenteToXls(this.docente.id);
+  }
+
+  routerLink(): string {
+    return this.authService.hasRol('ROLE_ADMIN') ? '/admin' : '/user';
   }
 }

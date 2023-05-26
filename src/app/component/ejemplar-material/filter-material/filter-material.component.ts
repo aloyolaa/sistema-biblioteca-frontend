@@ -3,6 +3,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { EjemplarMaterial } from 'src/app/core/model/ejemplar-material.model';
 import { Material } from 'src/app/core/model/material.model';
+import { AuthService } from 'src/app/service/auth.service';
 import { EjemplarMaterialService } from 'src/app/service/ejemplar-material.service';
 import { MaterialService } from 'src/app/service/material.service';
 import Swal from 'sweetalert2';
@@ -29,7 +30,8 @@ export class EjemplarMaterialFilterMaterialComponent implements AfterViewInit {
 
   constructor(
     private ejemplarMaterialService: EjemplarMaterialService,
-    private materialService: MaterialService
+    private materialService: MaterialService,
+    private authService: AuthService
   ) {}
 
   ngAfterViewInit() {
@@ -89,5 +91,9 @@ export class EjemplarMaterialFilterMaterialComponent implements AfterViewInit {
 
   exportByMaterialToXls(): string {
     return this.ejemplarMaterialService.exportByMaterialToXls(this.material.id);
+  }
+
+  routerLink(): string {
+    return this.authService.hasRol('ROLE_ADMIN') ? '/admin' : '/user';
   }
 }

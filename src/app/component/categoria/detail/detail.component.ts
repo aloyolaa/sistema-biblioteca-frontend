@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Categoria } from 'src/app/core/model/categoria.model';
+import { AuthService } from 'src/app/service/auth.service';
 import { CategoriaService } from 'src/app/service/categoria.service';
 
 @Component({
@@ -13,6 +14,7 @@ export class CategoriaDetailComponent implements OnInit {
 
   constructor(
     private categoriaService: CategoriaService,
+    private authService: AuthService,
     private activedRoute: ActivatedRoute
   ) {}
 
@@ -23,5 +25,9 @@ export class CategoriaDetailComponent implements OnInit {
         this.categoria = categoria;
       });
     });
+  }
+
+  routerLink(): string {
+    return this.authService.hasRol('ROLE_ADMIN') ? '/admin' : '/user';
   }
 }

@@ -96,6 +96,8 @@ import { HomeComponent } from './component/home/home/home.component';
 import { SidebarComponent } from './component/sidebar/sidebar/sidebar.component';
 import { TokenInterceptor } from './interceptor/token.interceptor';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
+import { AdminDashboardComponent } from './page/admin/dashboard/dashboard.component';
+import { UserDashboardComponent } from './page/user/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -170,6 +172,9 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
     LoginComponent,
     HomeComponent,
     SidebarComponent,
+    
+    AdminDashboardComponent,
+    UserDashboardComponent,
   ],
   imports: [
     BrowserModule,

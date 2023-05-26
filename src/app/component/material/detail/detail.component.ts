@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Material } from 'src/app/core/model/material.model';
+import { AuthService } from 'src/app/service/auth.service';
 import { EjemplarMaterialService } from 'src/app/service/ejemplar-material.service';
 import { MaterialService } from 'src/app/service/material.service';
 
@@ -17,6 +18,7 @@ export class MaterialDetailComponent implements OnInit {
   constructor(
     private materialService: MaterialService,
     private ejemplarMaterialService: EjemplarMaterialService,
+    private authService: AuthService,
     private activedRoute: ActivatedRoute
   ) {}
 
@@ -49,5 +51,9 @@ export class MaterialDetailComponent implements OnInit {
         this.ejemplaresDisponibles = e;
         console.log(this.ejemplaresDisponibles);
       });
+  }
+
+  routerLink(): string {
+    return this.authService.hasRol('ROLE_ADMIN') ? '/admin' : '/user';
   }
 }

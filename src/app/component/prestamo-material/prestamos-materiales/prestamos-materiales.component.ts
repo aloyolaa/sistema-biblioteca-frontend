@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { PrestamoMaterial } from 'src/app/core/model/prestamo-material.model';
+import { AuthService } from 'src/app/service/auth.service';
 import { PrestamoMaterialService } from 'src/app/service/prestamo-material.service';
 
 @Component({
@@ -33,7 +34,10 @@ export class PrestamosMaterialesComponent implements AfterViewInit, OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private prestamoMaterialService: PrestamoMaterialService) {}
+  constructor(
+    private prestamoMaterialService: PrestamoMaterialService,
+    private authService: AuthService
+  ) {}
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -47,7 +51,11 @@ export class PrestamosMaterialesComponent implements AfterViewInit, OnInit {
     console.log({ event });
     this.pageSize = event.pageSize;
     this.currentPage = event.pageIndex;
-    this.pagination();
+    if (this.fechasPrestamos.start == '' && this.fechasPrestamos.end == '') {
+      this.pagination();
+    } else {
+      this.paginationByFechaPrestamo();
+    }
   }
 
   pagination(): void {
@@ -109,5 +117,9 @@ export class PrestamosMaterialesComponent implements AfterViewInit, OnInit {
 
   exportAllToXls(): string {
     return this.prestamoMaterialService.exportAllToXls();
+  }
+
+  routerLink(): string {
+    return this.authService.hasRol('ROLE_ADMIN') ? '/admin' : '/user';
   }
 }

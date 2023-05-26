@@ -6,6 +6,7 @@ import { Docente } from 'src/app/core/model/docente.model';
 import { EjemplarLibro } from 'src/app/core/model/ejemplar-libro.model';
 import { Libro } from 'src/app/core/model/libro.model';
 import { PrestamoLibro } from 'src/app/core/model/prestamo-libro.model';
+import { AuthService } from 'src/app/service/auth.service';
 import { DocenteService } from 'src/app/service/docente.service';
 import { EjemplarLibroService } from 'src/app/service/ejemplar-libro.service';
 import { LibroService } from 'src/app/service/libro.service';
@@ -42,6 +43,7 @@ export class PrestamoLibroFormComponent {
     private docenteService: DocenteService,
     private ejemplarLibroService: EjemplarLibroService,
     private libroService: LibroService,
+    private authService: AuthService,
     private router: Router
   ) {}
 
@@ -131,7 +133,10 @@ export class PrestamoLibroFormComponent {
     this.prestamoLibroService.save(this.prestamo).subscribe({
       next: (prestamo) => {
         this.router
-          .navigate(['/prestamos-libros/detail', prestamo.id])
+          .navigate([
+            this.routerLink() + '/prestamos-libros/detail',
+            prestamo.id,
+          ])
           .then(() => {
             console.log(prestamo);
             Swal.fire({
@@ -146,5 +151,9 @@ export class PrestamoLibroFormComponent {
         console.log(this.errors);
       },
     });
+  }
+
+  routerLink(): string {
+    return this.authService.hasRol('ROLE_ADMIN') ? '/admin' : '/user';
   }
 }

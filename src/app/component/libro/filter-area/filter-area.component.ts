@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Area } from 'src/app/core/model/area.model';
 import { Libro } from 'src/app/core/model/libro.model';
 import { AreaService } from 'src/app/service/area.service';
+import { AuthService } from 'src/app/service/auth.service';
 import { LibroService } from 'src/app/service/libro.service';
 
 @Component({
@@ -28,7 +29,8 @@ export class LibroFilterAreaComponent implements AfterViewInit, OnInit {
 
   constructor(
     private libroService: LibroService,
-    private areaService: AreaService
+    private areaService: AreaService,
+    private authService: AuthService
   ) {}
 
   ngAfterViewInit() {
@@ -69,5 +71,9 @@ export class LibroFilterAreaComponent implements AfterViewInit, OnInit {
 
   exportByAreaToXls(): string {
     return this.libroService.exportByAreaToXls(this.id);
+  }
+
+  routerLink(): string {
+    return this.authService.hasRol('ROLE_ADMIN') ? '/admin' : '/user';
   }
 }

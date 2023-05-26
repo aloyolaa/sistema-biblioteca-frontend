@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { EjemplarMaterial } from 'src/app/core/model/ejemplar-material.model';
+import { AuthService } from 'src/app/service/auth.service';
 import { EjemplarMaterialService } from 'src/app/service/ejemplar-material.service';
 
 @Component({
@@ -21,7 +22,10 @@ export class EjemplaresMaterialesComponent implements AfterViewInit, OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private ejemplarMaterialService: EjemplarMaterialService) {}
+  constructor(
+    private ejemplarMaterialService: EjemplarMaterialService,
+    private authService: AuthService
+  ) {}
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -63,5 +67,9 @@ export class EjemplaresMaterialesComponent implements AfterViewInit, OnInit {
 
   exportAllToXls(): string {
     return this.ejemplarMaterialService.exportAllToXls();
+  }
+
+  routerLink(): string {
+    return this.authService.hasRol('ROLE_ADMIN') ? '/admin' : '/user';
   }
 }

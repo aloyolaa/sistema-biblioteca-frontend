@@ -35,7 +35,7 @@
     <button
       mat-raised-button
       type="button"
-      [routerLink]="['/ejemplares-libros']"
+      [routerLink]="[routerLink() + '/ejemplares-libros']"
       style="margin-left: 20px"
     >
       Volver
@@ -44,7 +44,10 @@
       mat-raised-button
       color="primary"
       type="button"
-      [routerLink]="['/ejemplares-libros/form', ejemplarLibro.id]"
+      [routerLink]="[
+        routerLink() + '/ejemplares-libros/form',
+        ejemplarLibro.id
+      ]"
       style="margin-left: 20px"
       *ngIf="!ejemplarLibro.prestado"
     >

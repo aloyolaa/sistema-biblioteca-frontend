@@ -3,7 +3,7 @@
     <button
       mat-raised-button
       class="demo-button"
-      [routerLink]="['/libros/form']"
+      [routerLink]="[routerLink() + '/libros/form']"
     >
       Nuevo Libro
     </button>
@@ -79,7 +79,7 @@
             mat-raised-button
             color="primary"
             type="button"
-            [routerLink]="['/libros/detail', libro.id]"
+            [routerLink]="[routerLink() + '/libros/detail', libro.id]"
           >
             Detalle
           </button>

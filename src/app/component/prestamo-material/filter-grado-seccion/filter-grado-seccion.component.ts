@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { PrestamoMaterial } from 'src/app/core/model/prestamo-material.model';
+import { AuthService } from 'src/app/service/auth.service';
 import { PrestamoMaterialService } from 'src/app/service/prestamo-material.service';
 
 @Component({
@@ -9,7 +10,9 @@ import { PrestamoMaterialService } from 'src/app/service/prestamo-material.servi
   templateUrl: './filter-grado-seccion.component.html',
   styleUrls: ['./filter-grado-seccion.component.css'],
 })
-export class PrestamoMaterialFilterGradoSeccionComponent implements AfterViewInit {
+export class PrestamoMaterialFilterGradoSeccionComponent
+  implements AfterViewInit
+{
   isLoading = false;
   totalRows = 0;
   pageSize = 5;
@@ -37,7 +40,10 @@ export class PrestamoMaterialFilterGradoSeccionComponent implements AfterViewIni
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private prestamoMaterialService: PrestamoMaterialService) {}
+  constructor(
+    private prestamoMaterialService: PrestamoMaterialService,
+    private authService: AuthService
+  ) {}
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -107,9 +113,9 @@ export class PrestamoMaterialFilterGradoSeccionComponent implements AfterViewIni
   buscarByGradoAndSeccion(): void {
     this.currentPage = this.currentPage != 0 ? 0 : this.currentPage;
     this.fechasPrestamos = {
-          start: '',
-          end: '',
-        };
+      start: '',
+      end: '',
+    };
     this.paginationByGradoAndSeccion();
   }
 
@@ -130,5 +136,9 @@ export class PrestamoMaterialFilterGradoSeccionComponent implements AfterViewIni
       this.grado,
       this.seccion
     );
+  }
+
+  routerLink(): string {
+    return this.authService.hasRol('ROLE_ADMIN') ? '/admin' : '/user';
   }
 }

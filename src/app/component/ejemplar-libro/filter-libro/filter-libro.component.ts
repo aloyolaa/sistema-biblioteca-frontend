@@ -3,6 +3,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { EjemplarLibro } from 'src/app/core/model/ejemplar-libro.model';
 import { Libro } from 'src/app/core/model/libro.model';
+import { AuthService } from 'src/app/service/auth.service';
 import { EjemplarLibroService } from 'src/app/service/ejemplar-libro.service';
 import { LibroService } from 'src/app/service/libro.service';
 import Swal from 'sweetalert2';
@@ -29,7 +30,8 @@ export class EjemplarLibroFilterLibroComponent implements AfterViewInit {
 
   constructor(
     private ejemplarLibroService: EjemplarLibroService,
-    private libroService: LibroService
+    private libroService: LibroService,
+    private authService: AuthService
   ) {}
 
   ngAfterViewInit() {
@@ -89,5 +91,9 @@ export class EjemplarLibroFilterLibroComponent implements AfterViewInit {
 
   exportByLibroToXls(): string {
     return this.ejemplarLibroService.exportByLibroToXls(this.libro.id);
+  }
+
+  routerLink(): string {
+    return this.authService.hasRol('ROLE_ADMIN') ? '/admin' : '/user';
   }
 }

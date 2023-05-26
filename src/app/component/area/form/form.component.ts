@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Area } from 'src/app/core/model/area.model';
 import { AreaService } from 'src/app/service/area.service';
+import { AuthService } from 'src/app/service/auth.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -17,6 +18,7 @@ export class AreaFormComponent implements OnInit {
 
   constructor(
     private areaService: AreaService,
+    private authService: AuthService,
     private router: Router,
     private activedRoute: ActivatedRoute
   ) {}
@@ -43,14 +45,16 @@ export class AreaFormComponent implements OnInit {
   save(): void {
     this.areaService.save(this.area).subscribe({
       next: (area) => {
-        this.router.navigate(['/areas/detail', area.id]).then(() => {
-          console.log(area);
-          Swal.fire({
-            icon: 'success',
-            title: 'Area guardada correctamente.',
-            text: `Area ${area.nombre} ha sido guardada.`,
+        this.router
+          .navigate([this.routerLink() + '/areas/detail', area.id])
+          .then(() => {
+            console.log(area);
+            Swal.fire({
+              icon: 'success',
+              title: 'Area guardada correctamente.',
+              text: `Area ${area.nombre} ha sido guardada.`,
+            });
           });
-        });
       },
       error: (e) => {
         this.errors = e.error.errors;
@@ -62,19 +66,25 @@ export class AreaFormComponent implements OnInit {
   update(): void {
     this.areaService.update(this.area).subscribe({
       next: (area) => {
-        this.router.navigate(['/areas/detail', area.id]).then(() => {
-          console.log(area);
-          Swal.fire({
-            icon: 'success',
-            title: 'Area actualizada correctamente.',
-            text: `Area ${area.nombre} ha sido guardada.`,
+        this.router
+          .navigate([this.routerLink() + '/areas/detail', area.id])
+          .then(() => {
+            console.log(area);
+            Swal.fire({
+              icon: 'success',
+              title: 'Area actualizada correctamente.',
+              text: `Area ${area.nombre} ha sido guardada.`,
+            });
           });
-        });
       },
       error: (err) => {
         this.errors = err.error.errors;
         console.log(this.errors);
       },
     });
+  }
+
+  routerLink(): string {
+    return this.authService.hasRol('ROLE_ADMIN') ? '/admin' : '/user';
   }
 }

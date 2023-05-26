@@ -3,6 +3,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Area } from 'src/app/core/model/area.model';
 import { AreaService } from 'src/app/service/area.service';
+import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'app-areas',
@@ -21,7 +22,10 @@ export class AreasComponent implements AfterViewInit, OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private areaService: AreaService) {}
+  constructor(
+    private areaService: AreaService,
+    private authService: AuthService
+  ) {}
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -53,5 +57,9 @@ export class AreasComponent implements AfterViewInit, OnInit {
         console.log(e);
       },
     });
+  }
+
+  routerLink(): string {
+    return this.authService.hasRol('ROLE_ADMIN') ? '/admin' : '/user';
   }
 }

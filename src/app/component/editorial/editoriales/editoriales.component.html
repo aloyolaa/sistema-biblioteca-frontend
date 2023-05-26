@@ -3,7 +3,7 @@
     <button
       mat-raised-button
       class="demo-button"
-      [routerLink]="['/editoriales/form']"
+      [routerLink]="[routerLink() + '/editoriales/form']"
     >
       Nueva Editorial
     </button>
@@ -33,7 +33,7 @@
             mat-raised-button
             color="primary"
             type="button"
-            [routerLink]="['/editoriales/detail', editorial.id]"
+            [routerLink]="[routerLink() + '/editoriales/detail', editorial.id]"
           >
             Detalle
           </button>

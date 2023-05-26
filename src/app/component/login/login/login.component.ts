@@ -47,8 +47,11 @@ export class LoginComponent implements OnInit {
             next: (usuario) => {
               this.usuario = usuario;
               this.authService.setUsuario(this.usuario);
-              console.log(this.authService.getUsuario().nombres);
-              this.router.navigate(['/']);
+              if (this.authService.hasRol('ROLE_ADMIN')) {
+                this.router.navigate(['/admin']);
+              } else {
+                this.router.navigate(['/user']);
+              }
               Swal.fire({
                 icon: 'success',
                 title: 'Login',

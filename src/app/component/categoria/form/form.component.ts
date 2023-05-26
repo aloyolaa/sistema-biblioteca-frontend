@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Categoria } from 'src/app/core/model/categoria.model';
+import { AuthService } from 'src/app/service/auth.service';
 import { CategoriaService } from 'src/app/service/categoria.service';
 import Swal from 'sweetalert2';
 
@@ -17,6 +18,7 @@ export class CategoriaFormComponent implements OnInit {
 
   constructor(
     private categoriaService: CategoriaService,
+    private authService: AuthService,
     private router: Router,
     private activedRoute: ActivatedRoute
   ) {}
@@ -45,14 +47,16 @@ export class CategoriaFormComponent implements OnInit {
   save(): void {
     this.categoriaService.save(this.categoria).subscribe({
       next: (categoria) => {
-        this.router.navigate(['/categorias/detail', categoria.id]).then(() => {
-          console.log(categoria);
-          Swal.fire({
-            icon: 'success',
-            title: 'Categoria guardada correctamente.',
-            text: `Categoria ${categoria.nombre} ha sido guardada.`,
+        this.router
+          .navigate([this.routerLink() + '/categorias/detail', categoria.id])
+          .then(() => {
+            console.log(categoria);
+            Swal.fire({
+              icon: 'success',
+              title: 'Categoria guardada correctamente.',
+              text: `Categoria ${categoria.nombre} ha sido guardada.`,
+            });
           });
-        });
       },
       error: (e) => {
         this.errors = e.error.errors;
@@ -64,19 +68,25 @@ export class CategoriaFormComponent implements OnInit {
   update(): void {
     this.categoriaService.update(this.categoria).subscribe({
       next: (categoria) => {
-        this.router.navigate(['/categorias/detail', categoria.id]).then(() => {
-          console.log(categoria);
-          Swal.fire({
-            icon: 'success',
-            title: 'Categoria actualizada correctamente.',
-            text: `Categoria ${categoria.nombre} ha sido guardada.`,
+        this.router
+          .navigate([this.routerLink() + '/categorias/detail', categoria.id])
+          .then(() => {
+            console.log(categoria);
+            Swal.fire({
+              icon: 'success',
+              title: 'Categoria actualizada correctamente.',
+              text: `Categoria ${categoria.nombre} ha sido guardada.`,
+            });
           });
-        });
       },
       error: (err) => {
         this.errors = err.error.errors;
         console.log(this.errors);
       },
     });
+  }
+
+  routerLink(): string {
+    return this.authService.hasRol('ROLE_ADMIN') ? '/admin' : '/user';
   }
 }

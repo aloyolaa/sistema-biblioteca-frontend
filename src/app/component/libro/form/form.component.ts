@@ -9,6 +9,7 @@ import { Categoria } from 'src/app/core/model/categoria.model';
 import { Editorial } from 'src/app/core/model/editorial.model';
 import { Libro } from 'src/app/core/model/libro.model';
 import { AreaService } from 'src/app/service/area.service';
+import { AuthService } from 'src/app/service/auth.service';
 import { AutorService } from 'src/app/service/autor.service';
 import { CategoriaService } from 'src/app/service/categoria.service';
 import { EditorialService } from 'src/app/service/editorial.service';
@@ -44,6 +45,7 @@ export class LibroFormComponent implements OnInit {
     private categoriaService: CategoriaService,
     private editorialService: EditorialService,
     private autorService: AutorService,
+    private authService: AuthService,
     private router: Router,
     private activedRoute: ActivatedRoute
   ) {}
@@ -90,14 +92,16 @@ export class LibroFormComponent implements OnInit {
     console.log(this.libro);
     this.libroService.save(this.libro).subscribe({
       next: (libro) => {
-        this.router.navigate(['/libros/detail', libro.id]).then(() => {
-          console.log(libro);
-          Swal.fire({
-            icon: 'success',
-            title: 'Libro guardado correctamente.',
-            text: `Libro ${libro.titulo} ha sido guardado.`,
+        this.router
+          .navigate([this.routerLink() + '/libros/detail', libro.id])
+          .then(() => {
+            console.log(libro);
+            Swal.fire({
+              icon: 'success',
+              title: 'Libro guardado correctamente.',
+              text: `Libro ${libro.titulo} ha sido guardado.`,
+            });
           });
-        });
       },
       error: (e) => {
         this.errors = e.error.errors;
@@ -109,14 +113,16 @@ export class LibroFormComponent implements OnInit {
   update(): void {
     this.libroService.update(this.libro).subscribe({
       next: (libro) => {
-        this.router.navigate(['/libros/detail', libro.id]).then(() => {
-          console.log(libro);
-          Swal.fire({
-            icon: 'success',
-            title: 'Libro actualizado correctamente.',
-            text: `Libro ${libro.titulo} ha sido guardado.`,
+        this.router
+          .navigate([this.routerLink() + '/libros/detail', libro.id])
+          .then(() => {
+            console.log(libro);
+            Swal.fire({
+              icon: 'success',
+              title: 'Libro actualizado correctamente.',
+              text: `Libro ${libro.titulo} ha sido guardado.`,
+            });
           });
-        });
       },
       error: (err) => {
         this.errors = err.error.errors;
@@ -184,5 +190,9 @@ export class LibroFormComponent implements OnInit {
     this.libro.autores = this.libro.autores.filter(
       (autor: Autor) => id !== autor.id
     );
+  }
+
+  routerLink(): string {
+    return this.authService.hasRol('ROLE_ADMIN') ? '/admin' : '/user';
   }
 }

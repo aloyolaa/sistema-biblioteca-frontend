@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EjemplarMaterial } from 'src/app/core/model/ejemplar-material.model';
+import { AuthService } from 'src/app/service/auth.service';
 import { EjemplarMaterialService } from 'src/app/service/ejemplar-material.service';
 import Swal from 'sweetalert2';
 
@@ -14,6 +15,7 @@ export class EjemplarMaterialFormComponent implements OnInit {
 
   constructor(
     private ejemplarMaterialService: EjemplarMaterialService,
+    private authService: AuthService,
     private router: Router,
     private activedRoute: ActivatedRoute
   ) {}
@@ -39,7 +41,7 @@ export class EjemplarMaterialFormComponent implements OnInit {
     this.ejemplarMaterialService.update(this.ejemplarMaterial).subscribe({
       next: (ejemplarMaterial) => {
         this.router
-          .navigate(['/ejemplares-materiales/detail', ejemplarMaterial.id])
+          .navigate([this.routerLink() + '/ejemplares-materiales/detail', ejemplarMaterial.id])
           .then(() => {
             console.log(ejemplarMaterial);
             Swal.fire({
@@ -53,5 +55,9 @@ export class EjemplarMaterialFormComponent implements OnInit {
         console.log(err);
       },
     });
+  }
+
+  routerLink(): string {
+    return this.authService.hasRol('ROLE_ADMIN') ? '/admin' : '/user';
   }
 }

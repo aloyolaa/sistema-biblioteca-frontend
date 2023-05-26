@@ -3,6 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DetallePrestamoMaterial } from 'src/app/core/model/detalle-prestamo-material.model';
 import { PrestamoMaterial } from 'src/app/core/model/prestamo-material.model';
+import { AuthService } from 'src/app/service/auth.service';
 import { PrestamoMaterialService } from 'src/app/service/prestamo-material.service';
 import Swal from 'sweetalert2';
 
@@ -20,6 +21,7 @@ export class PrestamoMaterialDetailComponent implements OnInit {
 
   constructor(
     private prestamoMaterialService: PrestamoMaterialService,
+    private authService: AuthService,
     private activedRoute: ActivatedRoute,
     private router: Router
   ) {}
@@ -67,7 +69,9 @@ export class PrestamoMaterialDetailComponent implements OnInit {
                   `Préstamo ${prestamo.id} eliminado.`,
                   'success'
                 );
-                this.router.navigate(['/prestamos-materiales']);
+                this.router.navigate([
+                  this.routerLink() + '/prestamos-materiales',
+                ]);
               }
             });
         }
@@ -84,5 +88,9 @@ export class PrestamoMaterialDetailComponent implements OnInit {
     return this.prestamoMaterialService.exportByPrestamoMaterialToXls(
       this.prestamo.id
     );
+  }
+
+  routerLink(): string {
+    return this.authService.hasRol('ROLE_ADMIN') ? '/admin' : '/user';
   }
 }

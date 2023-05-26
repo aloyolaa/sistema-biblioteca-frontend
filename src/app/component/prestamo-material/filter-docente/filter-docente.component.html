@@ -3,7 +3,7 @@
     <button
       mat-raised-button
       class="demo-button"
-      [routerLink]="['/prestamos-materiales/form']"
+      [routerLink]="[routerLink() + '/prestamos-materiales/form']"
     >
       Nuevo Prestamo
     </button>
@@ -133,7 +133,10 @@
             mat-raised-button
             color="primary"
             type="button"
-            [routerLink]="['/prestamos-materiales/detail', prestamo.id]"
+            [routerLink]="[
+              routerLink() + '/prestamos-materiales/detail',
+              prestamo.id
+            ]"
           >
             Detalle
           </button>

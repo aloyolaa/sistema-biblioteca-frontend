@@ -3,6 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DetallePrestamoLibro } from 'src/app/core/model/detalle-prestamo-libro.model';
 import { PrestamoLibro } from 'src/app/core/model/prestamo-libro.model';
+import { AuthService } from 'src/app/service/auth.service';
 import { PrestamoLibroService } from 'src/app/service/prestamo-libro.service';
 import Swal from 'sweetalert2';
 
@@ -20,6 +21,7 @@ export class PrestamoLibroDetailComponent implements OnInit {
 
   constructor(
     private prestamoLibroService: PrestamoLibroService,
+    private authService: AuthService,
     private activedRoute: ActivatedRoute,
     private router: Router
   ) {}
@@ -67,7 +69,7 @@ export class PrestamoLibroDetailComponent implements OnInit {
                   `Préstamo ${prestamo.id} eliminado.`,
                   'success'
                 );
-                this.router.navigate(['/prestamos-libros']);
+                this.router.navigate([this.routerLink() + '/prestamos-libros']);
               }
             });
         }
@@ -84,5 +86,9 @@ export class PrestamoLibroDetailComponent implements OnInit {
     return this.prestamoLibroService.exportByPrestamoLibroToXls(
       this.prestamo.id
     );
+  }
+
+  routerLink(): string {
+    return this.authService.hasRol('ROLE_ADMIN') ? '/admin' : '/user';
   }
 }

@@ -12,7 +12,7 @@
                 }}
               </h4>
             </mat-card-content>
-            <br>
+            <br />
             <mat-form-field appearance="fill" class="demo-select">
               <mat-label>Estado</mat-label>
               <mat-select [(ngModel)]="ejemplarLibro.estado" name="estado">
@@ -45,7 +45,10 @@
                 color="warn"
                 type="button"
                 style="margin-left: 20px"
-                [routerLink]="['/ejemplares-libros/detail', ejemplarLibro.id]"
+                [routerLink]="[
+                  routerLink() + '/ejemplares-libros/detail',
+                  ejemplarLibro.id
+                ]"
               >
                 Cancelar
               </button>

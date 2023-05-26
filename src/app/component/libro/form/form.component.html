@@ -184,7 +184,7 @@
                 mat-raised-button
                 color="warn"
                 type="button"
-                [routerLink]="['/libros']"
+                [routerLink]="[routerLink() + '/libros']"
                 style="margin-left: 20px"
                 *ngIf="!libro.id; else elseBack"
               >
@@ -196,7 +196,7 @@
                   color="warn"
                   type="button"
                   style="margin-left: 20px"
-                  [routerLink]="['/libros/detail', libro.id]"
+                  [routerLink]="[routerLink() + '/libros/detail', libro.id]"
                 >
                   Cancelar
                 </button>

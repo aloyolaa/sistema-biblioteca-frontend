@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PrestamoMaterial } from 'src/app/core/model/prestamo-material.model';
+import { AuthService } from 'src/app/service/auth.service';
 import { PrestamoMaterialService } from 'src/app/service/prestamo-material.service';
 import Swal from 'sweetalert2';
 
@@ -14,6 +15,7 @@ export class PrestamoMaterialCerrarComponent implements OnInit {
 
   constructor(
     private prestamoMaterialService: PrestamoMaterialService,
+    private authService: AuthService,
     private activedRoute: ActivatedRoute,
     private router: Router
   ) {}
@@ -33,7 +35,10 @@ export class PrestamoMaterialCerrarComponent implements OnInit {
     this.prestamoMaterialService.close(this.prestamo).subscribe({
       next: (prestamo) => {
         this.router
-          .navigate(['/prestamos-materiales/detail', prestamo.id])
+          .navigate([
+            this.routerLink() + '/prestamos-materiales/detail',
+            prestamo.id,
+          ])
           .then(() => {
             console.log(prestamo);
             Swal.fire({
@@ -47,5 +52,9 @@ export class PrestamoMaterialCerrarComponent implements OnInit {
         console.log(err);
       },
     });
+  }
+
+  routerLink(): string {
+    return this.authService.hasRol('ROLE_ADMIN') ? '/admin' : '/user';
   }
 }

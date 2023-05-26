@@ -64,7 +64,7 @@ export class UsuarioFormComponent implements OnInit {
     console.log(this.usuario);
     this.usuarioService.save(this.usuario).subscribe({
       next: (usuario) => {
-        this.router.navigate(['/libros/detail', usuario.id]).then(() => {
+        this.router.navigate(['/admin/usuarios/detail', usuario.id]).then(() => {
           console.log(usuario);
           Swal.fire({
             icon: 'success',
@@ -83,7 +83,7 @@ export class UsuarioFormComponent implements OnInit {
   update(): void {
     this.usuarioService.update(this.usuario).subscribe({
       next: (usuario) => {
-        this.router.navigate(['/libros/detail', usuario.id]).then(() => {
+        this.router.navigate(['/admin/usuarios/detail', usuario.id]).then(() => {
           console.log(usuario);
           Swal.fire({
             icon: 'success',

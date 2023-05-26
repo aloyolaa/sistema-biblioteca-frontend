@@ -43,7 +43,7 @@
                 mat-raised-button
                 color="warn"
                 type="button"
-                [routerLink]="['/areas']"
+                [routerLink]="[routerLink() + '/areas']"
                 style="margin-left: 20px"
                 *ngIf="!area.id; else elseBack"
               >
@@ -55,7 +55,7 @@
                   color="warn"
                   type="button"
                   style="margin-left: 20px"
-                  [routerLink]="['/areas/detail', area.id]"
+                  [routerLink]="[routerLink() + '/areas/detail', area.id]"
                 >
                   Cancelar
                 </button>

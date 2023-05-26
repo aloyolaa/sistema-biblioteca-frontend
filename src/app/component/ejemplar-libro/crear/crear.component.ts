@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Libro } from 'src/app/core/model/libro.model';
+import { AuthService } from 'src/app/service/auth.service';
 import { EjemplarLibroService } from 'src/app/service/ejemplar-libro.service';
 import { LibroService } from 'src/app/service/libro.service';
 import Swal from 'sweetalert2';
@@ -22,6 +23,7 @@ export class EjemplarLibroCrearComponent {
   constructor(
     private ejemplarLibroService: EjemplarLibroService,
     private libroService: LibroService,
+    private authService: AuthService,
     private router: Router
   ) {}
 
@@ -43,19 +45,25 @@ export class EjemplarLibroCrearComponent {
   save(): void {
     this.ejemplarLibroService.save(this.libro.id, this.cantidad).subscribe({
       next: (libro) => {
-        this.router.navigate(['/ejemplares-libros']).then(() => {
-          console.log(libro);
-          Swal.fire({
-            icon: 'success',
-            title: 'Ejemplares guardados correctamente.',
-            text: `${this.cantidad} ejemplares han sido guardados.`,
+        this.router
+          .navigate([this.routerLink() + '/ejemplares-libros'])
+          .then(() => {
+            console.log(libro);
+            Swal.fire({
+              icon: 'success',
+              title: 'Ejemplares guardados correctamente.',
+              text: `${this.cantidad} ejemplares han sido guardados.`,
+            });
           });
-        });
       },
       error: (e) => {
         this.errors = e.error.errors;
         console.log(this.errors);
       },
     });
+  }
+
+  routerLink(): string {
+    return this.authService.hasRol('ROLE_ADMIN') ? '/admin' : '/user';
   }
 }

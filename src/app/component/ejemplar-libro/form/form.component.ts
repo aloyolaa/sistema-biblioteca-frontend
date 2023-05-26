@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EjemplarLibro } from 'src/app/core/model/ejemplar-libro.model';
+import { AuthService } from 'src/app/service/auth.service';
 import { EjemplarLibroService } from 'src/app/service/ejemplar-libro.service';
 import Swal from 'sweetalert2';
 
@@ -14,6 +15,7 @@ export class EjemplarLibroFormComponent implements OnInit {
 
   constructor(
     private ejemplarLibroService: EjemplarLibroService,
+    private authService: AuthService,
     private router: Router,
     private activedRoute: ActivatedRoute
   ) {}
@@ -37,7 +39,10 @@ export class EjemplarLibroFormComponent implements OnInit {
     this.ejemplarLibroService.update(this.ejemplarLibro).subscribe({
       next: (ejemplarLibro) => {
         this.router
-          .navigate(['/ejemplares-libros/detail', ejemplarLibro.id])
+          .navigate([
+            this.routerLink() + '/ejemplares-libros/detail',
+            ejemplarLibro.id,
+          ])
           .then(() => {
             console.log(ejemplarLibro);
             Swal.fire({
@@ -51,5 +56,9 @@ export class EjemplarLibroFormComponent implements OnInit {
         console.log(err);
       },
     });
+  }
+
+  routerLink(): string {
+    return this.authService.hasRol('ROLE_ADMIN') ? '/admin' : '/user';
   }
 }

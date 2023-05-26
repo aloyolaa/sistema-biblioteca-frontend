@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EjemplarLibro } from 'src/app/core/model/ejemplar-libro.model';
+import { AuthService } from 'src/app/service/auth.service';
 import { EjemplarLibroService } from 'src/app/service/ejemplar-libro.service';
 
 @Component({
@@ -13,6 +14,7 @@ export class EjemplarLibroDetailComponent implements OnInit {
 
   constructor(
     private ejemplarLibroService: EjemplarLibroService,
+    private authService: AuthService,
     private activedRoute: ActivatedRoute
   ) {}
 
@@ -25,5 +27,9 @@ export class EjemplarLibroDetailComponent implements OnInit {
         });
       }
     });
+  }
+
+  routerLink(): string {
+    return this.authService.hasRol('ROLE_ADMIN') ? '/admin' : '/user';
   }
 }

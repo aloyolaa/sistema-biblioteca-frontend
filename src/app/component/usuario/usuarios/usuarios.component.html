@@ -3,9 +3,9 @@
       <button
         mat-raised-button
         class="demo-button"
-        [routerLink]="['/usuarios/form']"
+        [routerLink]="['/admin/usuarios/form']"
       >
-        Nuevo Libro
+        Nuevo Usuario
       </button>
     </div>
     <div *ngIf="dataSource.data.length === 0">
@@ -37,7 +37,7 @@
               mat-raised-button
               color="primary"
               type="button"
-              [routerLink]="['/usuarios/detail', usuario.id]"
+              [routerLink]="['/admin/usuarios/detail', usuario.id]"
             >
               Detalle
             </button>

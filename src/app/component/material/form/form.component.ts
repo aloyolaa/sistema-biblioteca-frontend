@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Area } from 'src/app/core/model/area.model';
 import { Material } from 'src/app/core/model/material.model';
 import { AreaService } from 'src/app/service/area.service';
+import { AuthService } from 'src/app/service/auth.service';
 import { MaterialService } from 'src/app/service/material.service';
 import Swal from 'sweetalert2';
 
@@ -23,6 +24,7 @@ export class MaterialFormComponent implements OnInit {
   constructor(
     private materialService: MaterialService,
     private areaService: AreaService,
+    private authService: AuthService,
     private router: Router,
     private activedRoute: ActivatedRoute
   ) {}
@@ -54,14 +56,16 @@ export class MaterialFormComponent implements OnInit {
   save(): void {
     this.materialService.save(this.material).subscribe({
       next: (material) => {
-        this.router.navigate(['/materiales/detail', material.id]).then(() => {
-          console.log(material);
-          Swal.fire({
-            icon: 'success',
-            title: 'Material guardado correctamente.',
-            text: `Material ${material.nombre} ha sido guardado.`,
+        this.router
+          .navigate([this.routerLink() + '/materiales/detail', material.id])
+          .then(() => {
+            console.log(material);
+            Swal.fire({
+              icon: 'success',
+              title: 'Material guardado correctamente.',
+              text: `Material ${material.nombre} ha sido guardado.`,
+            });
           });
-        });
       },
       error: (e) => {
         this.errors = e.error.errors;
@@ -73,14 +77,16 @@ export class MaterialFormComponent implements OnInit {
   update(): void {
     this.materialService.update(this.material).subscribe({
       next: (material) => {
-        this.router.navigate(['/materiales/detail', material.id]).then(() => {
-          console.log(material);
-          Swal.fire({
-            icon: 'success',
-            title: 'Material actualizado correctamente.',
-            text: `Material ${material.nombre} ha sido guardado.`,
+        this.router
+          .navigate([this.routerLink() + '/materiales/detail', material.id])
+          .then(() => {
+            console.log(material);
+            Swal.fire({
+              icon: 'success',
+              title: 'Material actualizado correctamente.',
+              text: `Material ${material.nombre} ha sido guardado.`,
+            });
           });
-        });
       },
       error: (err) => {
         this.errors = err.error.errors;
@@ -94,5 +100,9 @@ export class MaterialFormComponent implements OnInit {
       return true;
     }
     return area1 == null || area2 == null ? false : area1.id === area2.id;
+  }
+
+  routerLink(): string {
+    return this.authService.hasRol('ROLE_ADMIN') ? '/admin' : '/user';
   }
 }

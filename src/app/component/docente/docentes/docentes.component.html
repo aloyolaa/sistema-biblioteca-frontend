@@ -3,7 +3,7 @@
     <button
       mat-raised-button
       class="demo-button"
-      [routerLink]="['/docentes/form']"
+      [routerLink]="[routerLink() + '/docentes/form']"
     >
       Nuevo Docente
     </button>
@@ -37,7 +37,7 @@
             mat-raised-button
             color="primary"
             type="button"
-            [routerLink]="['/docentes/detail', docente.id]"
+            [routerLink]="[routerLink() + '/docentes/detail', docente.id]"
           >
             Detalle
           </button>

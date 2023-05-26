@@ -26,7 +26,7 @@
     <button
       mat-raised-button
       type="button"
-      [routerLink]="['/libros']"
+      [routerLink]="[routerLink() + '/libros']"
       style="margin-left: 20px"
     >
       Volver
@@ -35,7 +35,7 @@
       mat-raised-button
       color="primary"
       type="button"
-      [routerLink]="['/libros/form', libro.id]"
+      [routerLink]="[routerLink() + '/libros/form', libro.id]"
       style="margin-left: 20px"
     >
       Actualizar

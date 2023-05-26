@@ -3,7 +3,7 @@
     <button
       mat-raised-button
       class="demo-button"
-      [routerLink]="['/areas/form']"
+      [routerLink]="[routerLink() + '/areas/form']"
     >
       Nueva Area
     </button>
@@ -33,7 +33,7 @@
             mat-raised-button
             color="primary"
             type="button"
-            [routerLink]="['/areas/detail', area.id]"
+            [routerLink]="[routerLink() + '/areas/detail', area.id]"
           >
             Detalle
           </button>

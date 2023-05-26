@@ -15,7 +15,7 @@
     <button
       mat-raised-button
       type="button"
-      [routerLink]="['/docentes']"
+      [routerLink]="[routerLink() + '/docentes']"
       style="margin-left: 20px"
     >
       Volver
@@ -24,7 +24,7 @@
       mat-raised-button
       color="primary"
       type="button"
-      [routerLink]="['/docentes/form', docente.id]"
+      [routerLink]="[routerLink() + '/docentes/form', docente.id]"
       style="margin-left: 20px"
     >
       Actualizar

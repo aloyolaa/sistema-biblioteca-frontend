@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Docente } from 'src/app/core/model/docente.model';
+import { AuthService } from 'src/app/service/auth.service';
 import { DocenteService } from 'src/app/service/docente.service';
 
 @Component({
@@ -13,6 +14,7 @@ export class DocenteDetailComponent implements OnInit {
 
   constructor(
     private docenteService: DocenteService,
+    private authService: AuthService,
     private activedRoute: ActivatedRoute
   ) {}
 
@@ -25,5 +27,9 @@ export class DocenteDetailComponent implements OnInit {
         });
       }
     });
+  }
+
+  routerLink(): string {
+    return this.authService.hasRol('ROLE_ADMIN') ? '/admin' : '/user';
   }
 }

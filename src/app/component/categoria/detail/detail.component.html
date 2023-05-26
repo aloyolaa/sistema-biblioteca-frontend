@@ -12,7 +12,7 @@
     <button
       mat-raised-button
       type="button"
-      [routerLink]="['/categorias']"
+      [routerLink]="[routerLink() + '/categorias']"
       style="margin-left: 20px"
     >
       Volver
@@ -21,7 +21,7 @@
       mat-raised-button
       color="primary"
       type="button"
-      [routerLink]="['/categorias/form', categoria.id]"
+      [routerLink]="[routerLink() + '/categorias/form', categoria.id]"
       style="margin-left: 20px"
     >
       Actualizar

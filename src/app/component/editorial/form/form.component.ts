@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Editorial } from 'src/app/core/model/editorial.model';
+import { AuthService } from 'src/app/service/auth.service';
 import { EditorialService } from 'src/app/service/editorial.service';
 import Swal from 'sweetalert2';
 
@@ -17,6 +18,7 @@ export class EditorialFormComponent implements OnInit {
 
   constructor(
     private editorialService: EditorialService,
+    private authService: AuthService,
     private router: Router,
     private activedRoute: ActivatedRoute
   ) {}
@@ -45,14 +47,16 @@ export class EditorialFormComponent implements OnInit {
   save(): void {
     this.editorialService.save(this.editorial).subscribe({
       next: (editorial) => {
-        this.router.navigate(['/editoriales/detail', editorial.id]).then(() => {
-          console.log(editorial);
-          Swal.fire({
-            icon: 'success',
-            title: 'Editorial guardada correctamente.',
-            text: `Editorial ${editorial.nombre} ha sido guardada.`,
+        this.router
+          .navigate([this.routerLink() + '/editoriales/detail', editorial.id])
+          .then(() => {
+            console.log(editorial);
+            Swal.fire({
+              icon: 'success',
+              title: 'Editorial guardada correctamente.',
+              text: `Editorial ${editorial.nombre} ha sido guardada.`,
+            });
           });
-        });
       },
       error: (e) => {
         this.errors = e.error.errors;
@@ -64,19 +68,25 @@ export class EditorialFormComponent implements OnInit {
   update(): void {
     this.editorialService.update(this.editorial).subscribe({
       next: (editorial) => {
-        this.router.navigate(['/editoriales/detail', editorial.id]).then(() => {
-          console.log(editorial);
-          Swal.fire({
-            icon: 'success',
-            title: 'Editorial actualizada correctamente.',
-            text: `Editorial ${editorial.nombre} ha sido guardada.`,
+        this.router
+          .navigate([this.routerLink() + '/editoriales/detail', editorial.id])
+          .then(() => {
+            console.log(editorial);
+            Swal.fire({
+              icon: 'success',
+              title: 'Editorial actualizada correctamente.',
+              text: `Editorial ${editorial.nombre} ha sido guardada.`,
+            });
           });
-        });
       },
       error: (err) => {
         this.errors = err.error.errors;
         console.log(this.errors);
       },
     });
+  }
+
+  routerLink(): string {
+    return this.authService.hasRol('ROLE_ADMIN') ? '/admin' : '/user';
   }
 }

@@ -43,7 +43,7 @@
                 mat-raised-button
                 color="warn"
                 type="button"
-                [routerLink]="['/categorias']"
+                [routerLink]="[routerLink() + '/categorias']"
                 style="margin-left: 20px"
                 *ngIf="!categoria.id; else elseBack"
               >
@@ -55,7 +55,10 @@
                   color="warn"
                   type="button"
                   style="margin-left: 20px"
-                  [routerLink]="['/categorias/detail', categoria.id]"
+                  [routerLink]="[
+                    routerLink() + '/categorias/detail',
+                    categoria.id
+                  ]"
                 >
                   Cancelar
                 </button>

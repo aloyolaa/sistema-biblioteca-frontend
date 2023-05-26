@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { PrestamoLibro } from 'src/app/core/model/prestamo-libro.model';
+import { AuthService } from 'src/app/service/auth.service';
 import { PrestamoLibroService } from 'src/app/service/prestamo-libro.service';
 
 @Component({
@@ -37,7 +38,10 @@ export class PrestamoLibroFilterGradoSeccionComponent implements AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private prestamoLibroService: PrestamoLibroService) {}
+  constructor(
+    private prestamoLibroService: PrestamoLibroService,
+    private authService: AuthService
+  ) {}
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -130,5 +134,9 @@ export class PrestamoLibroFilterGradoSeccionComponent implements AfterViewInit {
       this.grado,
       this.seccion
     );
+  }
+
+  routerLink(): string {
+    return this.authService.hasRol('ROLE_ADMIN') ? '/admin' : '/user';
   }
 }

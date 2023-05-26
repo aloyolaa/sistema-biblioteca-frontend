@@ -3,6 +3,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Categoria } from 'src/app/core/model/categoria.model';
 import { Libro } from 'src/app/core/model/libro.model';
+import { AuthService } from 'src/app/service/auth.service';
 import { CategoriaService } from 'src/app/service/categoria.service';
 import { LibroService } from 'src/app/service/libro.service';
 
@@ -28,7 +29,8 @@ export class LibroFilterCategoriaComponent implements AfterViewInit, OnInit {
 
   constructor(
     private libroService: LibroService,
-    private categoriaService: CategoriaService
+    private categoriaService: CategoriaService,
+    private authService: AuthService
   ) {}
 
   ngAfterViewInit() {
@@ -73,5 +75,9 @@ export class LibroFilterCategoriaComponent implements AfterViewInit, OnInit {
 
   exportByCategoriaToXls(): string {
     return this.libroService.exportByCategoriaToXls(this.id);
+  }
+
+  routerLink(): string {
+    return this.authService.hasRol('ROLE_ADMIN') ? '/admin' : '/user';
   }
 }

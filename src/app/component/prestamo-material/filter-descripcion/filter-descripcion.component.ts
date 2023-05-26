@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { PrestamoMaterial } from 'src/app/core/model/prestamo-material.model';
+import { AuthService } from 'src/app/service/auth.service';
 import { PrestamoMaterialService } from 'src/app/service/prestamo-material.service';
 
 @Component({
@@ -38,7 +39,10 @@ export class PrestamoMaterialFilterDescripcionComponent
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private prestamoMaterialService: PrestamoMaterialService) {}
+  constructor(
+    private prestamoMaterialService: PrestamoMaterialService,
+    private authService: AuthService
+  ) {}
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -115,5 +119,9 @@ export class PrestamoMaterialFilterDescripcionComponent
   buscarByFechaPrestamoAndDescripcion(): void {
     this.currentPage = this.currentPage != 0 ? 0 : this.currentPage;
     this.paginationByFechaPrestamoAndDescripcion();
+  }
+
+  routerLink(): string {
+    return this.authService.hasRol('ROLE_ADMIN') ? '/admin' : '/user';
   }
 }

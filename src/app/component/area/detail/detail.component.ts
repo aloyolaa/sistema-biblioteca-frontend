@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Area } from 'src/app/core/model/area.model';
 import { AreaService } from 'src/app/service/area.service';
+import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'app-area-detail',
@@ -13,6 +14,7 @@ export class AreaDetailComponent implements OnInit {
 
   constructor(
     private areaService: AreaService,
+    private authService: AuthService,
     private activedRoute: ActivatedRoute
   ) {}
 
@@ -25,5 +27,9 @@ export class AreaDetailComponent implements OnInit {
         });
       }
     });
+  }
+
+  routerLink(): string {
+    return this.authService.hasRol('ROLE_ADMIN') ? '/admin' : '/user';
   }
 }
