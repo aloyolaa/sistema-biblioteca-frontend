@@ -1,6 +1,6 @@
 import { Base } from './base.model';
-import { DetallePrestamoLibro } from './detalle-prestamo-libro.model';
 import { Docente } from './docente.model';
+import { EjemplarLibro } from './ejemplar-libro.model';
 
 export class PrestamoLibro extends Base {
   fechaPrestamo: string;
@@ -11,5 +11,5 @@ export class PrestamoLibro extends Base {
   activo: boolean;
   observaciones = '';
   docente: Docente;
-  detalle: DetallePrestamoLibro[] = [];
+  ejemplares: EjemplarLibro[] = [];
 }

@@ -43,27 +43,27 @@
     >
       <ng-container matColumnDef="codigo">
         <th mat-header-cell *matHeaderCellDef>Codigo de Ejemplar</th>
-        <td mat-cell *matCellDef="let detalle">
-          {{ detalle.ejemplarLibro.libro.codigo }}-{{
-            detalle.ejemplarLibro.numero
+        <td mat-cell *matCellDef="let ejemplar">
+          {{ ejemplar.libro.codigo }}-{{
+            ejemplar.numero
           }}
         </td>
       </ng-container>
       <ng-container matColumnDef="titulo">
         <th mat-header-cell *matHeaderCellDef>Titulo</th>
-        <td mat-cell *matCellDef="let detalle">
-          {{ detalle.ejemplarLibro.libro.titulo }}
+        <td mat-cell *matCellDef="let ejemplar">
+          {{ ejemplar.libro.titulo }}
         </td>
       </ng-container>
       <ng-container matColumnDef="estado">
         <th mat-header-cell *matHeaderCellDef>Estado</th>
         <td
           mat-cell
-          *matCellDef="let detalle"
+          *matCellDef="let ejemplar"
           class="bueno"
-          [ngClass]="{ malo: detalle.ejemplarLibro.estado === 'MALO' }"
+          [ngClass]="{ malo: ejemplar.estado === 'MALO' }"
         >
-          <b>{{ detalle.ejemplarLibro.estado }}</b>
+          <b>{{ ejemplar.estado }}</b>
         </td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="columnas"></tr>

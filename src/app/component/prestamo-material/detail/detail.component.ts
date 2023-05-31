@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DetallePrestamoMaterial } from 'src/app/core/model/detalle-prestamo-material.model';
+import { EjemplarMaterial } from 'src/app/core/model/ejemplar-material.model';
 import { PrestamoMaterial } from 'src/app/core/model/prestamo-material.model';
 import { AuthService } from 'src/app/service/auth.service';
 import { PrestamoMaterialService } from 'src/app/service/prestamo-material.service';
@@ -16,8 +16,7 @@ export class PrestamoMaterialDetailComponent implements OnInit {
   prestamo: PrestamoMaterial = new PrestamoMaterial();
 
   columnas: string[] = ['codigo', 'nombre', 'estado'];
-  dataSource: MatTableDataSource<DetallePrestamoMaterial> =
-    new MatTableDataSource();
+  dataSource: MatTableDataSource<EjemplarMaterial> = new MatTableDataSource();
 
   constructor(
     private prestamoMaterialService: PrestamoMaterialService,
@@ -32,7 +31,7 @@ export class PrestamoMaterialDetailComponent implements OnInit {
       if (id) {
         this.prestamoMaterialService.getOne(id).subscribe((prestamo) => {
           this.prestamo = prestamo;
-          this.dataSource.data = this.prestamo.detalle;
+          this.dataSource.data = this.prestamo.ejemplares;
         });
       }
     });

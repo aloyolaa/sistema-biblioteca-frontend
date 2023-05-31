@@ -169,8 +169,8 @@
             <tr mat-header-row *matHeaderRowDef="columnas"></tr>
             <tr mat-row *matRowDef="let row; columns: columnas"></tr>
           </table>
-          <mat-hint *ngIf="errors.detalle" style="color: red">
-            {{ errors.detalle }}
+          <mat-hint *ngIf="errors.ejemplares" style="color: red">
+            {{ errors.ejemplares }}
           </mat-hint>
           <br />
           <mat-form-field class="full-width" appearance="outline">

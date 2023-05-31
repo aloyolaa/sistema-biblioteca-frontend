@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { DetallePrestamoLibro } from 'src/app/core/model/detalle-prestamo-libro.model';
 import { Docente } from 'src/app/core/model/docente.model';
 import { EjemplarLibro } from 'src/app/core/model/ejemplar-libro.model';
 import { Libro } from 'src/app/core/model/libro.model';
@@ -32,7 +31,7 @@ export class PrestamoLibroFormComponent {
     grado: '',
     seccion: '',
     docente: '',
-    detalle: '',
+    ejemplares: '',
   };
 
   columnas: string[] = ['codigo', 'titulo', 'estado', 'eliminar'];
@@ -53,8 +52,8 @@ export class PrestamoLibroFormComponent {
       console.log(docente);
       this.docente = docente;
       console.log(this.docente);
+      this.prestamo.docente = this.docente;
     });
-    this.prestamo.docente = this.docente;
   }
 
   getOneByCodigo(): void {
@@ -121,9 +120,9 @@ export class PrestamoLibroFormComponent {
 
   addDetalle(): void {
     this.ejemplares.forEach((e) => {
-      const detallePrestamo = new DetallePrestamoLibro();
-      detallePrestamo.ejemplarLibro = e;
-      this.prestamo.detalle.push(detallePrestamo);
+      let ejemplar = new EjemplarLibro();
+      ejemplar = e;
+      this.prestamo.ejemplares.push(ejemplar);
     });
   }
 

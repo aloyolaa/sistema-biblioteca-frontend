@@ -32,7 +32,7 @@ export class PrestamoMaterialFormComponent {
     grado: '',
     seccion: '',
     docente: '',
-    detalle: '',
+    ejemplares: '',
   };
 
   columnas: string[] = ['codigo', 'nombre', 'estado', 'eliminar'];
@@ -53,8 +53,8 @@ export class PrestamoMaterialFormComponent {
       console.log(docente);
       this.docente = docente;
       console.log(this.docente);
+      this.prestamo.docente = this.docente;
     });
-    this.prestamo.docente = this.docente;
   }
 
   getOneByCodigo(): void {
@@ -123,9 +123,9 @@ export class PrestamoMaterialFormComponent {
 
   addDetalle(): void {
     this.ejemplares.forEach((e) => {
-      const detallePrestamo = new DetallePrestamoMaterial();
-      detallePrestamo.ejemplarMaterial = e;
-      this.prestamo.detalle.push(detallePrestamo);
+      let ejemplar = new EjemplarMaterial();
+      ejemplar = e;
+      this.prestamo.ejemplares.push(ejemplar);
     });
   }
 
