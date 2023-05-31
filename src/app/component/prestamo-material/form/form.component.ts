@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { DetallePrestamoMaterial } from 'src/app/core/model/detalle-prestamo-material.model';
 import { Docente } from 'src/app/core/model/docente.model';
 import { EjemplarMaterial } from 'src/app/core/model/ejemplar-material.model';
 import { Material } from 'src/app/core/model/material.model';
