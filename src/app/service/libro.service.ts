@@ -285,43 +285,97 @@ export class LibroService {
       );
   }
 
-  exportAllToPdf(): string {
-    return `${this.url}/export-all-pdf`;
+  exportAllToPdf(): any {
+    const httpOptions = {
+      responseType: 'arraybuffer' as 'json',
+    };
+    return this.httpClient.get<any>(`${this.url}/export-all-pdf`, httpOptions);
   }
 
-  exportAllToXls(): string {
-    return `${this.url}/export-all-xls`;
+  exportAllToXls(): any {
+    const httpOptions = {
+      responseType: 'arraybuffer' as 'json',
+    };
+    return this.httpClient.get<any>(`${this.url}/export-all-xls`, httpOptions);
   }
 
-  exportByAreaToPdf(id: number): string {
-    return `${this.url}/export-by-area-pdf/${id}`;
+  exportByAreaToPdf(id: number): any {
+    const httpOptions = {
+      responseType: 'arraybuffer' as 'json',
+    };
+    return this.httpClient.get<any>(
+      `${this.url}/export-by-area-pdf/${id}`,
+      httpOptions
+    );
   }
 
-  exportByAreaToXls(id: number): string {
-    return `${this.url}/export-by-area-xls/${id}`;
+  exportByAreaToXls(id: number): any {
+    const httpOptions = {
+      responseType: 'arraybuffer' as 'json',
+    };
+    return this.httpClient.get<any>(
+      `${this.url}/export-by-area-xls/${id}`,
+      httpOptions
+    );
   }
 
-  exportByCategoriaToPdf(id: number): string {
-    return `${this.url}/export-by-categoria-pdf/${id}`;
+  exportByCategoriaToPdf(id: number): any {
+    const httpOptions = {
+      responseType: 'arraybuffer' as 'json',
+    };
+    return this.httpClient.get<any>(
+      `${this.url}/export-by-categoria-pdf/${id}`,
+      httpOptions
+    );
   }
 
-  exportByCategoriaToXls(id: number): string {
-    return `${this.url}/export-by-categoria-xls/${id}`;
+  exportByCategoriaToXls(id: number): any {
+    const httpOptions = {
+      responseType: 'arraybuffer' as 'json',
+    };
+    return this.httpClient.get<any>(
+      `${this.url}/export-by-categoria-xls/${id}`,
+      httpOptions
+    );
   }
 
-  exportByEditorialToPdf(id: number): string {
-    return `${this.url}/export-by-editorial-pdf/${id}`;
+  exportByEditorialToPdf(id: number): any {
+    const httpOptions = {
+      responseType: 'arraybuffer' as 'json',
+    };
+    return this.httpClient.get<any>(
+      `${this.url}/export-by-editorial-pdf/${id}`,
+      httpOptions
+    );
   }
 
-  exportByEditorialToXls(id: number): string {
-    return `${this.url}/export-by-editorial-xls/${id}`;
+  exportByEditorialToXls(id: number): any {
+    const httpOptions = {
+      responseType: 'arraybuffer' as 'json',
+    };
+    return this.httpClient.get<any>(
+      `${this.url}/export-by-editorial-xls/${id}`,
+      httpOptions
+    );
   }
 
-  exportByAutorToPdf(id: number): string {
-    return `${this.url}/export-by-autor-pdf/${id}`;
+  exportByAutorToPdf(id: number): any {
+    const httpOptions = {
+      responseType: 'arraybuffer' as 'json',
+    };
+    return this.httpClient.get<any>(
+      `${this.url}/export-by-autor-pdf/${id}`,
+      httpOptions
+    );
   }
 
-  exportByAutorToXls(id: number): string {
-    return `${this.url}/export-by-autor-xls/${id}`;
+  exportByAutorToXls(id: number): any {
+    const httpOptions = {
+      responseType: 'arraybuffer' as 'json',
+    };
+    return this.httpClient.get<any>(
+      `${this.url}/export-by-autor-xls/${id}`,
+      httpOptions
+    );
   }
 }

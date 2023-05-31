@@ -147,19 +147,37 @@ export class EjemplarMaterialService {
       );
   }
 
-  exportAllToPdf(): string {
-    return `${this.url}/export-all-pdf`;
+  exportAllToPdf(): any {
+    const httpOptions = {
+      responseType: 'arraybuffer' as 'json',
+    };
+    return this.httpClient.get<any>(`${this.url}/export-all-pdf`, httpOptions);
   }
 
-  exportAllToXls(): string {
-    return `${this.url}/export-all-xls`;
+  exportAllToXls(): any {
+    const httpOptions = {
+      responseType: 'arraybuffer' as 'json',
+    };
+    return this.httpClient.get<any>(`${this.url}/export-all-xls`, httpOptions);
   }
 
-  exportByMaterialToPdf(id: number): string {
-    return `${this.url}/export-by-material-pdf/${id}`;
+  exportByMaterialToPdf(id: number): any {
+    const httpOptions = {
+      responseType: 'arraybuffer' as 'json',
+    };
+    return this.httpClient.get<any>(
+      `${this.url}/export-by-material-pdf/${id}`,
+      httpOptions
+    );
   }
 
-  exportByMaterialToXls(id: number): string {
-    return `${this.url}/export-by-material-xls/${id}`;
+  exportByMaterialToXls(id: number): any {
+    const httpOptions = {
+      responseType: 'arraybuffer' as 'json',
+    };
+    return this.httpClient.get<any>(
+      `${this.url}/export-by-material-xls/${id}`,
+      httpOptions
+    );
   }
 }

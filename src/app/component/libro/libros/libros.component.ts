@@ -124,12 +124,20 @@ export class LibrosComponent implements AfterViewInit, OnInit {
     this.tipo = '';
   }
 
-  exportAllToPdf(): string {
-    return this.libroService.exportAllToPdf();
+  exportAllToPdf(): void {
+    this.libroService.exportAllToPdf().subscribe((response: BlobPart) => {
+      const file = new Blob([response], { type: 'application/pdf' });
+      const fileURL = URL.createObjectURL(file);
+      window.open(fileURL);
+    });
   }
 
-  exportAllToXls(): string {
-    return this.libroService.exportAllToXls();
+  exportAllToXls(): void {
+    this.libroService.exportAllToXls().subscribe((response: BlobPart) => {
+      const file = new Blob([response], {type: 'application/vnd.ms-excel'});
+      const fileURL = URL.createObjectURL(file);
+      window.open(fileURL);
+    });
   }
 
   routerLink(): string {

@@ -111,12 +111,24 @@ export class PrestamosLibrosComponent implements AfterViewInit, OnInit {
     this.fechasPrestamos.end = '';
   }
 
-  exportAllToPdf(): string {
-    return this.prestamoLibroService.exportAllToPdf();
+  exportAllToPdf(): void {
+    this.prestamoLibroService
+      .exportAllToPdf()
+      .subscribe((response: BlobPart) => {
+        const file = new Blob([response], { type: 'application/pdf' });
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+      });
   }
 
-  exportAllToXls(): string {
-    return this.prestamoLibroService.exportAllToXls();
+  exportAllToXls(): void {
+    this.prestamoLibroService
+      .exportAllToXls()
+      .subscribe((response: BlobPart) => {
+        const file = new Blob([response], { type: 'application/vnd.ms-excel' });
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+      });
   }
 
   routerLink(): string {

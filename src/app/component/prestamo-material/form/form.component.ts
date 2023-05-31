@@ -35,7 +35,7 @@ export class PrestamoMaterialFormComponent {
     detalle: '',
   };
 
-  columnas: string[] = ['codigo', 'titulo', 'estado', 'eliminar'];
+  columnas: string[] = ['codigo', 'nombre', 'estado', 'eliminar'];
   dataSource: MatTableDataSource<EjemplarMaterial> = new MatTableDataSource();
 
   constructor(
@@ -100,6 +100,7 @@ export class PrestamoMaterialFormComponent {
           ejemplares.forEach((e) => {
             if (!this.existItem(e.id)) {
               this.ejemplares.push(e);
+              this.dataSource.data = this.ejemplares;
             }
           });
         });
@@ -117,6 +118,7 @@ export class PrestamoMaterialFormComponent {
     this.ejemplares = this.ejemplares.filter(
       (ejemplar: EjemplarMaterial) => id !== ejemplar.id
     );
+    this.dataSource.data = this.ejemplares;
   }
 
   addDetalle(): void {

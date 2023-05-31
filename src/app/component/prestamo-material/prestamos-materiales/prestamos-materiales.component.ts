@@ -111,12 +111,24 @@ export class PrestamosMaterialesComponent implements AfterViewInit, OnInit {
     this.fechasPrestamos.end = '';
   }
 
-  exportAllToPdf(): string {
-    return this.prestamoMaterialService.exportAllToPdf();
+  exportAllToPdf(): void {
+    this.prestamoMaterialService
+      .exportAllToPdf()
+      .subscribe((response: BlobPart) => {
+        const file = new Blob([response], { type: 'application/pdf' });
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+      });
   }
 
-  exportAllToXls(): string {
-    return this.prestamoMaterialService.exportAllToXls();
+  exportAllToXls(): void {
+    this.prestamoMaterialService
+      .exportAllToXls()
+      .subscribe((response: BlobPart) => {
+        const file = new Blob([response], { type: 'application/vnd.ms-excel' });
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+      });
   }
 
   routerLink(): string {

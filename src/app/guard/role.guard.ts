@@ -37,7 +37,7 @@ export class RoleGuard implements CanActivate {
       title: 'Acceso Denegado',
       text: `Hola ${this.authService.getUsuario().username} no tienes acceso a este recurso!`,
     });
-    this.router.navigate(['/']);
+    this.router.navigate(['/user/']);
     return false;
   }
 }

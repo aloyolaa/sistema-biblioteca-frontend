@@ -76,16 +76,24 @@ export class PrestamoLibroDetailComponent implements OnInit {
       });
   }
 
-  exportByPrestamoLibroToPdf(): string {
-    return this.prestamoLibroService.exportByPrestamoLibroToPdf(
-      this.prestamo.id
-    );
+  exportByPrestamoLibroToPdf(): void {
+    this.prestamoLibroService
+      .exportByPrestamoLibroToPdf(this.prestamo.id)
+      .subscribe((response: BlobPart) => {
+        const file = new Blob([response], { type: 'application/pdf' });
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+      });
   }
 
-  exportByPrestamoLibroToXls(): string {
-    return this.prestamoLibroService.exportByPrestamoLibroToXls(
-      this.prestamo.id
-    );
+  exportByPrestamoLibroToXls(): void {
+    this.prestamoLibroService
+      .exportByPrestamoLibroToXls(this.prestamo.id)
+      .subscribe((response: BlobPart) => {
+        const file = new Blob([response], { type: 'application/vnd.ms-excel' });
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+      });
   }
 
   routerLink(): string {

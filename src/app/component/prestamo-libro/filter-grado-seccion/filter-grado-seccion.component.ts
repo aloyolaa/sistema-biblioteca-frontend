@@ -122,18 +122,24 @@ export class PrestamoLibroFilterGradoSeccionComponent implements AfterViewInit {
     this.paginationByFechaPrestamoAndGradoAndSeccion();
   }
 
-  exportByGradoAndSeccionToPdf(): string {
-    return this.prestamoLibroService.exportByGradoAndSeccionToPdf(
-      this.grado,
-      this.seccion
-    );
+  exportByGradoAndSeccionToPdf(): void {
+    this.prestamoLibroService
+      .exportByGradoAndSeccionToPdf(this.grado, this.seccion)
+      .subscribe((response: BlobPart) => {
+        const file = new Blob([response], { type: 'application/pdf' });
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+      });
   }
 
-  exportByGradoAndSeccionToXls(): string {
-    return this.prestamoLibroService.exportByGradoAndSeccionToXls(
-      this.grado,
-      this.seccion
-    );
+  exportByGradoAndSeccionToXls(): void {
+    this.prestamoLibroService
+      .exportByGradoAndSeccionToXls(this.grado, this.seccion)
+      .subscribe((response: BlobPart) => {
+        const file = new Blob([response], { type: 'application/vnd.ms-excel' });
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+      });
   }
 
   routerLink(): string {

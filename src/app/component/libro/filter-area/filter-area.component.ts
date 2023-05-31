@@ -50,27 +50,41 @@ export class LibroFilterAreaComponent implements AfterViewInit, OnInit {
 
   paginationByArea(): void {
     this.isLoading = true;
-    this.libroService.paginationByArea(this.id, this.currentPage, this.pageSize).subscribe({
-      next: (response) => {
-        this.dataSource.data = response.content as Libro[];
-        setTimeout(() => {
-          this.paginator.pageIndex = this.currentPage;
-          this.paginator.length = response.totalElements;
-        });
-        this.isLoading = false;
-      },
-      error: (e) => {
-        console.log(e);
-      },
-    });
+    this.libroService
+      .paginationByArea(this.id, this.currentPage, this.pageSize)
+      .subscribe({
+        next: (response) => {
+          this.dataSource.data = response.content as Libro[];
+          setTimeout(() => {
+            this.paginator.pageIndex = this.currentPage;
+            this.paginator.length = response.totalElements;
+          });
+          this.isLoading = false;
+        },
+        error: (e) => {
+          console.log(e);
+        },
+      });
   }
 
-  exportByAreaToPdf(): string {
-    return this.libroService.exportByAreaToPdf(this.id);
+  exportByAreaToPdf(): void {
+    this.libroService
+      .exportByAreaToPdf(this.id)
+      .subscribe((response: BlobPart) => {
+        const file = new Blob([response], { type: 'application/pdf' });
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+      });
   }
 
-  exportByAreaToXls(): string {
-    return this.libroService.exportByAreaToXls(this.id);
+  exportByAreaToXls(): void {
+    this.libroService
+      .exportByAreaToXls(this.id)
+      .subscribe((response: BlobPart) => {
+        const file = new Blob([response], { type: 'application/vnd.ms-excel' });
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+      });
   }
 
   routerLink(): string {

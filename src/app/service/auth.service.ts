@@ -1,13 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { UsuarioDto } from '../core/dto/usuario.dto';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  private loginStatusSubjec = new Subject<boolean>();
+
   constructor(private httpClient: HttpClient) {}
+
+  getLoginStatusSubjec(): Subject<boolean> {
+    return this.loginStatusSubjec;
+  }
 
   login(username: string, password: string): Observable<any> {
     return this.httpClient.post('http://localhost:8080/login', {

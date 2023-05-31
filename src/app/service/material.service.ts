@@ -202,43 +202,37 @@ export class MaterialService {
       );
   }
 
-  exportAllToPdf(): string {
-    return `${this.url}/export-all-pdf`;
+  exportAllToPdf(): any {
+    const httpOptions = {
+      responseType: 'arraybuffer' as 'json',
+    };
+    return this.httpClient.get<any>(`${this.url}/export-all-pdf`, httpOptions);
   }
 
-  exportAllToXls(): string {
-    return `${this.url}/export-all-xls`;
+  exportAllToXls(): any {
+    const httpOptions = {
+      responseType: 'arraybuffer' as 'json',
+    };
+    return this.httpClient.get<any>(`${this.url}/export-all-xls`, httpOptions);
   }
 
-  exportByAreaToPdf(id: number): string {
-    return `${this.url}/export-by-area-pdf/${id}`;
+  exportByAreaToPdf(id: number): any {
+    const httpOptions = {
+      responseType: 'arraybuffer' as 'json',
+    };
+    return this.httpClient.get<any>(
+      `${this.url}/export-by-area-pdf/${id}`,
+      httpOptions
+    );
   }
 
-  exportByAreaToXls(id: number): string {
-    return `${this.url}/export-by-area-xls/${id}`;
-  }
-
-  exportByCategoriaToPdf(id: number): string {
-    return `${this.url}/export-by-categoria-pdf/${id}`;
-  }
-
-  exportByCategoriaToXls(id: number): string {
-    return `${this.url}/export-by-categoria-xls/${id}`;
-  }
-
-  exportByEditorialToPdf(id: number): string {
-    return `${this.url}/export-by-editorial-pdf/${id}`;
-  }
-
-  exportByEditorialToXls(id: number): string {
-    return `${this.url}/export-by-editorial-xls/${id}`;
-  }
-
-  exportByAutorToPdf(id: number): string {
-    return `${this.url}/export-by-autor-pdf/${id}`;
-  }
-
-  exportByAutorToXls(id: number): string {
-    return `${this.url}/export-by-autor-xls/${id}`;
+  exportByAreaToXls(id: number): any {
+    const httpOptions = {
+      responseType: 'arraybuffer' as 'json',
+    };
+    return this.httpClient.get<any>(
+      `${this.url}/export-by-area-xls/${id}`,
+      httpOptions
+    );
   }
 }

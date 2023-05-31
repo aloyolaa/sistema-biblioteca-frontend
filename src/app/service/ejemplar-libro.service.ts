@@ -143,19 +143,37 @@ export class EjemplarLibroService {
       );
   }
 
-  exportAllToPdf(): string {
-    return `${this.url}/export-all-pdf`;
+  exportAllToPdf(): any {
+    const httpOptions = {
+      responseType: 'arraybuffer' as 'json',
+    };
+    return this.httpClient.get<any>(`${this.url}/export-all-pdf`, httpOptions);
   }
 
-  exportAllToXls(): string {
-    return `${this.url}/export-all-xls`;
+  exportAllToXls(): any {
+    const httpOptions = {
+      responseType: 'arraybuffer' as 'json',
+    };
+    return this.httpClient.get<any>(`${this.url}/export-all-xls`, httpOptions);
   }
 
-  exportByLibroToPdf(id: number): string {
-    return `${this.url}/export-by-libro-pdf/${id}`;
+  exportByLibroToPdf(id: number): any {
+    const httpOptions = {
+      responseType: 'arraybuffer' as 'json',
+    };
+    return this.httpClient.get<any>(
+      `${this.url}/export-by-libro-pdf/${id}`,
+      httpOptions
+    );
   }
 
-  exportByLibroToXls(id: number): string {
-    return `${this.url}/export-by-libro-xls/${id}`;
+  exportByLibroToXls(id: number): any {
+    const httpOptions = {
+      responseType: 'arraybuffer' as 'json',
+    };
+    return this.httpClient.get<any>(
+      `${this.url}/export-by-libro-xls/${id}`,
+      httpOptions
+    );
   }
 }

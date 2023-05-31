@@ -136,12 +136,24 @@ export class PrestamoMaterialFilterDocenteComponent implements AfterViewInit {
     this.paginationByFechaPrestamoAndDocente();
   }
 
-  exportByDocenteToPdf(): string {
-    return this.prestamoMaterialService.exportByDocenteToPdf(this.docente.id);
+  exportByDocenteToPdf(): void {
+    this.prestamoMaterialService
+      .exportByDocenteToPdf(this.docente.id)
+      .subscribe((response: BlobPart) => {
+        const file = new Blob([response], { type: 'application/pdf' });
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+      });
   }
 
-  exportByDocenteToXls(): string {
-    return this.prestamoMaterialService.exportByDocenteToXls(this.docente.id);
+  exportByDocenteToXls(): void {
+    this.prestamoMaterialService
+      .exportByDocenteToXls(this.docente.id)
+      .subscribe((response: BlobPart) => {
+        const file = new Blob([response], { type: 'application/vnd.ms-excel' });
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+      });
   }
 
   routerLink(): string {

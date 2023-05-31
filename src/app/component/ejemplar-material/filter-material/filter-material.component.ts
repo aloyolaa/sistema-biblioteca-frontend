@@ -85,12 +85,24 @@ export class EjemplarMaterialFilterMaterialComponent implements AfterViewInit {
     });
   }
 
-  exportByMaterialToPdf(): string {
-    return this.ejemplarMaterialService.exportByMaterialToPdf(this.material.id);
+  exportByMaterialToPdf(): void {
+    this.ejemplarMaterialService
+      .exportByMaterialToPdf(this.material.id)
+      .subscribe((response: BlobPart) => {
+        const file = new Blob([response], { type: 'application/pdf' });
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+      });
   }
 
-  exportByMaterialToXls(): string {
-    return this.ejemplarMaterialService.exportByMaterialToXls(this.material.id);
+  exportByMaterialToXls(): void {
+    this.ejemplarMaterialService
+      .exportByMaterialToXls(this.material.id)
+      .subscribe((response: BlobPart) => {
+        const file = new Blob([response], { type: 'application/vnd.ms-excel' });
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+      });
   }
 
   routerLink(): string {

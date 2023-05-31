@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Usuario } from 'src/app/core/model/usuario.model';
+import { AuthService } from 'src/app/service/auth.service';
 //import { LoginService } from 'src/app/service/login.service';
 
 @Component({
@@ -6,23 +8,26 @@ import { Component } from '@angular/core';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
 })
-export class NavbarComponent {
-  isLoggedIn = false;
-  //user: any = null;
+export class NavbarComponent implements OnInit {
+  isLoggedIn: boolean;
+  usuario: Usuario;
 
-  //constructor() {}
+  constructor(private authService: AuthService) {}
 
-  /* ngOnInit(): void {
-    this.isLoggedIn = this.loginService.isLoggedIn();
-    this.user = this.loginService.getUser();
-    this.loginService.loginStatusSubjec.asObservable().subscribe((data) => {
-      this.isLoggedIn = this.loginService.isLoggedIn();
-      this.user = this.loginService.getUser();
-    });
-  } */
+  ngOnInit(): void {
+    this.isLoggedIn = this.authService.isAuthenticated();
+    this.usuario = this.authService.getUsuario();
+    this.authService
+      .getLoginStatusSubjec()
+      .asObservable()
+      .subscribe(() => {
+        this.isLoggedIn = this.authService.isAuthenticated();
+        this.usuario = this.authService.getUsuario();
+      });
+  }
 
-  /* public logout() {
-    this.loginService.logout();
+  logout(): void {
+    this.authService.logout();
     window.location.reload();
-  } */
+  }
 }

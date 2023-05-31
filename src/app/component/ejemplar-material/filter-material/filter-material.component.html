@@ -7,22 +7,24 @@
     >
       Nuevo Ejemplar
     </button>
-    <a
-      mat-raised-button
+    <button
       *ngIf="material.id"
+      mat-raised-button
       class="demo-button"
-      [href]="exportByMaterialToPdf()"
       style="background-color: red; color: white"
-      >PDF</a
+      (click)="exportByMaterialToPdf()"
     >
-    <a
-      mat-raised-button
+      PDF
+    </button>
+    <button
       *ngIf="material.id"
+      mat-raised-button
       class="demo-button"
-      [href]="exportByMaterialToXls()"
       style="background-color: green; color: white"
-      >EXCEL</a
+      (click)="exportByMaterialToXls()"
     >
+      EXCEL
+    </button>
   </div>
   <div>
     <mat-form-field>
@@ -41,7 +43,7 @@
       (click)="getOneByCodigo()"
       [disabled]="!codigo"
     >
-      Buscar por Libro
+      Buscar por Material
     </button>
     <h3 class="text-center">Material: {{ material.nombre }}</h3>
   </div>

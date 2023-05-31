@@ -133,15 +133,27 @@ export class PrestamoLibroFilterDocenteComponent implements AfterViewInit {
 
   buscarByFechaPrestamoAndDocente(): void {
     this.currentPage = this.currentPage != 0 ? 0 : this.currentPage;
-    this.paginationByFechaPrestamoAndDocente()
+    this.paginationByFechaPrestamoAndDocente();
   }
 
-  exportByDocenteToPdf(): string {
-    return this.prestamoLibroService.exportByDocenteToPdf(this.docente.id);
+  exportByDocenteToPdf(): void {
+    this.prestamoLibroService
+      .exportByDocenteToPdf(this.docente.id)
+      .subscribe((response: BlobPart) => {
+        const file = new Blob([response], { type: 'application/pdf' });
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+      });
   }
 
-  exportByDocenteToXls(): string {
-    return this.prestamoLibroService.exportByDocenteToXls(this.docente.id);
+  exportByDocenteToXls(): void {
+    this.prestamoLibroService
+      .exportByDocenteToXls(this.docente.id)
+      .subscribe((response: BlobPart) => {
+        const file = new Blob([response], { type: 'application/vnd.ms-excel' });
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+      });
   }
 
   routerLink(): string {

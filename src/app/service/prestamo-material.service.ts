@@ -367,35 +367,77 @@ export class PrestamoMaterialService {
       );
   }
 
-  exportAllToPdf(): string {
-    return `${this.url}/export-all-pdf`;
+  exportAllToPdf(): any {
+    const httpOptions = {
+      responseType: 'arraybuffer' as 'json',
+    };
+    return this.httpClient.get<any>(`${this.url}/export-all-pdf`, httpOptions);
   }
 
-  exportAllToXls(): string {
-    return `${this.url}/export-all-xls`;
+  exportAllToXls(): any {
+    const httpOptions = {
+      responseType: 'arraybuffer' as 'json',
+    };
+    return this.httpClient.get<any>(`${this.url}/export-all-xls`, httpOptions);
   }
 
-  exportByPrestamoMaterialToPdf(id: number): string {
-    return `${this.url}/export-by-prestamo-pdf/${id}`;
+  exportByPrestamoMaterialToPdf(id: number): any {
+    const httpOptions = {
+      responseType: 'arraybuffer' as 'json',
+    };
+    return this.httpClient.get<any>(
+      `${this.url}/export-by-prestamo-pdf/${id}`,
+      httpOptions
+    );
   }
 
-  exportByPrestamoMaterialToXls(id: number): string {
-    return `${this.url}/export-by-prestamo-xls/${id}`;
+  exportByPrestamoMaterialToXls(id: number): any {
+    const httpOptions = {
+      responseType: 'arraybuffer' as 'json',
+    };
+    return this.httpClient.get<any>(
+      `${this.url}/export-by-prestamo-xls/${id}`,
+      httpOptions
+    );
   }
 
-  exportByDocenteToPdf(id: number): string {
-    return `${this.url}/export-by-docente-pdf/${id}`;
+  exportByDocenteToPdf(id: number): any {
+    const httpOptions = {
+      responseType: 'arraybuffer' as 'json',
+    };
+    return this.httpClient.get<any>(
+      `${this.url}/export-by-docente-pdf/${id}`,
+      httpOptions
+    );
   }
 
-  exportByDocenteToXls(id: number): string {
-    return `${this.url}/export-by-docente-xls/${id}`;
+  exportByDocenteToXls(id: number): any {
+    const httpOptions = {
+      responseType: 'arraybuffer' as 'json',
+    };
+    return this.httpClient.get<any>(
+      `${this.url}/export-by-docente-xls/${id}`,
+      httpOptions
+    );
   }
 
-  exportByGradoAndSeccionToPdf(grado: number, seccion: string): string {
-    return `${this.url}/export-by-grado-seccion-pdf/${grado}/${seccion}`;
+  exportByGradoAndSeccionToPdf(grado: number, seccion: string): any {
+    const httpOptions = {
+      responseType: 'arraybuffer' as 'json',
+    };
+    return this.httpClient.get<any>(
+      `${this.url}/export-by-grado-seccion-pdf/${grado}/${seccion}`,
+      httpOptions
+    );
   }
 
-  exportByGradoAndSeccionToXls(grado: number, seccion: string): string {
-    return `${this.url}/export-by-grado-seccion-xls/${grado}/${seccion}`;
+  exportByGradoAndSeccionToXls(grado: number, seccion: string): any {
+    const httpOptions = {
+      responseType: 'arraybuffer' as 'json',
+    };
+    return this.httpClient.get<any>(
+      `${this.url}/export-by-grado-seccion-xls/${grado}/${seccion}`,
+      httpOptions
+    );
   }
 }

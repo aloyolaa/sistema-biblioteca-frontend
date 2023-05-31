@@ -67,12 +67,24 @@ export class MaterialFilterAreaComponent implements AfterViewInit, OnInit {
       });
   }
 
-  exportByAreaToPdf(): string {
-    return this.materialService.exportByAreaToPdf(this.id);
+  exportByAreaToPdf(): void {
+    this.materialService
+      .exportByAreaToPdf(this.id)
+      .subscribe((response: BlobPart) => {
+        const file = new Blob([response], { type: 'application/pdf' });
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+      });
   }
 
-  exportByAreaToXls(): string {
-    return this.materialService.exportByAreaToXls(this.id);
+  exportByAreaToXls(): void {
+    this.materialService
+      .exportByAreaToXls(this.id)
+      .subscribe((response: BlobPart) => {
+        const file = new Blob([response], { type: 'application/vnd.ms-excel' });
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+      });
   }
 
   routerLink(): string {

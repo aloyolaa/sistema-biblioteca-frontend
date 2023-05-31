@@ -7,22 +7,24 @@
     >
       Nuevo Libro
     </button>
-    <a
-      mat-raised-button
+    <button
       *ngIf="id !== 0"
+      mat-raised-button
       class="demo-button"
-      [href]="exportByAutorToPdf()"
       style="background-color: red; color: white"
-      >PDF</a
+      (click)="exportByAutorToPdf()"
     >
-    <a
-      mat-raised-button
+      PDF
+    </button>
+    <button
       *ngIf="id !== 0"
+      mat-raised-button
       class="demo-button"
-      [href]="exportByAutorToXls()"
       style="background-color: green; color: white"
-      >EXCEL</a
+      (click)="exportByAutorToXls()"
     >
+      EXCEL
+    </button>
   </div>
   <div>
     <mat-form-field appearance="fill">

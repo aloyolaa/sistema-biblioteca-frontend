@@ -124,12 +124,20 @@ export class MaterialesComponent implements AfterViewInit, OnInit {
     this.tipo = '';
   }
 
-  exportAllToPdf(): string {
-    return this.materialService.exportAllToPdf();
+  exportAllToPdf(): void {
+    this.materialService.exportAllToPdf().subscribe((response: BlobPart) => {
+      const file = new Blob([response], { type: 'application/pdf' });
+      const fileURL = URL.createObjectURL(file);
+      window.open(fileURL);
+    });
   }
 
-  exportAllToXls(): string {
-    return this.materialService.exportAllToXls();
+  exportAllToXls(): void {
+    this.materialService.exportAllToXls().subscribe((response: BlobPart) => {
+      const file = new Blob([response], { type: 'application/vnd.ms-excel' });
+      const fileURL = URL.createObjectURL(file);
+      window.open(fileURL);
+    });
   }
 
   routerLink(): string {

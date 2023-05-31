@@ -61,12 +61,24 @@ export class EjemplaresLibrosComponent implements AfterViewInit, OnInit {
       });
   }
 
-  exportAllToPdf(): string {
-    return this.ejemplarLibroService.exportAllToPdf();
+  exportAllToPdf(): void {
+    this.ejemplarLibroService
+      .exportAllToPdf()
+      .subscribe((response: BlobPart) => {
+        const file = new Blob([response], { type: 'application/pdf' });
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+      });
   }
 
-  exportAllToXls(): string {
-    return this.ejemplarLibroService.exportAllToXls();
+  exportAllToXls(): void {
+    this.ejemplarLibroService
+      .exportAllToXls()
+      .subscribe((response: BlobPart) => {
+        const file = new Blob([response], { type: 'application/vnd.ms-excel' });
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+      });
   }
 
   routerLink(): string {

@@ -67,12 +67,24 @@ export class LibroFilterAutorComponent implements AfterViewInit, OnInit {
       });
   }
 
-  exportByAutorToPdf(): string {
-    return this.libroService.exportByAutorToXls(this.id);
+  exportByAutorToPdf(): void {
+    this.libroService
+      .exportByAutorToPdf(this.id)
+      .subscribe((response: BlobPart) => {
+        const file = new Blob([response], { type: 'application/pdf' });
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+      });
   }
 
-  exportByAutorToXls(): string {
-    return this.libroService.exportByAutorToXls(this.id);
+  exportByAutorToXls(): void {
+    this.libroService
+      .exportByAutorToXls(this.id)
+      .subscribe((response: BlobPart) => {
+        const file = new Blob([response], { type: 'application/vnd.ms-excel' });
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+      });
   }
 
   routerLink(): string {

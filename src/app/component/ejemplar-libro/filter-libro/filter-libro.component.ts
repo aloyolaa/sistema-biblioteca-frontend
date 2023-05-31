@@ -85,12 +85,24 @@ export class EjemplarLibroFilterLibroComponent implements AfterViewInit {
     });
   }
 
-  exportByLibroToPdf(): string {
-    return this.ejemplarLibroService.exportByLibroToPdf(this.libro.id);
+  exportByLibroToPdf(): void {
+    this.ejemplarLibroService
+      .exportByLibroToPdf(this.libro.id)
+      .subscribe((response: BlobPart) => {
+        const file = new Blob([response], { type: 'application/pdf' });
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+      });
   }
 
-  exportByLibroToXls(): string {
-    return this.ejemplarLibroService.exportByLibroToXls(this.libro.id);
+  exportByLibroToXls(): void {
+    this.ejemplarLibroService
+      .exportByLibroToXls(this.libro.id)
+      .subscribe((response: BlobPart) => {
+        const file = new Blob([response], { type: 'application/vnd.ms-excel' });
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+      });
   }
 
   routerLink(): string {

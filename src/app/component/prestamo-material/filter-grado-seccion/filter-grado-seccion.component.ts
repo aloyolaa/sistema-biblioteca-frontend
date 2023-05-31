@@ -124,18 +124,24 @@ export class PrestamoMaterialFilterGradoSeccionComponent
     this.paginationByFechaPrestamoAndGradoAndSeccion();
   }
 
-  exportByGradoAndSeccionToPdf(): string {
-    return this.prestamoMaterialService.exportByGradoAndSeccionToPdf(
-      this.grado,
-      this.seccion
-    );
+  exportByGradoAndSeccionToPdf(): void {
+    this.prestamoMaterialService
+      .exportByGradoAndSeccionToPdf(this.grado, this.seccion)
+      .subscribe((response: BlobPart) => {
+        const file = new Blob([response], { type: 'application/pdf' });
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+      });
   }
 
-  exportByGradoAndSeccionToXls(): string {
-    return this.prestamoMaterialService.exportByGradoAndSeccionToXls(
-      this.grado,
-      this.seccion
-    );
+  exportByGradoAndSeccionToXls(): void {
+    this.prestamoMaterialService
+      .exportByGradoAndSeccionToXls(this.grado, this.seccion)
+      .subscribe((response: BlobPart) => {
+        const file = new Blob([response], { type: 'application/vnd.ms-excel' });
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+      });
   }
 
   routerLink(): string {

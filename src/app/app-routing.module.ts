@@ -74,13 +74,14 @@ import { AdminDashboardComponent } from './page/admin/dashboard/dashboard.compon
 import { UserDashboardComponent } from './page/user/dashboard/dashboard.component';
 
 const routes: Routes = [
-  {
+  /* {
     path: '',
     component: HomeComponent,
     pathMatch: 'full',
     canActivate: [AuthGuard, RoleGuard],
     data: { role: 'ROLE_USER' },
-  },
+  }, */
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
 
   { path: 'login', component: LoginComponent },
 
@@ -90,6 +91,11 @@ const routes: Routes = [
     canActivate: [AuthGuard, RoleGuard],
     data: { role: 'ROLE_ADMIN' },
     children: [
+      {
+        path: '',
+        component: HomeComponent,
+      },
+
       {
         path: 'areas',
         component: AreasComponent,
@@ -354,6 +360,11 @@ const routes: Routes = [
     canActivate: [AuthGuard, RoleGuard],
     data: { role: 'ROLE_USER' },
     children: [
+      {
+        path: '',
+        component: HomeComponent,
+      },
+
       {
         path: 'areas',
         component: AreasComponent,
