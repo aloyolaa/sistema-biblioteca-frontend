@@ -35,10 +35,7 @@ export class EjemplarMaterialCrearComponent {
 
   getOneByCodigo(): void {
     this.materialService.getOneByCodigo(this.codigo).subscribe((material) => {
-      console.log(this.material);
-      console.log(material);
       this.material = material;
-      console.log(this.material);
     });
   }
 
@@ -50,7 +47,6 @@ export class EjemplarMaterialCrearComponent {
           this.router
             .navigate([this.routerLink() + '/ejemplares-materiales'])
             .then(() => {
-              console.log(material);
               Swal.fire({
                 icon: 'success',
                 title: 'Ejemplares guardados correctamente.',
@@ -60,7 +56,6 @@ export class EjemplarMaterialCrearComponent {
         },
         error: (e) => {
           this.errors = e.error.errors;
-          console.log(this.errors);
         },
       });
   }

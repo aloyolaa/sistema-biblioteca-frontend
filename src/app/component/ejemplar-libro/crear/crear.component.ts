@@ -35,10 +35,7 @@ export class EjemplarLibroCrearComponent {
 
   getOneByCodigo(): void {
     this.libroService.getOneByCodigo(this.codigo).subscribe((libro) => {
-      console.log(this.libro);
-      console.log(libro);
       this.libro = libro;
-      console.log(this.libro);
     });
   }
 
@@ -48,7 +45,6 @@ export class EjemplarLibroCrearComponent {
         this.router
           .navigate([this.routerLink() + '/ejemplares-libros'])
           .then(() => {
-            console.log(libro);
             Swal.fire({
               icon: 'success',
               title: 'Ejemplares guardados correctamente.',
@@ -58,7 +54,6 @@ export class EjemplarLibroCrearComponent {
       },
       error: (e) => {
         this.errors = e.error.errors;
-        console.log(this.errors);
       },
     });
   }

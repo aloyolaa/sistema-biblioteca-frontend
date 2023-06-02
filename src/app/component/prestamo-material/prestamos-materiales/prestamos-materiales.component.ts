@@ -48,7 +48,6 @@ export class PrestamosMaterialesComponent implements AfterViewInit, OnInit {
   }
 
   pageChanged(event: PageEvent) {
-    console.log({ event });
     this.pageSize = event.pageSize;
     this.currentPage = event.pageIndex;
     if (this.fechasPrestamos.start == '' && this.fechasPrestamos.end == '') {
@@ -78,8 +77,6 @@ export class PrestamosMaterialesComponent implements AfterViewInit, OnInit {
   }
 
   paginationByFechaPrestamo(): void {
-    console.log(this.fechasPrestamos.start);
-    console.log(this.fechasPrestamos.end);
     this.currentPage = this.currentPage != 0 ? 0 : this.currentPage;
     this.isLoading = true;
     this.prestamoMaterialService

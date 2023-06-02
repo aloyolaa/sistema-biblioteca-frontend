@@ -48,29 +48,21 @@ export class PrestamoLibroFormComponent {
 
   getOneByDni(): void {
     this.docenteService.getOneByDni(this.dni).subscribe((docente) => {
-      console.log(this.docente);
-      console.log(docente);
       this.docente = docente;
-      console.log(this.docente);
       this.prestamo.docente = this.docente;
     });
   }
 
   getOneByCodigo(): void {
     this.libroService.getOneByCodigo(this.codigo).subscribe((libro) => {
-      console.log(this.libro);
-      console.log(libro);
       this.libro = libro;
-      console.log(this.libro);
     });
     this.countByLibroAndEstado(this.codigo);
   }
 
   countByLibroAndEstado(codigo: string): void {
     this.ejemplarLibroService.countByLibroAndEstado(codigo).subscribe((e) => {
-      console.log(e);
       this.ejemplaresDisponibles = e;
-      console.log(this.ejemplaresDisponibles);
     });
   }
 
@@ -128,7 +120,6 @@ export class PrestamoLibroFormComponent {
 
   save(): void {
     this.addDetalle();
-    console.log(this.prestamo);
     this.prestamoLibroService.save(this.prestamo).subscribe({
       next: (prestamo) => {
         this.router
@@ -137,7 +128,6 @@ export class PrestamoLibroFormComponent {
             prestamo.id,
           ])
           .then(() => {
-            console.log(prestamo);
             Swal.fire({
               icon: 'success',
               title: 'Prestamo guardado correctamente.',
@@ -147,7 +137,6 @@ export class PrestamoLibroFormComponent {
       },
       error: (e) => {
         this.errors = e.error.errors;
-        console.log(this.errors);
       },
     });
   }

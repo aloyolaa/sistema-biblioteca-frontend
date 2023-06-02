@@ -1,4 +1,4 @@
-<mat-card style="height: 100%;">
+<mat-card>
   <div class="bootstrap-wrapper">
     <div class="container">
       <div class="row" style="margin-top: 20px">
@@ -21,6 +21,21 @@
               <mat-hint>El username debe ser único</mat-hint>
               <mat-hint *ngIf="errors.username" style="color: red">
                 {{ errors.username }}
+              </mat-hint>
+            </mat-form-field>
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Password</mat-label>
+              <input
+                required
+                type="password"
+                minlength="8"
+                [(ngModel)]="usuario.password"
+                name="password"
+                matInput
+                placeholder="Ingrese el password del Usuario"
+              />
+              <mat-hint *ngIf="errors.password" style="color: red">
+                {{ errors.password }}
               </mat-hint>
             </mat-form-field>
             <mat-form-field class="full-width" appearance="outline">
@@ -65,21 +80,32 @@
                 {{ errors.apellidos }}
               </mat-hint>
             </mat-form-field>
+            <mat-form-field appearance="fill" class="demo-select">
+              <mat-label>Roles</mat-label>
+              <mat-select [(ngModel)]="dataRol.rol" name="roles">
+                <mat-option *ngFor="let r of roles" [value]="r">
+                  {{ r.nombre }}
+                </mat-option>
+              </mat-select>
+              <mat-hint *ngIf="errors.roles" style="color: red">
+                {{ errors.roles }}
+              </mat-hint>
+            </mat-form-field>
             <div class="container text-center">
               <button
                 mat-raised-button
                 color="primary"
                 type="submit"
-                (click)="update()"
+                (click)="save()"
               >
-                Actualizar
+                Guardar
               </button>
               <button
                 mat-raised-button
                 color="warn"
                 type="button"
+                [routerLink]="['/admin/usuarios']"
                 style="margin-left: 20px"
-                [routerLink]="['/admin/usuarios/detail', usuario.id]"
               >
                 Cancelar
               </button>

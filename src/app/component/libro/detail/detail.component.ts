@@ -37,17 +37,13 @@ export class LibroDetailComponent implements OnInit {
 
   countByLibro(codigo: string): void {
     this.ejemplarLibroService.countByLibro(codigo).subscribe((e) => {
-      console.log(e);
       this.ejemplares = e;
-      console.log(this.ejemplares);
     });
   }
 
   countByLibroAndEstado(codigo: string): void {
     this.ejemplarLibroService.countByLibroAndEstado(codigo).subscribe((e) => {
-      console.log(e);
       this.ejemplaresDisponibles = e;
-      console.log(this.ejemplaresDisponibles);
     });
   }
 

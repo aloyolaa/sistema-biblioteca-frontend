@@ -38,43 +38,27 @@ export class PrestamoMaterialDetailComponent implements OnInit {
   }
 
   delete(prestamo: PrestamoMaterial): void {
-    const withBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-danger',
-      },
-      buttonsStyling: false,
+    Swal.fire({
+      title: '¿Está seguro?',
+      text: `¿Seguro que desea eliminar el préstamo ${this.prestamo.id}?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminar',
+      cancelButtonText: 'No, cancelar',
+    }).then((result) => {
+      if (result.value) {
+        this.prestamoMaterialService.delete(prestamo.id).subscribe(() => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Préstamo Eliminado',
+            text: `Préstamo ${prestamo.id} eliminado con éxito.`,
+          });
+          this.router.navigate([this.routerLink() + '/prestamos-materiales']);
+        });
+      }
     });
-
-    withBootstrapButtons
-      .fire({
-        title: '¿Esta seguro de eliminar este préstamo',
-        text: `El préstamo se eliminará?`,
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Si, elimínalo',
-        cancelButtonText: 'No, cancelar!',
-        reverseButtons: true,
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          this.prestamoMaterialService
-            .delete(prestamo.id)
-            .subscribe((response) => {
-              console.log(response);
-              if (response) {
-                withBootstrapButtons.fire(
-                  'Préstamo eliminado satisfactoriamente',
-                  `Préstamo ${prestamo.id} eliminado.`,
-                  'success'
-                );
-                this.router.navigate([
-                  this.routerLink() + '/prestamos-materiales',
-                ]);
-              }
-            });
-        }
-      });
   }
 
   exportByPrestamoMaterialToPdf(): void {

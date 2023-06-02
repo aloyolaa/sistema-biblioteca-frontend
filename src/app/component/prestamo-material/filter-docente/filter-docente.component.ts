@@ -52,7 +52,6 @@ export class PrestamoMaterialFilterDocenteComponent implements AfterViewInit {
   }
 
   pageChanged(event: PageEvent) {
-    console.log({ event });
     this.pageSize = event.pageSize;
     this.currentPage = event.pageIndex;
     if (this.fechasPrestamos.start == '' && this.fechasPrestamos.end == '') {

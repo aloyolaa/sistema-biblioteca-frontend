@@ -98,6 +98,7 @@ import { TokenInterceptor } from './interceptor/token.interceptor';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { AdminDashboardComponent } from './page/admin/dashboard/dashboard.component';
 import { UserDashboardComponent } from './page/user/dashboard/dashboard.component';
+import { UsuarioRegisterComponent } from './component/usuario/register/register.component';
 
 @NgModule({
   declarations: [
@@ -167,6 +168,7 @@ import { UserDashboardComponent } from './page/user/dashboard/dashboard.componen
     UsuariosComponent,
     UsuarioFormComponent,
     UsuarioDetailComponent,
+    UsuarioRegisterComponent,
 
     NavbarComponent,
     LoginComponent,

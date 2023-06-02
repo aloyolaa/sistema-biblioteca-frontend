@@ -44,7 +44,6 @@ export class EjemplarLibroFormComponent implements OnInit {
             ejemplarLibro.id,
           ])
           .then(() => {
-            console.log(ejemplarLibro);
             Swal.fire({
               icon: 'success',
               title: 'Ejemplar actualizado correctamente.',
@@ -52,8 +51,8 @@ export class EjemplarLibroFormComponent implements OnInit {
             });
           });
       },
-      error: (err) => {
-        console.log(err);
+      error: (e) => {
+        console.log(e);
       },
     });
   }

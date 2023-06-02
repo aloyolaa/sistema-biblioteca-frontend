@@ -32,7 +32,6 @@ export class UsuariosComponent implements AfterViewInit, OnInit {
   }
 
   pageChanged(event: PageEvent) {
-    console.log({ event });
     this.pageSize = event.pageSize;
     this.currentPage = event.pageIndex;
     this.pagination();

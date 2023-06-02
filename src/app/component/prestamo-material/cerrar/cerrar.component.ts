@@ -40,7 +40,6 @@ export class PrestamoMaterialCerrarComponent implements OnInit {
             prestamo.id,
           ])
           .then(() => {
-            console.log(prestamo);
             Swal.fire({
               icon: 'success',
               title: 'Préstamo cerrado correctamente.',
@@ -48,8 +47,8 @@ export class PrestamoMaterialCerrarComponent implements OnInit {
             });
           });
       },
-      error: (err) => {
-        console.log(err);
+      error: (e) => {
+        console.log(e);
       },
     });
   }

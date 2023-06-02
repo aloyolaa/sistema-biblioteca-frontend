@@ -48,20 +48,14 @@ export class PrestamoMaterialFormComponent {
 
   getOneByDni(): void {
     this.docenteService.getOneByDni(this.dni).subscribe((docente) => {
-      console.log(this.docente);
-      console.log(docente);
       this.docente = docente;
-      console.log(this.docente);
       this.prestamo.docente = this.docente;
     });
   }
 
   getOneByCodigo(): void {
     this.materialService.getOneByCodigo(this.codigo).subscribe((material) => {
-      console.log(this.material);
-      console.log(material);
       this.material = material;
-      console.log(this.material);
     });
     this.countByMaterialAndEstado(this.codigo);
   }
@@ -70,9 +64,7 @@ export class PrestamoMaterialFormComponent {
     this.ejemplarMaterialService
       .countByMaterialAndEstado(codigo)
       .subscribe((e) => {
-        console.log(e);
         this.ejemplaresDisponibles = e;
-        console.log(this.ejemplaresDisponibles);
       });
   }
 
@@ -130,7 +122,6 @@ export class PrestamoMaterialFormComponent {
 
   save(): void {
     this.addDetalle();
-    console.log(this.prestamo);
     this.prestamoMaterialService.save(this.prestamo).subscribe({
       next: (prestamo) => {
         this.router
@@ -139,7 +130,6 @@ export class PrestamoMaterialFormComponent {
             prestamo.id,
           ])
           .then(() => {
-            console.log(prestamo);
             Swal.fire({
               icon: 'success',
               title: 'Prestamo guardado correctamente.',
@@ -149,7 +139,6 @@ export class PrestamoMaterialFormComponent {
       },
       error: (e) => {
         this.errors = e.error.errors;
-        console.log(this.errors);
       },
     });
   }

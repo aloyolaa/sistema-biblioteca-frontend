@@ -1,4 +1,4 @@
-<mat-card class="center-content">
+<mat-card class="center-content" style="height: 100%;">
   <mat-card-header>
     <mat-card-title>Detalle de Usuario</mat-card-title>
   </mat-card-header>
@@ -9,8 +9,7 @@
     <h4>Email: {{ usuario.email }}</h4>
     <h4>Nombres: {{ usuario.nombres }}</h4>
     <h4>Apellidos: {{ usuario.apellidos }}</h4>
-    <h4>Habilitado: {{ usuario.habilitado }}</h4>
-    <h4>Rol(es):</h4>
+    <h4>Rol:</h4>
     <ul>
       <li *ngFor="let rol of usuario.roles">
         <h4>{{ rol.nombre }}</h4>
@@ -35,6 +34,16 @@
       style="margin-left: 20px"
     >
       Actualizar
+    </button>
+    <button
+      *ngIf="!esUsuarioActual()"
+      mat-raised-button
+      color="warn"
+      type="button"
+      (click)="delete()"
+      style="margin-left: 20px"
+    >
+      Eliminar
     </button>
   </mat-card-actions>
   <br />

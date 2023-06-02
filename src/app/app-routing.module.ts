@@ -65,6 +65,7 @@ import { PrestamoMaterialFilterDescripcionComponent } from './component/prestamo
 import { UsuariosComponent } from './component/usuario/usuarios/usuarios.component';
 import { UsuarioFormComponent } from './component/usuario/form/form.component';
 import { UsuarioDetailComponent } from './component/usuario/detail/detail.component';
+import { UsuarioRegisterComponent } from './component/usuario/register/register.component';
 
 import { HomeComponent } from './component/home/home/home.component';
 import { LoginComponent } from './component/login/login/login.component';
@@ -340,8 +341,8 @@ const routes: Routes = [
         component: UsuariosComponent,
       },
       {
-        path: 'usuarios/form',
-        component: UsuarioFormComponent,
+        path: 'usuarios/register',
+        component: UsuarioRegisterComponent,
       },
       {
         path: 'usuarios/form/:id',

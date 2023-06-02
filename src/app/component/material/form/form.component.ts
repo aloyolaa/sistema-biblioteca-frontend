@@ -59,7 +59,6 @@ export class MaterialFormComponent implements OnInit {
         this.router
           .navigate([this.routerLink() + '/materiales/detail', material.id])
           .then(() => {
-            console.log(material);
             Swal.fire({
               icon: 'success',
               title: 'Material guardado correctamente.',
@@ -69,7 +68,6 @@ export class MaterialFormComponent implements OnInit {
       },
       error: (e) => {
         this.errors = e.error.errors;
-        console.log(this.errors);
       },
     });
   }
@@ -80,7 +78,6 @@ export class MaterialFormComponent implements OnInit {
         this.router
           .navigate([this.routerLink() + '/materiales/detail', material.id])
           .then(() => {
-            console.log(material);
             Swal.fire({
               icon: 'success',
               title: 'Material actualizado correctamente.',
@@ -90,7 +87,6 @@ export class MaterialFormComponent implements OnInit {
       },
       error: (err) => {
         this.errors = err.error.errors;
-        console.log(this.errors);
       },
     });
   }

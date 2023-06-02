@@ -50,7 +50,6 @@ export class AutorFormComponent implements OnInit {
         this.router
           .navigate([this.routerLink() + '/autores/detail', autor.id])
           .then(() => {
-            console.log(autor);
             Swal.fire({
               icon: 'success',
               title: 'Autor guardado correctamente.',
@@ -60,7 +59,6 @@ export class AutorFormComponent implements OnInit {
       },
       error: (e) => {
         this.errors = e.error.errors;
-        console.log(this.errors);
       },
     });
   }
@@ -71,7 +69,6 @@ export class AutorFormComponent implements OnInit {
         this.router
           .navigate([this.routerLink() + '/autores/detail', autor.id])
           .then(() => {
-            console.log(autor);
             Swal.fire({
               icon: 'success',
               title: 'Autor actualizado correctamente.',
@@ -81,7 +78,6 @@ export class AutorFormComponent implements OnInit {
       },
       error: (err) => {
         this.errors = err.error.errors;
-        console.log(this.errors);
       },
     });
   }

@@ -43,7 +43,6 @@ export class EjemplarMaterialFormComponent implements OnInit {
         this.router
           .navigate([this.routerLink() + '/ejemplares-materiales/detail', ejemplarMaterial.id])
           .then(() => {
-            console.log(ejemplarMaterial);
             Swal.fire({
               icon: 'success',
               title: 'Ejemplar actualizado correctamente.',
@@ -51,8 +50,8 @@ export class EjemplarMaterialFormComponent implements OnInit {
             });
           });
       },
-      error: (err) => {
-        console.log(err);
+      error: (er) => {
+        console.log(er);
       },
     });
   }

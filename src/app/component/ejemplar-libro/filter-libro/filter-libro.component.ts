@@ -39,7 +39,6 @@ export class EjemplarLibroFilterLibroComponent implements AfterViewInit {
   }
 
   pageChanged(event: PageEvent) {
-    console.log({ event });
     this.pageSize = event.pageSize;
     this.currentPage = event.pageIndex;
     this.paginationByLibro();

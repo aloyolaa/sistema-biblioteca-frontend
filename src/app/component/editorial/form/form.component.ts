@@ -50,7 +50,6 @@ export class EditorialFormComponent implements OnInit {
         this.router
           .navigate([this.routerLink() + '/editoriales/detail', editorial.id])
           .then(() => {
-            console.log(editorial);
             Swal.fire({
               icon: 'success',
               title: 'Editorial guardada correctamente.',
@@ -60,7 +59,6 @@ export class EditorialFormComponent implements OnInit {
       },
       error: (e) => {
         this.errors = e.error.errors;
-        console.log(this.errors);
       },
     });
   }
@@ -71,7 +69,6 @@ export class EditorialFormComponent implements OnInit {
         this.router
           .navigate([this.routerLink() + '/editoriales/detail', editorial.id])
           .then(() => {
-            console.log(editorial);
             Swal.fire({
               icon: 'success',
               title: 'Editorial actualizada correctamente.',
@@ -81,7 +78,6 @@ export class EditorialFormComponent implements OnInit {
       },
       error: (err) => {
         this.errors = err.error.errors;
-        console.log(this.errors);
       },
     });
   }

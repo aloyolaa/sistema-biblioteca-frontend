@@ -89,13 +89,11 @@ export class LibroFormComponent implements OnInit {
   }
 
   save(): void {
-    console.log(this.libro);
     this.libroService.save(this.libro).subscribe({
       next: (libro) => {
         this.router
           .navigate([this.routerLink() + '/libros/detail', libro.id])
           .then(() => {
-            console.log(libro);
             Swal.fire({
               icon: 'success',
               title: 'Libro guardado correctamente.',
@@ -105,7 +103,6 @@ export class LibroFormComponent implements OnInit {
       },
       error: (e) => {
         this.errors = e.error.errors;
-        console.log(this.errors);
       },
     });
   }
@@ -116,7 +113,6 @@ export class LibroFormComponent implements OnInit {
         this.router
           .navigate([this.routerLink() + '/libros/detail', libro.id])
           .then(() => {
-            console.log(libro);
             Swal.fire({
               icon: 'success',
               title: 'Libro actualizado correctamente.',
@@ -126,7 +122,6 @@ export class LibroFormComponent implements OnInit {
       },
       error: (err) => {
         this.errors = err.error.errors;
-        console.log(this.errors);
       },
     });
   }
@@ -177,7 +172,6 @@ export class LibroFormComponent implements OnInit {
 
   selectAutor(event: MatAutocompleteSelectedEvent): void {
     const autor = event.option.value as Autor;
-    console.log(autor);
     if (!this.existItem(autor.id)) {
       this.libro.autores.push(autor);
       this.autocompleteControl.setValue('');

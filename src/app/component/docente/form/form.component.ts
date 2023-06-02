@@ -56,7 +56,6 @@ export class DocenteFormComponent implements OnInit {
         this.router
           .navigate([this.routerLink() + '/docentes/detail', docente.id])
           .then(() => {
-            console.log(docente);
             Swal.fire({
               icon: 'success',
               title: 'Docente guardado correctamente.',
@@ -66,7 +65,6 @@ export class DocenteFormComponent implements OnInit {
       },
       error: (e) => {
         this.errors = e.error.errors;
-        console.log(this.errors);
       },
     });
   }
@@ -77,7 +75,6 @@ export class DocenteFormComponent implements OnInit {
         this.router
           .navigate([this.routerLink() + '/docentes/detail', docente.id])
           .then(() => {
-            console.log(docente);
             Swal.fire({
               icon: 'success',
               title: 'Docente actualizado correctamente.',
@@ -87,7 +84,6 @@ export class DocenteFormComponent implements OnInit {
       },
       error: (err) => {
         this.errors = err.error.errors;
-        console.log(this.errors);
       },
     });
   }

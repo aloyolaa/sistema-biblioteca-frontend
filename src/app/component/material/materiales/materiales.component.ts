@@ -39,7 +39,6 @@ export class MaterialesComponent implements AfterViewInit, OnInit {
   }
 
   pageChanged(event: PageEvent) {
-    console.log({ event });
     this.pageSize = event.pageSize;
     this.currentPage = event.pageIndex;
     if (this.tipo == '' && this.buscar == '') {

@@ -15,12 +15,12 @@ export class UsuarioService {
 
   constructor(private httpClient: HttpClient, private router: Router) {}
 
-  getAll(): Observable<Usuario[]> {
-    return this.httpClient.get<Usuario[]>(`${this.url}/`);
+  getAll(): Observable<UsuarioDto[]> {
+    return this.httpClient.get<UsuarioDto[]>(`${this.url}/`);
   }
 
-  getOne(id: number): Observable<Usuario> {
-    return this.httpClient.get<Usuario>(`${this.url}/getOne/${id}`).pipe(
+  getOne(id: number): Observable<UsuarioDto> {
+    return this.httpClient.get<UsuarioDto>(`${this.url}/getOne/${id}`).pipe(
       catchError((e) => {
         this.router.navigate(['/usuarios']);
         Swal.fire({
@@ -46,8 +46,8 @@ export class UsuarioService {
     );
   }
 
-  save(usuario: Usuario): Observable<Usuario> {
-    return this.httpClient.post<Usuario>(`${this.url}/save`, usuario).pipe(
+  save(usuario: Usuario): Observable<UsuarioDto> {
+    return this.httpClient.post<UsuarioDto>(`${this.url}/save`, usuario).pipe(
       catchError((e) => {
         if (e.error.status == 400) {
           return throwError(() => e);
@@ -62,8 +62,8 @@ export class UsuarioService {
     );
   }
 
-  update(usuario: Usuario): Observable<Usuario> {
-    return this.httpClient.put<Usuario>(`${this.url}/update`, usuario).pipe(
+  update(usuario: UsuarioDto): Observable<UsuarioDto> {
+    return this.httpClient.put<UsuarioDto>(`${this.url}/update`, usuario).pipe(
       catchError((e) => {
         if (e.error.status == 400) {
           return throwError(() => e);
@@ -102,7 +102,7 @@ export class UsuarioService {
     };
     return this.httpClient.get(`${this.url}/pagination`, { params }).pipe(
       map((response: any) => {
-        (response.content as Usuario[]).forEach((usuario) => {
+        (response.content as UsuarioDto[]).forEach((usuario) => {
           return usuario;
         });
         return response;
@@ -116,13 +116,5 @@ export class UsuarioService {
         return throwError(() => e);
       })
     );
-  }
-
-  exportAllToPdf(): string {
-    return `${this.url}/export-all-pdf`;
-  }
-
-  exportAllToXls(): string {
-    return `${this.url}/export-all-xls`;
   }
 }

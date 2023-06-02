@@ -24,7 +24,6 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.authService.isAuthenticated());
     if (this.authService.isAuthenticated()) {
       if (this.authService.hasRol('ROLE_ADMIN')) {
         this.router.navigate(['/admin/']);
@@ -32,7 +31,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/user/']);
       }
       Swal.fire({
-        icon: 'info',
+        icon: 'success',
         title: 'Login',
         text: `Hola ${
           this.authService.getUsuario().username
@@ -51,7 +50,7 @@ export class LoginComponent implements OnInit {
             next: (usuario) => {
               this.usuario = usuario;
               this.authService.setUsuario(this.usuario);
-              //window.location.reload();
+              window.location.reload();
               if (this.authService.hasRol('ROLE_ADMIN')) {
                 this.router.navigate(['/admin/']);
               } else {

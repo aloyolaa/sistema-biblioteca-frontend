@@ -48,7 +48,6 @@ export class AreaFormComponent implements OnInit {
         this.router
           .navigate([this.routerLink() + '/areas/detail', area.id])
           .then(() => {
-            console.log(area);
             Swal.fire({
               icon: 'success',
               title: 'Area guardada correctamente.',
@@ -58,7 +57,6 @@ export class AreaFormComponent implements OnInit {
       },
       error: (e) => {
         this.errors = e.error.errors;
-        console.log(this.errors);
       },
     });
   }
@@ -69,7 +67,6 @@ export class AreaFormComponent implements OnInit {
         this.router
           .navigate([this.routerLink() + '/areas/detail', area.id])
           .then(() => {
-            console.log(area);
             Swal.fire({
               icon: 'success',
               title: 'Area actualizada correctamente.',
@@ -79,7 +76,6 @@ export class AreaFormComponent implements OnInit {
       },
       error: (err) => {
         this.errors = err.error.errors;
-        console.log(this.errors);
       },
     });
   }

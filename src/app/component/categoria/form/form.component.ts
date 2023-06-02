@@ -50,7 +50,6 @@ export class CategoriaFormComponent implements OnInit {
         this.router
           .navigate([this.routerLink() + '/categorias/detail', categoria.id])
           .then(() => {
-            console.log(categoria);
             Swal.fire({
               icon: 'success',
               title: 'Categoria guardada correctamente.',
@@ -60,7 +59,6 @@ export class CategoriaFormComponent implements OnInit {
       },
       error: (e) => {
         this.errors = e.error.errors;
-        console.log(this.errors);
       },
     });
   }
@@ -71,7 +69,6 @@ export class CategoriaFormComponent implements OnInit {
         this.router
           .navigate([this.routerLink() + '/categorias/detail', categoria.id])
           .then(() => {
-            console.log(categoria);
             Swal.fire({
               icon: 'success',
               title: 'Categoria actualizada correctamente.',
@@ -81,7 +78,6 @@ export class CategoriaFormComponent implements OnInit {
       },
       error: (err) => {
         this.errors = err.error.errors;
-        console.log(this.errors);
       },
     });
   }

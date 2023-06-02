@@ -37,9 +37,7 @@ export class MaterialDetailComponent implements OnInit {
 
   countByMaterial(codigo: string): void {
     this.ejemplarMaterialService.countByMaterial(codigo).subscribe((e) => {
-      console.log(e);
       this.ejemplares = e;
-      console.log(this.ejemplares);
     });
   }
 
@@ -47,9 +45,7 @@ export class MaterialDetailComponent implements OnInit {
     this.ejemplarMaterialService
       .countByMaterialAndEstado(codigo)
       .subscribe((e) => {
-        console.log(e);
         this.ejemplaresDisponibles = e;
-        console.log(this.ejemplaresDisponibles);
       });
   }
 
