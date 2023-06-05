@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, catchError, throwError } from 'rxjs';
 import { UsuarioDto } from '../core/dto/usuario.dto';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root',
@@ -16,10 +17,21 @@ export class AuthService {
   }
 
   login(username: string, password: string): Observable<any> {
-    return this.httpClient.post('http://localhost:8080/login', {
-      username,
-      password,
-    });
+    return this.httpClient
+      .post('http://localhost:8080/login', {
+        username,
+        password,
+      })
+      .pipe(
+        catchError((e) => {
+          Swal.fire({
+            icon: 'error',
+            title: `${e.error.error}`,
+            text: `${e.error.message}`,
+          });
+          return throwError(() => e);
+        })
+      );
   }
 
   getUsuario(): any {

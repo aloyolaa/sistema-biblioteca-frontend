@@ -5,3 +5,9 @@
 .activo {
   color: red;
 }
+
+.center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

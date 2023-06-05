@@ -62,8 +62,8 @@ export class LoginComponent implements OnInit {
                 text: `Hola ${this.usuario.username}, has iniciado sesión con éxito!`,
               });
             },
-            error: (err) => {
-              console.log(err);
+            error: (e) => {
+              console.log(e);
             },
           });
         },
