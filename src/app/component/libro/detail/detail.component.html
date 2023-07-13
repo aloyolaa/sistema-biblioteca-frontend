@@ -7,7 +7,7 @@
     <h4>ID: {{ libro.id }}</h4>
     <h4>Codigo: {{ libro.codigo }}</h4>
     <h4>Título: {{ libro.titulo }}</h4>
-    <h4>Año: {{ libro.anio }}</h4>
+    <h4>Año: {{ libro.anio ? libro.anio : "NO ESPECIFICA" }}</h4>
     <h4>Grado: {{ libro.grado }}</h4>
     <h4>Area: {{ libro.area.nombre }}</h4>
     <h4>Categoria: {{ libro.categoria.nombre }}</h4>

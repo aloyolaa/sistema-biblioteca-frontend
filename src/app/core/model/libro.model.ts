@@ -8,7 +8,7 @@ export class Libro extends Base {
   codigo: string;
   titulo: string;
   anio: number;
-  grado: number;
+  grado: string;
   area: Area;
   categoria: Categoria;
   editorial: Editorial;

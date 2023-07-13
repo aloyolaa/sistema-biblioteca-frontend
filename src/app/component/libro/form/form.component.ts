@@ -29,7 +29,6 @@ export class LibroFormComponent implements OnInit {
   errors = {
     codigo: '',
     titulo: '',
-    anio: '',
     grado: '',
     area: '',
     categoria: '',
@@ -78,7 +77,6 @@ export class LibroFormComponent implements OnInit {
     this.errors = {
       codigo: '',
       titulo: '',
-      anio: '',
       grado: '',
       area: '',
       categoria: '',

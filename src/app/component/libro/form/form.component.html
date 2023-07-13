@@ -36,28 +36,24 @@
             <mat-form-field class="full-width" appearance="outline">
               <mat-label>Año</mat-label>
               <input
-                required
                 type="number"
-                minlength="4"
                 [(ngModel)]="libro.anio"
                 name="anio"
                 matInput
                 placeholder="Ingrese el año del Libro"
               />
-              <mat-hint *ngIf="errors.anio" style="color: red">
-                {{ errors.anio }}
-              </mat-hint>
             </mat-form-field>
             <mat-form-field appearance="fill" class="demo-select">
               <mat-label>Grado</mat-label>
               <mat-select [(ngModel)]="libro.grado" name="grado">
                 <mat-option [value]="undefined">-- Seleccionar --</mat-option>
-                <mat-option [value]="1">1°</mat-option>
-                <mat-option [value]="2">2°</mat-option>
-                <mat-option [value]="3">3°</mat-option>
-                <mat-option [value]="4">4°</mat-option>
-                <mat-option [value]="5">5°</mat-option>
-                <mat-option [value]="6">6°</mat-option>
+                <mat-option value="General">General</mat-option>
+                <mat-option value="1">1°</mat-option>
+                <mat-option value="2">2°</mat-option>
+                <mat-option value="3">3°</mat-option>
+                <mat-option value="4">4°</mat-option>
+                <mat-option value="5">5°</mat-option>
+                <mat-option value="6">6°</mat-option>
               </mat-select>
               <mat-hint *ngIf="errors.grado" style="color: red">
                 {{ errors.grado }}
