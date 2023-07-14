@@ -22,6 +22,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 import { AreasComponent } from './component/area/areas/areas.component';
 import { AreaFormComponent } from './component/area/form/form.component';
@@ -199,6 +200,7 @@ import { UsuarioRegisterComponent } from './component/usuario/register/register.
     MatMomentDateModule,
     MatMenuModule,
     MatSidenavModule,
+    MatGridListModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },

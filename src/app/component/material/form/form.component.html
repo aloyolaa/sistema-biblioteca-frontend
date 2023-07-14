@@ -1,4 +1,4 @@
-<mat-card style="height: 100%;">
+<mat-card style="height: 100%">
   <div class="bootstrap-wrapper">
     <div class="container">
       <div class="row" style="margin-top: 20px">
@@ -48,6 +48,7 @@
                 [(ngModel)]="material.area"
                 name="area"
                 [compareWith]="compareArea"
+                required="true"
               >
                 <mat-option [value]="undefined">-- Seleccionar --</mat-option>
                 <mat-option *ngFor="let area of areas" [value]="area">
@@ -113,6 +114,11 @@
               </button>
             </div>
           </form>
+          <br />
+          <h5 style="text-align: center">
+            Formulario para el manejo de la información de Materiales de la
+            Biblioteca.
+          </h5>
         </div>
       </div>
     </div>

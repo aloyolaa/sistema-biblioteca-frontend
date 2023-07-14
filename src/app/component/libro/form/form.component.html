@@ -45,7 +45,11 @@
             </mat-form-field>
             <mat-form-field appearance="fill" class="demo-select">
               <mat-label>Grado</mat-label>
-              <mat-select [(ngModel)]="libro.grado" name="grado">
+              <mat-select
+                [(ngModel)]="libro.grado"
+                name="grado"
+                required="true"
+              >
                 <mat-option [value]="undefined">-- Seleccionar --</mat-option>
                 <mat-option value="General">General</mat-option>
                 <mat-option value="1">1°</mat-option>
@@ -65,6 +69,7 @@
                 [(ngModel)]="libro.area"
                 name="area"
                 [compareWith]="compareArea"
+                required="true"
               >
                 <mat-option [value]="undefined">-- Seleccionar --</mat-option>
                 <mat-option *ngFor="let area of areas" [value]="area">
@@ -81,6 +86,7 @@
                 [(ngModel)]="libro.categoria"
                 name="categoria"
                 [compareWith]="compareCategoria"
+                required="true"
               >
                 <mat-option [value]="undefined">-- Seleccionar --</mat-option>
                 <mat-option
@@ -100,6 +106,7 @@
                 [(ngModel)]="libro.editorial"
                 name="editorial"
                 [compareWith]="compareEditorial"
+                required="true"
               >
                 <mat-option [value]="undefined">-- Seleccionar --</mat-option>
                 <mat-option
@@ -123,6 +130,7 @@
                 placeholder="Agregar Autor"
                 aria-label="Autor"
                 matInput
+                required
                 [formControl]="autocompleteControl"
                 [matAutocomplete]="auto"
               />
@@ -208,6 +216,11 @@
               </button>
             </div>
           </form>
+          <br />
+          <h5 style="text-align: center">
+            Formulario para el manejo de la información de Libros de la
+            Biblioteca.
+          </h5>
         </div>
       </div>
     </div>

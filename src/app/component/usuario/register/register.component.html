@@ -82,7 +82,7 @@
             </mat-form-field>
             <mat-form-field appearance="fill" class="demo-select">
               <mat-label>Roles</mat-label>
-              <mat-select [(ngModel)]="dataRol.rol" name="roles">
+              <mat-select [(ngModel)]="dataRol.rol" name="roles" required="true">
                 <mat-option *ngFor="let r of roles" [value]="r">
                   {{ r.nombre }}
                 </mat-option>
@@ -120,6 +120,10 @@
               </button>
             </div>
           </form>
+          <br />
+          <h5 style="text-align: center">
+            Formulario para el registro de Usuarios del Sistema.
+          </h5>
         </div>
       </div>
     </div>

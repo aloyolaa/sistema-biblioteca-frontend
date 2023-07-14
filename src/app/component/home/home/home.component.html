@@ -1,20 +1,52 @@
-<mat-card style="height: 100%;">
+<mat-card style="height: 100%">
   <div class="bootstrap-wrapper">
     <div class="container">
       <div class="row mt20">
         <div class="col-md-6 offset-md-3 text-center">
-          <h1>Bienvenido al Sistema de Biblioteca</h1>
-          <h4>Areas: {{ areas }}</h4>
-          <h4>Autores: {{ autores }}</h4>
-          <h4>Categorias: {{ categorias }}</h4>
-          <h4>Docentes: {{ docentes }}</h4>
-          <h4>Editoriales: {{ editoriales }}</h4>
-          <h4>Ejemplares de Libros: {{ ejemplaresLibros }}</h4>
-          <h4>Ejemplares de Materiales: {{ ejemplaresMateriales }}</h4>
-          <h4>Libros: {{ libros }}</h4>
-          <h4>Materiales: {{ materiales }}</h4>
-          <h4>Prestamos de Libros: {{ prestamosLibros }}</h4>
-          <h4>Prestamos de Materiales: {{ prestamosMateriales }}</h4>
+          <mat-grid-list cols="3" rowHeight="3:2">
+            <h1>Bienvenido al Sistema de Biblioteca</h1>
+            <mat-grid-tile style="background: rgb(255, 45, 0); color: white"
+              ><h4>Areas: {{ areas }}</h4></mat-grid-tile
+            >
+            <mat-grid-tile style="background: rgb(31, 177, 58); color: white"
+              ><h4>Autores: {{ autores }}</h4></mat-grid-tile
+            >
+            <mat-grid-tile style="background: rgb(255, 213, 0); color: white"
+              ><h4>Categorias: {{ categorias }}</h4></mat-grid-tile
+            >
+            <mat-grid-tile style="background: rgb(146, 185, 153); color: white"
+              ><h4>Docentes: {{ docentes }}</h4></mat-grid-tile
+            >
+            <mat-grid-tile style="background: rgb(13, 198, 189); color: white"
+              ><h4>Editoriales: {{ editoriales }}</h4></mat-grid-tile
+            >
+            <mat-grid-tile style="background: rgb(0, 170, 255); color: white"
+              ><h4>
+                Ejemplares de Libros: {{ ejemplaresLibros }}
+              </h4></mat-grid-tile
+            >
+            <mat-grid-tile style="background: rgb(0, 43, 255); color: white"
+              ><h4>
+                Ejemplares de Materiales: {{ ejemplaresMateriales }}
+              </h4></mat-grid-tile
+            >
+            <mat-grid-tile style="background: rgb(120, 0, 255); color: white"
+              ><h4>Libros: {{ libros }}</h4></mat-grid-tile
+            >
+            <mat-grid-tile style="background: rgb(247, 0, 255); color: white"
+              ><h4>Materiales: {{ materiales }}</h4></mat-grid-tile
+            >
+            <mat-grid-tile style="background: rgb(255, 0, 100); color: white"
+              ><h4>
+                Prestamos de Libros: {{ prestamosLibros }}
+              </h4></mat-grid-tile
+            >
+            <mat-grid-tile style="background: rgb(255, 0, 35); color: white"
+              ><h4>
+                Prestamos de Materiales: {{ prestamosMateriales }}
+              </h4></mat-grid-tile
+            >
+          </mat-grid-list>
         </div>
       </div>
     </div>

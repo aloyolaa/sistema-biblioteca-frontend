@@ -7,7 +7,7 @@ import { Editorial } from './editorial.model';
 export class Libro extends Base {
   codigo: string;
   titulo: string;
-  anio: number;
+  anio = 0;
   grado: string;
   area: Area;
   categoria: Categoria;
